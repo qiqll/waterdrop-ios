@@ -1,0 +1,65 @@
+v1.2.12
+● 适配iOS26
+
+v1.2.11
+● 增加客户端强制关闭图形认证功能接口
+● 更新一键登录组件
+
+v1.2.10
+● 关闭短信页左滑返回
+
+v1.2.9
+● bug修复
+
+v1.2.8
+● bug修复
+
+v1.2.7
+● 一键登录增加弹窗模式设置AlicomFusionNumberAuthModel::alertBarIsHidden等
+● 短信界面增加title设置AlicomFusionVerifyCodeView::titleString
+● 上行短信界面增加title设置AlicomFusionUpGoingView::titleString
+● 修复短信登录模块异常提示流程未结束bug
+
+v1.2.6
+● 一键登录增加运营商名称获取 AlicomFusionNumberAuthModel::getCurrentCarrierName
+● 一键登录，运营商协议默认位置优化
+
+v1.2.4
+● 图形认证节点修改为默认关闭
+
+v1.2.3
+● 增加固定横竖屏模式设置
+● checkbox点击事件回调extendData字段增加选中状态查询
+
+v1.2.2
+● 更新一键登录组件模块
+● 新增图形验证码功能
+● 部分bug修复
+
+v1.1.1
+● 升级一键登录联通组件
+
+v1.0.8
+● 增加x86_64编译支持
+● 修复网络监听crash问题
+● 删除suspendDisMissVC&autoHideLoginLoading无用接口
+● 修复changeBtnIsHidden不生效问题
+● 修复destroy后无法进行下一次场景问题
+
+v1.0.7
+● 修复一键登录模块部分crash问题
+● 适配xcode15
+
+v1.0.5
+● Demo使用体验优化
+● 修复一键登录超时后流程无法继续问题
+
+v1.0.4
+● 增加数据埋点
+● 升级一键登录功能组
+● destroy接口优化
+● 增加网络监听
+● 修复部分已知bug
+
+v1.0.0
+● 第一版发布

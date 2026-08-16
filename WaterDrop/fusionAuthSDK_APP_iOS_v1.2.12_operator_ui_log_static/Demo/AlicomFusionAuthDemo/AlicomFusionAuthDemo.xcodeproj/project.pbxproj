@@ -1,0 +1,934 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13D273183A12650B7C8E6353 /* Pods_AlicomFusionAuthDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83222E64C4FBB88A5E0E7134 /* Pods_AlicomFusionAuthDemoUITests.framework */; };
+		382740D629A6015A00B332D7 /* AlicomFusionWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 382740D529A6015A00B332D7 /* AlicomFusionWebViewController.m */; };
+		386105B62963D08A00562FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105B52963D08A00562FCB /* AppDelegate.m */; };
+		386105BF2963D08A00562FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386105BD2963D08A00562FCB /* Main.storyboard */; };
+		386105C12963D08D00562FCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386105C02963D08D00562FCB /* Assets.xcassets */; };
+		386105C42963D08D00562FCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386105C22963D08D00562FCB /* LaunchScreen.storyboard */; };
+		386105C72963D08D00562FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105C62963D08D00562FCB /* main.m */; };
+		386105D12963D08D00562FCB /* AlicomFusionAuthDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105D02963D08D00562FCB /* AlicomFusionAuthDemoTests.m */; };
+		386105DB2963D08E00562FCB /* AlicomFusionAuthDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105DA2963D08E00562FCB /* AlicomFusionAuthDemoUITests.m */; };
+		386105DD2963D08E00562FCB /* AlicomFusionAuthDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105DC2963D08E00562FCB /* AlicomFusionAuthDemoUITestsLaunchTests.m */; };
+		386105EE29640BEE00562FCB /* AppDelegate+CYLTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105ED29640BEE00562FCB /* AppDelegate+CYLTabbar.m */; };
+		386105F12964195100562FCB /* AlicomFusionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105F02964195100562FCB /* AlicomFusionBaseViewController.m */; };
+		386105F42964197A00562FCB /* AlicomFusionSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105F32964197A00562FCB /* AlicomFusionSettingViewController.m */; };
+		386105F8296429B100562FCB /* AccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105F7296429B100562FCB /* AccountTableViewCell.m */; };
+		386105FB29642E1D00562FCB /* AlicomFusionAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 386105FA29642E1D00562FCB /* AlicomFusionAccountViewController.m */; };
+		38D84AE329ADCE7D00D57990 /* AlicomFusionDemoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D84AE229ADCE7D00D57990 /* AlicomFusionDemoUtil.m */; };
+		4BC9895C0B427FE5F5862A5F /* Pods_AlicomFusionAuthDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0A876BB4A1AD1C42FA11E8 /* Pods_AlicomFusionAuthDemo.framework */; };
+		6923673A2995EAB800DF0A7B /* AlicomFusionAuthTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 692367392995EAB800DF0A7B /* AlicomFusionAuthTokenManager.m */; };
+		6924A2A1299248E200470A5D /* AlicomFusionToastTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6924A2A0299248E200470A5D /* AlicomFusionToastTool.m */; };
+		6926A04A299A2A7900963123 /* AlicomFusionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6926A049299A2A7900963123 /* AlicomFusionManager.m */; };
+		6926A04F299A657900963123 /* AlicomFusionResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6926A04E299A657900963123 /* AlicomFusionResetViewController.m */; };
+		6948F8FA29939FCB00A434A5 /* AlicomFusionNetAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6948F8F229939FCB00A434A5 /* AlicomFusionNetAdapter.m */; };
+		6948F8FB29939FCB00A434A5 /* AlicomFusionNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6948F8F329939FCB00A434A5 /* AlicomFusionNetManager.m */; };
+		6C04D83229A0A03400B8F4D7 /* UMCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C04D82E29A0A03400B8F4D7 /* UMCommon.framework */; };
+		6C04D83429A0A03400B8F4D7 /* UMDevice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C04D83029A0A03400B8F4D7 /* UMDevice.framework */; };
+		6C04D83729A0A03D00B8F4D7 /* ATAuthSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6C04D83629A0A03D00B8F4D7 /* ATAuthSDK.bundle */; };
+		6C306E602AA9B26A00AFF24D /* AlicomFusionNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C306E5F2AA9B26A00AFF24D /* AlicomFusionNetRequest.m */; };
+		6CA0719E2AA977DB006DAC21 /* AlicomFusionAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C04D83C29A0B43700B8F4D7 /* AlicomFusionAuth.framework */; };
+		6CA0719F2AA977DB006DAC21 /* AlicomFusionAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C04D83C29A0B43700B8F4D7 /* AlicomFusionAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CFD732D2BB568A000A48474 /* AlicomCaptcha4.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6CFD732B2BB568A000A48474 /* AlicomCaptcha4.bundle */; };
+		D406233DC21AB68974148DC1 /* Pods_AlicomFusionAuthDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37F33BBE0B5EED517CA6132 /* Pods_AlicomFusionAuthDemoTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		386105CD2963D08D00562FCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 386105A92963D08A00562FCB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 386105B02963D08A00562FCB;
+			remoteInfo = AlicomFusionAuthDemo;
+		};
+		386105D72963D08D00562FCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 386105A92963D08A00562FCB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 386105B02963D08A00562FCB;
+			remoteInfo = AlicomFusionAuthDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6CA0718D2A9DD79D006DAC21 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6CA0719F2AA977DB006DAC21 /* AlicomFusionAuth.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0E2225CD9585A3AB83492F3E /* Pods-AlicomFusionAuthDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlicomFusionAuthDemo.debug.xcconfig"; path = "Target Support Files/Pods-AlicomFusionAuthDemo/Pods-AlicomFusionAuthDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		19FBD7DE75649C1F5C935411 /* Pods-AlicomFusionAuthDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlicomFusionAuthDemo.release.xcconfig"; path = "Target Support Files/Pods-AlicomFusionAuthDemo/Pods-AlicomFusionAuthDemo.release.xcconfig"; sourceTree = "<group>"; };
+		27E46BC32EF6CAF10434B9AF /* Pods-AlicomFusionAuthDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlicomFusionAuthDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-AlicomFusionAuthDemoTests/Pods-AlicomFusionAuthDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		382740D429A6015A00B332D7 /* AlicomFusionWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionWebViewController.h; sourceTree = "<group>"; };
+		382740D529A6015A00B332D7 /* AlicomFusionWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionWebViewController.m; sourceTree = "<group>"; };
+		386105B12963D08A00562FCB /* AlicomFusionAuthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlicomFusionAuthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		386105B42963D08A00562FCB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		386105B52963D08A00562FCB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		386105BE2963D08A00562FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		386105C02963D08D00562FCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		386105C32963D08D00562FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		386105C52963D08D00562FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		386105C62963D08D00562FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		386105CC2963D08D00562FCB /* AlicomFusionAuthDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlicomFusionAuthDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		386105D02963D08D00562FCB /* AlicomFusionAuthDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionAuthDemoTests.m; sourceTree = "<group>"; };
+		386105D62963D08D00562FCB /* AlicomFusionAuthDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlicomFusionAuthDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		386105DA2963D08E00562FCB /* AlicomFusionAuthDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionAuthDemoUITests.m; sourceTree = "<group>"; };
+		386105DC2963D08E00562FCB /* AlicomFusionAuthDemoUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionAuthDemoUITestsLaunchTests.m; sourceTree = "<group>"; };
+		386105EC29640BEE00562FCB /* AppDelegate+CYLTabbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+CYLTabbar.h"; sourceTree = "<group>"; };
+		386105ED29640BEE00562FCB /* AppDelegate+CYLTabbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+CYLTabbar.m"; sourceTree = "<group>"; };
+		386105EF2964195100562FCB /* AlicomFusionBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionBaseViewController.h; sourceTree = "<group>"; };
+		386105F02964195100562FCB /* AlicomFusionBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionBaseViewController.m; sourceTree = "<group>"; };
+		386105F22964197A00562FCB /* AlicomFusionSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionSettingViewController.h; sourceTree = "<group>"; };
+		386105F32964197A00562FCB /* AlicomFusionSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionSettingViewController.m; sourceTree = "<group>"; };
+		386105F529641A8B00562FCB /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		386105F6296429B100562FCB /* AccountTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountTableViewCell.h; sourceTree = "<group>"; };
+		386105F7296429B100562FCB /* AccountTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountTableViewCell.m; sourceTree = "<group>"; };
+		386105F929642E1D00562FCB /* AlicomFusionAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionAccountViewController.h; sourceTree = "<group>"; };
+		386105FA29642E1D00562FCB /* AlicomFusionAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionAccountViewController.m; sourceTree = "<group>"; };
+		38D84AE129ADCE7D00D57990 /* AlicomFusionDemoUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionDemoUtil.h; sourceTree = "<group>"; };
+		38D84AE229ADCE7D00D57990 /* AlicomFusionDemoUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionDemoUtil.m; sourceTree = "<group>"; };
+		4A45F90E6227C20224FAFE2F /* Pods-AlicomFusionAuthDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlicomFusionAuthDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-AlicomFusionAuthDemoUITests/Pods-AlicomFusionAuthDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		692367382995EAB800DF0A7B /* AlicomFusionAuthTokenManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionAuthTokenManager.h; sourceTree = "<group>"; };
+		692367392995EAB800DF0A7B /* AlicomFusionAuthTokenManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionAuthTokenManager.m; sourceTree = "<group>"; };
+		6924A29F299248E200470A5D /* AlicomFusionToastTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionToastTool.h; sourceTree = "<group>"; };
+		6924A2A0299248E200470A5D /* AlicomFusionToastTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionToastTool.m; sourceTree = "<group>"; };
+		6926A048299A2A7900963123 /* AlicomFusionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionManager.h; sourceTree = "<group>"; };
+		6926A049299A2A7900963123 /* AlicomFusionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionManager.m; sourceTree = "<group>"; };
+		6926A04D299A657900963123 /* AlicomFusionResetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlicomFusionResetViewController.h; sourceTree = "<group>"; };
+		6926A04E299A657900963123 /* AlicomFusionResetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionResetViewController.m; sourceTree = "<group>"; };
+		6948F8ED29939FCB00A434A5 /* AlicomFusionNetAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlicomFusionNetAdapter.h; sourceTree = "<group>"; };
+		6948F8EE29939FCB00A434A5 /* AlicomFusionNetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlicomFusionNetManager.h; sourceTree = "<group>"; };
+		6948F8F229939FCB00A434A5 /* AlicomFusionNetAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionNetAdapter.m; sourceTree = "<group>"; };
+		6948F8F329939FCB00A434A5 /* AlicomFusionNetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionNetManager.m; sourceTree = "<group>"; };
+		6948F8F629939FCB00A434A5 /* AlicomFusionNetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlicomFusionNetRequest.h; sourceTree = "<group>"; };
+		6C04D82E29A0A03400B8F4D7 /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommon.framework; sourceTree = "<group>"; };
+		6C04D83029A0A03400B8F4D7 /* UMDevice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMDevice.framework; sourceTree = "<group>"; };
+		6C04D83629A0A03D00B8F4D7 /* ATAuthSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATAuthSDK.bundle; sourceTree = "<group>"; };
+		6C04D83C29A0B43700B8F4D7 /* AlicomFusionAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicomFusionAuth.framework; sourceTree = "<group>"; };
+		6C306E5F2AA9B26A00AFF24D /* AlicomFusionNetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlicomFusionNetRequest.m; sourceTree = "<group>"; };
+		6CFD732B2BB568A000A48474 /* AlicomCaptcha4.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlicomCaptcha4.bundle; path = AlicomFusionAuthDemo/SDK/AlicomCaptcha4.bundle; sourceTree = "<group>"; };
+		7D3313F685A8738369628190 /* Pods-AlicomFusionAuthDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlicomFusionAuthDemoTests.release.xcconfig"; path = "Target Support Files/Pods-AlicomFusionAuthDemoTests/Pods-AlicomFusionAuthDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		83222E64C4FBB88A5E0E7134 /* Pods_AlicomFusionAuthDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlicomFusionAuthDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DE4B6F15B7DD3D0748F37F3 /* Pods-AlicomFusionAuthDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlicomFusionAuthDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-AlicomFusionAuthDemoUITests/Pods-AlicomFusionAuthDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EC0A876BB4A1AD1C42FA11E8 /* Pods_AlicomFusionAuthDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlicomFusionAuthDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F37F33BBE0B5EED517CA6132 /* Pods_AlicomFusionAuthDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlicomFusionAuthDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		386105AE2963D08A00562FCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C04D83429A0A03400B8F4D7 /* UMDevice.framework in Frameworks */,
+				6CA0719E2AA977DB006DAC21 /* AlicomFusionAuth.framework in Frameworks */,
+				6C04D83229A0A03400B8F4D7 /* UMCommon.framework in Frameworks */,
+				4BC9895C0B427FE5F5862A5F /* Pods_AlicomFusionAuthDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386105C92963D08D00562FCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D406233DC21AB68974148DC1 /* Pods_AlicomFusionAuthDemoTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386105D32963D08D00562FCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D273183A12650B7C8E6353 /* Pods_AlicomFusionAuthDemoUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C069A30B9A17B05865F5A92 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0E2225CD9585A3AB83492F3E /* Pods-AlicomFusionAuthDemo.debug.xcconfig */,
+				19FBD7DE75649C1F5C935411 /* Pods-AlicomFusionAuthDemo.release.xcconfig */,
+				27E46BC32EF6CAF10434B9AF /* Pods-AlicomFusionAuthDemoTests.debug.xcconfig */,
+				7D3313F685A8738369628190 /* Pods-AlicomFusionAuthDemoTests.release.xcconfig */,
+				9DE4B6F15B7DD3D0748F37F3 /* Pods-AlicomFusionAuthDemoUITests.debug.xcconfig */,
+				4A45F90E6227C20224FAFE2F /* Pods-AlicomFusionAuthDemoUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		386105A82963D08A00562FCB = {
+			isa = PBXGroup;
+			children = (
+				6CFD732B2BB568A000A48474 /* AlicomCaptcha4.bundle */,
+				386105B32963D08A00562FCB /* AlicomFusionAuthDemo */,
+				386105CF2963D08D00562FCB /* AlicomFusionAuthDemoTests */,
+				386105D92963D08D00562FCB /* AlicomFusionAuthDemoUITests */,
+				386105B22963D08A00562FCB /* Products */,
+				1C069A30B9A17B05865F5A92 /* Pods */,
+				5AE66279C6AB19F18DB172D9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		386105B22963D08A00562FCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				386105B12963D08A00562FCB /* AlicomFusionAuthDemo.app */,
+				386105CC2963D08D00562FCB /* AlicomFusionAuthDemoTests.xctest */,
+				386105D62963D08D00562FCB /* AlicomFusionAuthDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		386105B32963D08A00562FCB /* AlicomFusionAuthDemo */ = {
+			isa = PBXGroup;
+			children = (
+				6C04D82D29A0A03400B8F4D7 /* SDK */,
+				6926A04B299A651A00963123 /* ViewController */,
+				692367372995E5D700DF0A7B /* Tools */,
+				6948F8EC29939FCB00A434A5 /* Network */,
+				386105B42963D08A00562FCB /* AppDelegate.h */,
+				386105B52963D08A00562FCB /* AppDelegate.m */,
+				386105EC29640BEE00562FCB /* AppDelegate+CYLTabbar.h */,
+				386105ED29640BEE00562FCB /* AppDelegate+CYLTabbar.m */,
+				386105BD2963D08A00562FCB /* Main.storyboard */,
+				386105C02963D08D00562FCB /* Assets.xcassets */,
+				386105C22963D08D00562FCB /* LaunchScreen.storyboard */,
+				386105C52963D08D00562FCB /* Info.plist */,
+				386105C62963D08D00562FCB /* main.m */,
+				386105F529641A8B00562FCB /* PrefixHeader.pch */,
+			);
+			path = AlicomFusionAuthDemo;
+			sourceTree = "<group>";
+		};
+		386105CF2963D08D00562FCB /* AlicomFusionAuthDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				386105D02963D08D00562FCB /* AlicomFusionAuthDemoTests.m */,
+			);
+			path = AlicomFusionAuthDemoTests;
+			sourceTree = "<group>";
+		};
+		386105D92963D08D00562FCB /* AlicomFusionAuthDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				386105DA2963D08E00562FCB /* AlicomFusionAuthDemoUITests.m */,
+				386105DC2963D08E00562FCB /* AlicomFusionAuthDemoUITestsLaunchTests.m */,
+			);
+			path = AlicomFusionAuthDemoUITests;
+			sourceTree = "<group>";
+		};
+		5AE66279C6AB19F18DB172D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC0A876BB4A1AD1C42FA11E8 /* Pods_AlicomFusionAuthDemo.framework */,
+				F37F33BBE0B5EED517CA6132 /* Pods_AlicomFusionAuthDemoTests.framework */,
+				83222E64C4FBB88A5E0E7134 /* Pods_AlicomFusionAuthDemoUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		692367372995E5D700DF0A7B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6924A29F299248E200470A5D /* AlicomFusionToastTool.h */,
+				6924A2A0299248E200470A5D /* AlicomFusionToastTool.m */,
+				692367382995EAB800DF0A7B /* AlicomFusionAuthTokenManager.h */,
+				692367392995EAB800DF0A7B /* AlicomFusionAuthTokenManager.m */,
+				6926A048299A2A7900963123 /* AlicomFusionManager.h */,
+				6926A049299A2A7900963123 /* AlicomFusionManager.m */,
+				38D84AE129ADCE7D00D57990 /* AlicomFusionDemoUtil.h */,
+				38D84AE229ADCE7D00D57990 /* AlicomFusionDemoUtil.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		6926A04B299A651A00963123 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6926A04C299A653300963123 /* View */,
+				386105EF2964195100562FCB /* AlicomFusionBaseViewController.h */,
+				386105F02964195100562FCB /* AlicomFusionBaseViewController.m */,
+				386105F929642E1D00562FCB /* AlicomFusionAccountViewController.h */,
+				386105FA29642E1D00562FCB /* AlicomFusionAccountViewController.m */,
+				386105F22964197A00562FCB /* AlicomFusionSettingViewController.h */,
+				386105F32964197A00562FCB /* AlicomFusionSettingViewController.m */,
+				6926A04D299A657900963123 /* AlicomFusionResetViewController.h */,
+				6926A04E299A657900963123 /* AlicomFusionResetViewController.m */,
+				382740D429A6015A00B332D7 /* AlicomFusionWebViewController.h */,
+				382740D529A6015A00B332D7 /* AlicomFusionWebViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6926A04C299A653300963123 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				386105F6296429B100562FCB /* AccountTableViewCell.h */,
+				386105F7296429B100562FCB /* AccountTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6948F8EC29939FCB00A434A5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6948F8ED29939FCB00A434A5 /* AlicomFusionNetAdapter.h */,
+				6948F8F229939FCB00A434A5 /* AlicomFusionNetAdapter.m */,
+				6948F8EE29939FCB00A434A5 /* AlicomFusionNetManager.h */,
+				6948F8F329939FCB00A434A5 /* AlicomFusionNetManager.m */,
+				6948F8F629939FCB00A434A5 /* AlicomFusionNetRequest.h */,
+				6C306E5F2AA9B26A00AFF24D /* AlicomFusionNetRequest.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		6C04D82D29A0A03400B8F4D7 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				6C04D83629A0A03D00B8F4D7 /* ATAuthSDK.bundle */,
+				6C04D82E29A0A03400B8F4D7 /* UMCommon.framework */,
+				6C04D83029A0A03400B8F4D7 /* UMDevice.framework */,
+				6C04D83C29A0B43700B8F4D7 /* AlicomFusionAuth.framework */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		386105B02963D08A00562FCB /* AlicomFusionAuthDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 386105E02963D08E00562FCB /* Build configuration list for PBXNativeTarget "AlicomFusionAuthDemo" */;
+			buildPhases = (
+				BB9877549AFA57061F5EF6AC /* [CP] Check Pods Manifest.lock */,
+				386105AD2963D08A00562FCB /* Sources */,
+				386105AE2963D08A00562FCB /* Frameworks */,
+				386105AF2963D08A00562FCB /* Resources */,
+				8FF049D59B79C3592D25355A /* [CP] Embed Pods Frameworks */,
+				6CA0718D2A9DD79D006DAC21 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlicomFusionAuthDemo;
+			productName = AlicomFusionAuthDemo;
+			productReference = 386105B12963D08A00562FCB /* AlicomFusionAuthDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		386105CB2963D08D00562FCB /* AlicomFusionAuthDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 386105E32963D08E00562FCB /* Build configuration list for PBXNativeTarget "AlicomFusionAuthDemoTests" */;
+			buildPhases = (
+				8D86377D2EADB2F8F3BF2058 /* [CP] Check Pods Manifest.lock */,
+				386105C82963D08D00562FCB /* Sources */,
+				386105C92963D08D00562FCB /* Frameworks */,
+				386105CA2963D08D00562FCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				386105CE2963D08D00562FCB /* PBXTargetDependency */,
+			);
+			name = AlicomFusionAuthDemoTests;
+			productName = AlicomFusionAuthDemoTests;
+			productReference = 386105CC2963D08D00562FCB /* AlicomFusionAuthDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		386105D52963D08D00562FCB /* AlicomFusionAuthDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 386105E62963D08E00562FCB /* Build configuration list for PBXNativeTarget "AlicomFusionAuthDemoUITests" */;
+			buildPhases = (
+				AA08F2771031B2A6379CEA26 /* [CP] Check Pods Manifest.lock */,
+				386105D22963D08D00562FCB /* Sources */,
+				386105D32963D08D00562FCB /* Frameworks */,
+				386105D42963D08D00562FCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				386105D82963D08D00562FCB /* PBXTargetDependency */,
+			);
+			name = AlicomFusionAuthDemoUITests;
+			productName = AlicomFusionAuthDemoUITests;
+			productReference = 386105D62963D08D00562FCB /* AlicomFusionAuthDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		386105A92963D08A00562FCB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					386105B02963D08A00562FCB = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+					386105CB2963D08D00562FCB = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 386105B02963D08A00562FCB;
+					};
+					386105D52963D08D00562FCB = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 386105B02963D08A00562FCB;
+					};
+				};
+			};
+			buildConfigurationList = 386105AC2963D08A00562FCB /* Build configuration list for PBXProject "AlicomFusionAuthDemo" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 386105A82963D08A00562FCB;
+			productRefGroup = 386105B22963D08A00562FCB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				386105B02963D08A00562FCB /* AlicomFusionAuthDemo */,
+				386105CB2963D08D00562FCB /* AlicomFusionAuthDemoTests */,
+				386105D52963D08D00562FCB /* AlicomFusionAuthDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		386105AF2963D08A00562FCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386105C42963D08D00562FCB /* LaunchScreen.storyboard in Resources */,
+				6CFD732D2BB568A000A48474 /* AlicomCaptcha4.bundle in Resources */,
+				6C04D83729A0A03D00B8F4D7 /* ATAuthSDK.bundle in Resources */,
+				386105C12963D08D00562FCB /* Assets.xcassets in Resources */,
+				386105BF2963D08A00562FCB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386105CA2963D08D00562FCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386105D42963D08D00562FCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8D86377D2EADB2F8F3BF2058 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AlicomFusionAuthDemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FF049D59B79C3592D25355A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AlicomFusionAuthDemo/Pods-AlicomFusionAuthDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AlicomFusionAuthDemo/Pods-AlicomFusionAuthDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AlicomFusionAuthDemo/Pods-AlicomFusionAuthDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA08F2771031B2A6379CEA26 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AlicomFusionAuthDemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB9877549AFA57061F5EF6AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AlicomFusionAuthDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		386105AD2963D08A00562FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				382740D629A6015A00B332D7 /* AlicomFusionWebViewController.m in Sources */,
+				6924A2A1299248E200470A5D /* AlicomFusionToastTool.m in Sources */,
+				386105EE29640BEE00562FCB /* AppDelegate+CYLTabbar.m in Sources */,
+				6948F8FA29939FCB00A434A5 /* AlicomFusionNetAdapter.m in Sources */,
+				6C306E602AA9B26A00AFF24D /* AlicomFusionNetRequest.m in Sources */,
+				38D84AE329ADCE7D00D57990 /* AlicomFusionDemoUtil.m in Sources */,
+				6923673A2995EAB800DF0A7B /* AlicomFusionAuthTokenManager.m in Sources */,
+				386105B62963D08A00562FCB /* AppDelegate.m in Sources */,
+				386105FB29642E1D00562FCB /* AlicomFusionAccountViewController.m in Sources */,
+				6926A04F299A657900963123 /* AlicomFusionResetViewController.m in Sources */,
+				386105F42964197A00562FCB /* AlicomFusionSettingViewController.m in Sources */,
+				386105F12964195100562FCB /* AlicomFusionBaseViewController.m in Sources */,
+				386105C72963D08D00562FCB /* main.m in Sources */,
+				6926A04A299A2A7900963123 /* AlicomFusionManager.m in Sources */,
+				6948F8FB29939FCB00A434A5 /* AlicomFusionNetManager.m in Sources */,
+				386105F8296429B100562FCB /* AccountTableViewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386105C82963D08D00562FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386105D12963D08D00562FCB /* AlicomFusionAuthDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386105D22963D08D00562FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386105DD2963D08E00562FCB /* AlicomFusionAuthDemoUITestsLaunchTests.m in Sources */,
+				386105DB2963D08E00562FCB /* AlicomFusionAuthDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		386105CE2963D08D00562FCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 386105B02963D08A00562FCB /* AlicomFusionAuthDemo */;
+			targetProxy = 386105CD2963D08D00562FCB /* PBXContainerItemProxy */;
+		};
+		386105D82963D08D00562FCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 386105B02963D08A00562FCB /* AlicomFusionAuthDemo */;
+			targetProxy = 386105D72963D08D00562FCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		386105BD2963D08A00562FCB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				386105BE2963D08A00562FCB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		386105C22963D08D00562FCB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				386105C32963D08D00562FCB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		386105DE2963D08E00562FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		386105DF2963D08E00562FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		386105E12963D08E00562FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E2225CD9585A3AB83492F3E /* Pods-AlicomFusionAuthDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HN28RYJDAN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AlicomFusionAuthDemo",
+					"$(PROJECT_DIR)/AlicomFusionAuthDemo/SDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/AlicomFusionAuthDemo/PrefixHeader.pch";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlicomFusionAuthDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "融合认证iOSDemo";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"CYLTabBarController\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alicom.sdkdemo.AlicomFusionAuthDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = AliCom_SDK_Demo_Provisioning_Profiles;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		386105E22963D08E00562FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19FBD7DE75649C1F5C935411 /* Pods-AlicomFusionAuthDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HN28RYJDAN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AlicomFusionAuthDemo",
+					"$(PROJECT_DIR)/AlicomFusionAuthDemo/SDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/AlicomFusionAuthDemo/PrefixHeader.pch";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlicomFusionAuthDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "融合认证iOSDemo";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"CYLTabBarController\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alicom.sdkdemo.AlicomFusionAuthDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = AliCom_SDK_Demo_Provisioning_Profiles;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		386105E42963D08E00562FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E46BC32EF6CAF10434B9AF /* Pods-AlicomFusionAuthDemoTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alicom.sdkdemo.AlicomFusionAuthDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlicomFusionAuthDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AlicomFusionAuthDemo";
+			};
+			name = Debug;
+		};
+		386105E52963D08E00562FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D3313F685A8738369628190 /* Pods-AlicomFusionAuthDemoTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alicom.sdkdemo.AlicomFusionAuthDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlicomFusionAuthDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AlicomFusionAuthDemo";
+			};
+			name = Release;
+		};
+		386105E72963D08E00562FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DE4B6F15B7DD3D0748F37F3 /* Pods-AlicomFusionAuthDemoUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alicom.sdkdemo.AlicomFusionAuthDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AlicomFusionAuthDemo;
+			};
+			name = Debug;
+		};
+		386105E82963D08E00562FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A45F90E6227C20224FAFE2F /* Pods-AlicomFusionAuthDemoUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alicom.sdkdemo.AlicomFusionAuthDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AlicomFusionAuthDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		386105AC2963D08A00562FCB /* Build configuration list for PBXProject "AlicomFusionAuthDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386105DE2963D08E00562FCB /* Debug */,
+				386105DF2963D08E00562FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		386105E02963D08E00562FCB /* Build configuration list for PBXNativeTarget "AlicomFusionAuthDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386105E12963D08E00562FCB /* Debug */,
+				386105E22963D08E00562FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		386105E32963D08E00562FCB /* Build configuration list for PBXNativeTarget "AlicomFusionAuthDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386105E42963D08E00562FCB /* Debug */,
+				386105E52963D08E00562FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		386105E62963D08E00562FCB /* Build configuration list for PBXNativeTarget "AlicomFusionAuthDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386105E72963D08E00562FCB /* Debug */,
+				386105E82963D08E00562FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 386105A92963D08A00562FCB /* Project object */;
+}

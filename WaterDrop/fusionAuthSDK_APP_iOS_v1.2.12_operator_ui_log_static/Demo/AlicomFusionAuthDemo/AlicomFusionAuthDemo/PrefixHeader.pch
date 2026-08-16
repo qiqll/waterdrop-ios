@@ -1,0 +1,63 @@
+//
+//  PrefixHeader.pch
+//  AlicomFusionAuthDemo
+//
+//  Created by shenchao12344 on 2023/1/3.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "Masonry.h"
+#import <AlicomFusionAuth/AlicomFusionAuth.h>
+#import "AlicomFusionNetAdapter.h"
+#import "AlicomFusionToastTool.h"
+#import "AlicomFusionAuthTokenManager.h"
+#import "AlicomFusionManager.h"
+#import "AlicomFusionDemoUtil.h"
+
+
+#define AlicomColorHex(rgbValue)        [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0 \
+blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
+
+#define ALICOM_FUSION_DEMO_SCREEN_WIDTH       [[UIScreen mainScreen] bounds].size.width
+#define ALICOM_FUSION_DEMO_SCREEN_HEIGHT      [[UIScreen mainScreen] bounds].size.height
+#define ALICOM_FUSION_DEMO_STATUS_BAR_HEIGHT                ([AlicomFusionDemoUtil getDemoStatusBarHeight])
+
+#define kDEMO_UD_PHONE_NUM @"phoneNum"
+
+/* 请配置demo访问形式 和 方案号
+ * 1. 快速访问
+ * 2. 正常访问
+ * 说明：融合认证客户端SDK需要配合服务端GetFusionAuthToken和VerifyWithFusionAuthToken两个接口使用
+ * GetFusionAuthToken用于获取SDK的鉴权token，token鉴权通过后才可使用客户端功能
+ * VerifyWithFusionAuthToken用于获取真实的手机号码和认证校验结果，客户端SDK执行成功后可获取统一认证token，最终认证结果需要发送此token到服务端进行校验
+ */
+#define DEMO_SCHEME_CODE <#请输入方案号#>
+
+#define DEMO_DEBUG_MODE 2 // 1. 快速访问 2. 正常访问(默认)
+
+#if DEMO_DEBUG_MODE == 1
+/* 1. 快速访问模式
+ * 可快速调试demo体验【部分】功能，可暂不接入服务端api
+ * 临时鉴权token请登陆阿里云控制台获取(https://next.api.aliyun.com/api/Dypnsapi/2017-05-25/GetFusionAuthToken)
+ * 由于最终校验结果需通过服务端api进行，此模式下默认校验成功，填充默认手机号：18888888888
+ */
+#define DEMO_TEMPORATY_TOKEN <#临时token传参占位符#>
+
+#elif DEMO_DEBUG_MODE == 2
+/* 2. 正常访问模式
+ * 正常接入融合认证服务端和客户端SDK，进行正式调试体验全部功能
+ * 请根据接入指南（https://help.aliyun.com/document_detail/2248981.html?spm=a2c4g.2249334.0.0.34c37b8cnywXZq） 首先接入融合认证服务端 APP Server，通过访问APP Server获取鉴权token，并通过访问APP Server做最终认证结果校验
+ */
+#define DEMO_APP_SERVER_HOST <#请输入服务端host地址#>
+#define DEMO_AUTHTOKEN_API <#demo获取token api占位符#>
+#define DEMO_VERIFY_API <#demo换取手机号api#>
+#define DEMO_TOKEN_EXPIR_TIME <#超时时间#>
+
+
+#endif /* DEMO_DEBUG_MODE */
+
+
+#endif /* PrefixHeader_pch */

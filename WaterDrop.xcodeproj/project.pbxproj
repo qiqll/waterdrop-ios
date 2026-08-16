@@ -1,0 +1,831 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08893C6F865D39AFD152A2C1 /* AiAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623B23519D2DD356B0FE068 /* AiAPIService.swift */; };
+		0B19A2EFF924C63F41774AB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97700A6F660D62705DEBCA4A /* CoreTelephony.framework */; };
+		0F47D0B7E9623A174812E9BA /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C595697B4DC5DBBD7996D /* ApiResponse.swift */; };
+		0F56CD41EB5BAA99B1F2483C /* UMDevice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B7D609BD830AF6E42EB35F /* UMDevice.framework */; };
+		13BA333DD2673832BF8BD6AE /* AuthAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A786FC54A43D750A4AF498 /* AuthAPIService.swift */; };
+		15FAD3BED8084CDA08227B38 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5935F4D02701E319E2B7B /* MainView.swift */; };
+		1800D9E95E8DF9036E350585 /* TokenRefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC85B796D28E7A633607048 /* TokenRefreshHandler.swift */; };
+		1D281F47709EB5AA294893E1 /* AlicomFusionAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 194E5E48E2E434976EBFE784 /* AlicomFusionAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1FB0414A7B8AD0F33CDF6434 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86346A2913F296968EE28D /* KeychainManager.swift */; };
+		2529307A6D40ACF3EC7C10C0 /* BackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68709D4D234AB5F40BF36556 /* BackupManager.swift */; };
+		257FBEBD44F08717BD820A43 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AC8E6770E9AE725E90B530 /* APIClient.swift */; };
+		288F600E090D6F14FAC4AD88 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCBA18FBB38EAEAD666A226 /* HelpView.swift */; };
+		2B4818CBC31E81D134D297DF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9BCE3366BCAAD0B2B7BE47 /* LoginView.swift */; };
+		3FDF8B4B09EEDF9DCA289747 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBCD2CCEAE25FE03246E389 /* OnboardingView.swift */; };
+		42A9B179D47B78105BEC076D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1911A625F4D1F19B09394244 /* NetworkError.swift */; };
+		43095B6B21FCB1FB6C954F5E /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2213848C999615D0D0C32 /* ServerConfig.swift */; };
+		478244D1D47BCDC2EA4B048E /* AlicomFusionAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D183B37A0A70BE382AF03 /* AlicomFusionAuthManager.swift */; };
+		4B1A714C356AAA5320853DE7 /* PulseAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88F89B903A0937EF9F09026 /* PulseAnimationView.swift */; };
+		4C556E6373655925A09ADC2F /* AlicloudAuthDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FCABFADD0F9CB7EDA4F3AF /* AlicloudAuthDTOs.swift */; };
+		584684B35753C7D8634EFBB0 /* UndoSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D177E90B3C8ED6844C3C32BD /* UndoSnackbarView.swift */; };
+		5B8B3ABF7061FF0B62640420 /* ResultStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5389796AB17861C6C05089 /* ResultStateView.swift */; };
+		602331BDA83D2EAF836C73CA /* AuthEventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF47D8E084596ADDC9A4B522 /* AuthEventBus.swift */; };
+		614A52B64DF61597767F1FE0 /* FontSizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B06559577B4E91F5744EAD /* FontSizeManager.swift */; };
+		6324A665374FCCC3C0D4B524 /* WaterDropApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FE4FFE0D6B04AE9C703C87 /* WaterDropApp.swift */; };
+		665BD5BF970EC1626FBDB70A /* Date+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636C3B22517D6DCE8368D746 /* Date+Formatting.swift */; };
+		70BC2A8F24D88A0DA1CE8794 /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11D4DA9A46C9B4C2001E52B /* HelpViewModel.swift */; };
+		71BFC026E80EA7D5F48E12CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9084C9D3E71ECA0366017 /* MainViewModel.swift */; };
+		78FF894E3B01AC09B481C07E /* SpeechRecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD05EE5DD454FC2B05AFF6BE /* SpeechRecognitionManager.swift */; };
+		7A1225EDDD213C491C265342 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA79A2B7F66B4084B5AD2C /* ChatMessage.swift */; };
+		812ECE693E57575E0DBFCC12 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B17F845126EF0CD39DB1FE6 /* ItemRepository.swift */; };
+		82011379A2926C21005ADB78 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DFB4574337297007484B82 /* ItemListView.swift */; };
+		8414462CF3EDCFFC85B16F25 /* AuthDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D978616058818E27D5E097 /* AuthDTOs.swift */; };
+		87DA1005E9A31C5B49008FAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A029F33BE54C6BFCF385BD0 /* Assets.xcassets */; };
+		8B1EE4955FFC6D845F72494D /* ListeningStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B298BC37BAD5253668F3E8C4 /* ListeningStateView.swift */; };
+		8F3CD3FA4FA0B6C2CD425E4F /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F50E176BE75690010968D8 /* Color+Hex.swift */; };
+		9180891A991988B1ABCB8877 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB6B024E726AD4ECC51251F /* AppColors.swift */; };
+		941031113DDF1192ACBA6138 /* UserPreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DED57E3B89DA5BBED989C88 /* UserPreferencesManager.swift */; };
+		964D83C95F6BB20AEE1125DF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 28ABF5A6D3BEE4B07DFA5B2F /* libz.tbd */; };
+		9B9E73E6A38911C4D4D492C3 /* ItemAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF984159CA41EA2730F3833D /* ItemAPIService.swift */; };
+		9CCE7182ED102DD6030F04CC /* IntentRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFDDDB6550C2328BFA5E8B5 /* IntentRecognitionService.swift */; };
+		9F48C6D99E977E631F5F83DA /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1B96AE657E08BE44E5165E /* AppConfig.swift */; };
+		A5467243F08E3A72E515A1F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC50EF1FE73158EF36927A6 /* SystemConfiguration.framework */; };
+		A6D623FE3492441886779CE0 /* AlicloudAuthAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71CC643B76B88E696454CFD /* AlicloudAuthAPIService.swift */; };
+		AE61D133B33EE3E44B8F9055 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E82A871861E587B3DA636 /* DeviceInfo.swift */; };
+		B113D49E46402BFC0D949759 /* IdleStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22FDD60E84E2B01144D9AFD /* IdleStateView.swift */; };
+		B60A4AFE465C95FAC08984D4 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEBC1B763D9396154C23A1 /* AuthService.swift */; };
+		B95300ABB1A3BA060063247B /* ChatBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15896C031F61065FEFFBA4AE /* ChatBubbleView.swift */; };
+		BFCBCD599492FC9BE7259B5E /* VoiceFabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4117C8A1FDEA028F5B5B52A /* VoiceFabView.swift */; };
+		C24D54E35021D9180FD17900 /* ItemCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA3BF4E91BB9625DA526971 /* ItemCardView.swift */; };
+		C44CCA79AFD3B390AC65B5BD /* AlicomFusionAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194E5E48E2E434976EBFE784 /* AlicomFusionAuth.framework */; };
+		C6023A072983097366E80430 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE053B4AFD8A0F631ACA8D9 /* Item.swift */; };
+		CADFB63029A1091706DBF2BB /* HelpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307EBDAEA7D74A197F7C5E7C /* HelpAPIService.swift */; };
+		CD8B512D3AEEAABDC244EEB7 /* AlicomCaptcha4.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9283B9EF945684FBBC9A3354 /* AlicomCaptcha4.bundle */; };
+		CE2113079F2484ABC2A75B14 /* AiDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC517C61590D101FB95ECE7 /* AiDTOs.swift */; };
+		D3415F206CCDADDEA29BD0D3 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BE190F62073E5A8AEE9C1B /* ThemeManager.swift */; };
+		D6A4F46CADF058AAAB36C82F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A562DB483C7EF345EE58A00D /* SplashView.swift */; };
+		D705FB56FFC833DF95FED892 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C535077AEA7E3CA96D4E8 /* SettingsView.swift */; };
+		D8AB38C1215EA4D48B0686C2 /* UMCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89134D14F4FE47C9E7460F90 /* UMCommon.framework */; };
+		DE218CDC3AA74C98B4CE0A38 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C01132B29D403B0A5829198C /* libc++.tbd */; };
+		EA72015E053616BA2750ED31 /* HelpDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB7CBA688DBBB28042C3848 /* HelpDTOs.swift */; };
+		EEA28DD25C1DFAA341E6A74C /* AuthStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F952EF210879543D64313B /* AuthStateManager.swift */; };
+		F25949094815E88E123DDD10 /* ItemDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D4B52E322981EE54F530A1 /* ItemDTOs.swift */; };
+		F570D4F646C587BE3FCC4CFD /* ATAuthSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF16EDAFD9BC82600C78B3AE /* ATAuthSDK.bundle */; };
+		F8CDD357583C516F30A738F4 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A98C333C7D04EE3BFA2018 /* SettingsViewModel.swift */; };
+		FF789436410004909FBB72F5 /* ItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFC2E48F961EF58B075BA1A /* ItemListViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		87419BFA00A7696B5ECE90FC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1D281F47709EB5AA294893E1 /* AlicomFusionAuth.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0B17F845126EF0CD39DB1FE6 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
+		0B2288D041989F147E817A3B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		15896C031F61065FEFFBA4AE /* ChatBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleView.swift; sourceTree = "<group>"; };
+		1911A625F4D1F19B09394244 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		194E5E48E2E434976EBFE784 /* AlicomFusionAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlicomFusionAuth.framework; path = Frameworks/AlicomFusionAuth.framework; sourceTree = "<group>"; };
+		19DFB4574337297007484B82 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
+		1DB7CBA688DBBB28042C3848 /* HelpDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpDTOs.swift; sourceTree = "<group>"; };
+		22D978616058818E27D5E097 /* AuthDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTOs.swift; sourceTree = "<group>"; };
+		28ABF5A6D3BEE4B07DFA5B2F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		2B1B96AE657E08BE44E5165E /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		2DED57E3B89DA5BBED989C88 /* UserPreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesManager.swift; sourceTree = "<group>"; };
+		307EBDAEA7D74A197F7C5E7C /* HelpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAPIService.swift; sourceTree = "<group>"; };
+		30B7D609BD830AF6E42EB35F /* UMDevice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMDevice.framework; path = Frameworks/UMDevice.framework; sourceTree = "<group>"; };
+		446E82A871861E587B3DA636 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		49FE4FFE0D6B04AE9C703C87 /* WaterDropApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDropApp.swift; sourceTree = "<group>"; };
+		4BC50EF1FE73158EF36927A6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5A86346A2913F296968EE28D /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		5D5389796AB17861C6C05089 /* ResultStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultStateView.swift; sourceTree = "<group>"; };
+		5FE053B4AFD8A0F631ACA8D9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		60F952EF210879543D64313B /* AuthStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStateManager.swift; sourceTree = "<group>"; };
+		631D183B37A0A70BE382AF03 /* AlicomFusionAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlicomFusionAuthManager.swift; sourceTree = "<group>"; };
+		636C3B22517D6DCE8368D746 /* Date+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatting.swift"; sourceTree = "<group>"; };
+		639C595697B4DC5DBBD7996D /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		68709D4D234AB5F40BF36556 /* BackupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupManager.swift; sourceTree = "<group>"; };
+		6AB6B024E726AD4ECC51251F /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		73AC8E6770E9AE725E90B530 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		747C535077AEA7E3CA96D4E8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		76D4B52E322981EE54F530A1 /* ItemDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDTOs.swift; sourceTree = "<group>"; };
+		77A98C333C7D04EE3BFA2018 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		7A029F33BE54C6BFCF385BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7CA3BF4E91BB9625DA526971 /* ItemCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardView.swift; sourceTree = "<group>"; };
+		88B06559577B4E91F5744EAD /* FontSizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeManager.swift; sourceTree = "<group>"; };
+		89134D14F4FE47C9E7460F90 /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMCommon.framework; path = Frameworks/UMCommon.framework; sourceTree = "<group>"; };
+		89A786FC54A43D750A4AF498 /* AuthAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIService.swift; sourceTree = "<group>"; };
+		9276FC46F427A174667C7BB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9283B9EF945684FBBC9A3354 /* AlicomCaptcha4.bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AlicomCaptcha4.bundle; path = Frameworks/AlicomCaptcha4.bundle; sourceTree = SOURCE_ROOT; };
+		92A2213848C999615D0D0C32 /* ServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
+		932CDB33442E061CBC912008 /* WaterDrop.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WaterDrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97700A6F660D62705DEBCA4A /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		97FCABFADD0F9CB7EDA4F3AF /* AlicloudAuthDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlicloudAuthDTOs.swift; sourceTree = "<group>"; };
+		9CCBA18FBB38EAEAD666A226 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		A22FDD60E84E2B01144D9AFD /* IdleStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleStateView.swift; sourceTree = "<group>"; };
+		A562DB483C7EF345EE58A00D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		ABC517C61590D101FB95ECE7 /* AiDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AiDTOs.swift; sourceTree = "<group>"; };
+		AF984159CA41EA2730F3833D /* ItemAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAPIService.swift; sourceTree = "<group>"; };
+		B298BC37BAD5253668F3E8C4 /* ListeningStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningStateView.swift; sourceTree = "<group>"; };
+		B4117C8A1FDEA028F5B5B52A /* VoiceFabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceFabView.swift; sourceTree = "<group>"; };
+		BFBA79A2B7F66B4084B5AD2C /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		C01132B29D403B0A5829198C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C2F50E176BE75690010968D8 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		C88F89B903A0937EF9F09026 /* PulseAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimationView.swift; sourceTree = "<group>"; };
+		CAFC2E48F961EF58B075BA1A /* ItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewModel.swift; sourceTree = "<group>"; };
+		CDFEBC1B763D9396154C23A1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		CF16EDAFD9BC82600C78B3AE /* ATAuthSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ATAuthSDK.bundle; path = Frameworks/ATAuthSDK.bundle; sourceTree = SOURCE_ROOT; };
+		CFBCD2CCEAE25FE03246E389 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		D177E90B3C8ED6844C3C32BD /* UndoSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoSnackbarView.swift; sourceTree = "<group>"; };
+		DB9BCE3366BCAAD0B2B7BE47 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		DD05EE5DD454FC2B05AFF6BE /* SpeechRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionManager.swift; sourceTree = "<group>"; };
+		DF47D8E084596ADDC9A4B522 /* AuthEventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEventBus.swift; sourceTree = "<group>"; };
+		E4F5935F4D02701E319E2B7B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E8BE190F62073E5A8AEE9C1B /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		EAC85B796D28E7A633607048 /* TokenRefreshHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshHandler.swift; sourceTree = "<group>"; };
+		F11D4DA9A46C9B4C2001E52B /* HelpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
+		F623B23519D2DD356B0FE068 /* AiAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AiAPIService.swift; sourceTree = "<group>"; };
+		F71CC643B76B88E696454CFD /* AlicloudAuthAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlicloudAuthAPIService.swift; sourceTree = "<group>"; };
+		FDFDDDB6550C2328BFA5E8B5 /* IntentRecognitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentRecognitionService.swift; sourceTree = "<group>"; };
+		FFE9084C9D3E71ECA0366017 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		95C94BC2334764143EF312FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C44CCA79AFD3B390AC65B5BD /* AlicomFusionAuth.framework in Frameworks */,
+				D8AB38C1215EA4D48B0686C2 /* UMCommon.framework in Frameworks */,
+				0F56CD41EB5BAA99B1F2483C /* UMDevice.framework in Frameworks */,
+				0B19A2EFF924C63F41774AB3 /* CoreTelephony.framework in Frameworks */,
+				A5467243F08E3A72E515A1F0 /* SystemConfiguration.framework in Frameworks */,
+				DE218CDC3AA74C98B4CE0A38 /* libc++.tbd in Frameworks */,
+				964D83C95F6BB20AEE1125DF /* libz.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02115D805A92DF4324BEB859 /* ItemList */ = {
+			isa = PBXGroup;
+			children = (
+				7CA3BF4E91BB9625DA526971 /* ItemCardView.swift */,
+				19DFB4574337297007484B82 /* ItemListView.swift */,
+			);
+			path = ItemList;
+			sourceTree = "<group>";
+		};
+		07205FBEE16551B2CB6817A1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				631D183B37A0A70BE382AF03 /* AlicomFusionAuthManager.swift */,
+				DF47D8E084596ADDC9A4B522 /* AuthEventBus.swift */,
+				CDFEBC1B763D9396154C23A1 /* AuthService.swift */,
+				60F952EF210879543D64313B /* AuthStateManager.swift */,
+				5A86346A2913F296968EE28D /* KeychainManager.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		094C65F4D4DEE6D870E355F2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4D4B23E5077F5B5FF22BEDD6 /* DTOs */,
+				BFBA79A2B7F66B4084B5AD2C /* ChatMessage.swift */,
+				5FE053B4AFD8A0F631ACA8D9 /* Item.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		134196CFFBD23E37D951950D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C2F50E176BE75690010968D8 /* Color+Hex.swift */,
+				636C3B22517D6DCE8368D746 /* Date+Formatting.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		17D9DD3718282ED2232CFC50 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C88F89B903A0937EF9F09026 /* PulseAnimationView.swift */,
+				D177E90B3C8ED6844C3C32BD /* UndoSnackbarView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1CEDC58241FE5DF1AE578907 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9283B9EF945684FBBC9A3354 /* AlicomCaptcha4.bundle */,
+				CF16EDAFD9BC82600C78B3AE /* ATAuthSDK.bundle */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		3510BCF4C43086D96C699B96 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				CFBCD2CCEAE25FE03246E389 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		39FD9FC868996FA01BDB8076 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				A562DB483C7EF345EE58A00D /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		4D4B23E5077F5B5FF22BEDD6 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				ABC517C61590D101FB95ECE7 /* AiDTOs.swift */,
+				97FCABFADD0F9CB7EDA4F3AF /* AlicloudAuthDTOs.swift */,
+				639C595697B4DC5DBBD7996D /* ApiResponse.swift */,
+				22D978616058818E27D5E097 /* AuthDTOs.swift */,
+				1DB7CBA688DBBB28042C3848 /* HelpDTOs.swift */,
+				76D4B52E322981EE54F530A1 /* ItemDTOs.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		4F55C48EA86E4BF50E765D76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				932CDB33442E061CBC912008 /* WaterDrop.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		597AA517DE41ACB8590DD210 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F623B23519D2DD356B0FE068 /* AiAPIService.swift */,
+				F71CC643B76B88E696454CFD /* AlicloudAuthAPIService.swift */,
+				89A786FC54A43D750A4AF498 /* AuthAPIService.swift */,
+				307EBDAEA7D74A197F7C5E7C /* HelpAPIService.swift */,
+				AF984159CA41EA2730F3833D /* ItemAPIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7ECBAAFF9C78DE3066635BE3 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				A22FDD60E84E2B01144D9AFD /* IdleStateView.swift */,
+				B298BC37BAD5253668F3E8C4 /* ListeningStateView.swift */,
+				E4F5935F4D02701E319E2B7B /* MainView.swift */,
+				5D5389796AB17861C6C05089 /* ResultStateView.swift */,
+				B4117C8A1FDEA028F5B5B52A /* VoiceFabView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		83C8BD7A70C14811DA7B34E5 = {
+			isa = PBXGroup;
+			children = (
+				1CEDC58241FE5DF1AE578907 /* Frameworks */,
+				EBB7D4C33AC3CC91F1D0B73D /* WaterDrop */,
+				9515AE60F7F0EF58F0B5C63B /* Frameworks */,
+				4F55C48EA86E4BF50E765D76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		89C7F4E633DEB24B681ED497 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C21806C842978EB40C014327 /* Auth */,
+				17D9DD3718282ED2232CFC50 /* Components */,
+				B14001402A73755F8F518756 /* Help */,
+				02115D805A92DF4324BEB859 /* ItemList */,
+				7ECBAAFF9C78DE3066635BE3 /* Main */,
+				3510BCF4C43086D96C699B96 /* Onboarding */,
+				DCC539346EDC5DFAACD78BE0 /* Settings */,
+				39FD9FC868996FA01BDB8076 /* Splash */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9039FE3A8075A46EE1900287 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				68709D4D234AB5F40BF36556 /* BackupManager.swift */,
+				FDFDDDB6550C2328BFA5E8B5 /* IntentRecognitionService.swift */,
+				DD05EE5DD454FC2B05AFF6BE /* SpeechRecognitionManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		90BF8AA8B9266A931C9E798B /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				0B17F845126EF0CD39DB1FE6 /* ItemRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		9515AE60F7F0EF58F0B5C63B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				194E5E48E2E434976EBFE784 /* AlicomFusionAuth.framework */,
+				97700A6F660D62705DEBCA4A /* CoreTelephony.framework */,
+				C01132B29D403B0A5829198C /* libc++.tbd */,
+				28ABF5A6D3BEE4B07DFA5B2F /* libz.tbd */,
+				4BC50EF1FE73158EF36927A6 /* SystemConfiguration.framework */,
+				89134D14F4FE47C9E7460F90 /* UMCommon.framework */,
+				30B7D609BD830AF6E42EB35F /* UMDevice.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6DE4872C73837B367CCDF19 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A029F33BE54C6BFCF385BD0 /* Assets.xcassets */,
+				9276FC46F427A174667C7BB0 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B01FC531135E7B0751DD7BE1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				446E82A871861E587B3DA636 /* DeviceInfo.swift */,
+				2DED57E3B89DA5BBED989C88 /* UserPreferencesManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B14001402A73755F8F518756 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				15896C031F61065FEFFBA4AE /* ChatBubbleView.swift */,
+				9CCBA18FBB38EAEAD666A226 /* HelpView.swift */,
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
+		B67DCAB5F608395DCFCF179F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				597AA517DE41ACB8590DD210 /* Services */,
+				73AC8E6770E9AE725E90B530 /* APIClient.swift */,
+				1911A625F4D1F19B09394244 /* NetworkError.swift */,
+				EAC85B796D28E7A633607048 /* TokenRefreshHandler.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		BC418ACFA9D39BD08C433FDD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F11D4DA9A46C9B4C2001E52B /* HelpViewModel.swift */,
+				CAFC2E48F961EF58B075BA1A /* ItemListViewModel.swift */,
+				FFE9084C9D3E71ECA0366017 /* MainViewModel.swift */,
+				77A98C333C7D04EE3BFA2018 /* SettingsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BCBEDBEB3D396288F01856BC /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				6AB6B024E726AD4ECC51251F /* AppColors.swift */,
+				88B06559577B4E91F5744EAD /* FontSizeManager.swift */,
+				E8BE190F62073E5A8AEE9C1B /* ThemeManager.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		C21806C842978EB40C014327 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				DB9BCE3366BCAAD0B2B7BE47 /* LoginView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		DCC539346EDC5DFAACD78BE0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				747C535077AEA7E3CA96D4E8 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E10C280532E2A7F1D3D1B986 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2B1B96AE657E08BE44E5165E /* AppConfig.swift */,
+				92A2213848C999615D0D0C32 /* ServerConfig.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		EBB7D4C33AC3CC91F1D0B73D /* WaterDrop */ = {
+			isa = PBXGroup;
+			children = (
+				FE8003ABF951A708E66FF12F /* App */,
+				07205FBEE16551B2CB6817A1 /* Auth */,
+				E10C280532E2A7F1D3D1B986 /* Config */,
+				134196CFFBD23E37D951950D /* Extensions */,
+				094C65F4D4DEE6D870E355F2 /* Models */,
+				B67DCAB5F608395DCFCF179F /* Network */,
+				90BF8AA8B9266A931C9E798B /* Repositories */,
+				A6DE4872C73837B367CCDF19 /* Resources */,
+				9039FE3A8075A46EE1900287 /* Services */,
+				BCBEDBEB3D396288F01856BC /* Theme */,
+				B01FC531135E7B0751DD7BE1 /* Utilities */,
+				BC418ACFA9D39BD08C433FDD /* ViewModels */,
+				89C7F4E633DEB24B681ED497 /* Views */,
+				0B2288D041989F147E817A3B /* BridgingHeader.h */,
+			);
+			path = WaterDrop;
+			sourceTree = "<group>";
+		};
+		FE8003ABF951A708E66FF12F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				49FE4FFE0D6B04AE9C703C87 /* WaterDropApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FE454FBCE93927DAAA70310 /* WaterDrop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2705098FA2F7551C52F9BEB /* Build configuration list for PBXNativeTarget "WaterDrop" */;
+			buildPhases = (
+				8D3FF9E1E0DAAC959D86C969 /* Sources */,
+				8AA0CD7E036122CBD7DAF7DC /* Resources */,
+				95C94BC2334764143EF312FA /* Frameworks */,
+				87419BFA00A7696B5ECE90FC /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WaterDrop;
+			packageProductDependencies = (
+			);
+			productName = WaterDrop;
+			productReference = 932CDB33442E061CBC912008 /* WaterDrop.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22C880BF866DA97196670CF8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					9FE454FBCE93927DAAA70310 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = D8CD55C4782FF83A0B92D32E /* Build configuration list for PBXProject "WaterDrop" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 83C8BD7A70C14811DA7B34E5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 54;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FE454FBCE93927DAAA70310 /* WaterDrop */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8AA0CD7E036122CBD7DAF7DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F570D4F646C587BE3FCC4CFD /* ATAuthSDK.bundle in Resources */,
+				CD8B512D3AEEAABDC244EEB7 /* AlicomCaptcha4.bundle in Resources */,
+				87DA1005E9A31C5B49008FAB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D3FF9E1E0DAAC959D86C969 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				257FBEBD44F08717BD820A43 /* APIClient.swift in Sources */,
+				08893C6F865D39AFD152A2C1 /* AiAPIService.swift in Sources */,
+				CE2113079F2484ABC2A75B14 /* AiDTOs.swift in Sources */,
+				A6D623FE3492441886779CE0 /* AlicloudAuthAPIService.swift in Sources */,
+				4C556E6373655925A09ADC2F /* AlicloudAuthDTOs.swift in Sources */,
+				478244D1D47BCDC2EA4B048E /* AlicomFusionAuthManager.swift in Sources */,
+				0F47D0B7E9623A174812E9BA /* ApiResponse.swift in Sources */,
+				9180891A991988B1ABCB8877 /* AppColors.swift in Sources */,
+				9F48C6D99E977E631F5F83DA /* AppConfig.swift in Sources */,
+				13BA333DD2673832BF8BD6AE /* AuthAPIService.swift in Sources */,
+				8414462CF3EDCFFC85B16F25 /* AuthDTOs.swift in Sources */,
+				602331BDA83D2EAF836C73CA /* AuthEventBus.swift in Sources */,
+				B60A4AFE465C95FAC08984D4 /* AuthService.swift in Sources */,
+				EEA28DD25C1DFAA341E6A74C /* AuthStateManager.swift in Sources */,
+				2529307A6D40ACF3EC7C10C0 /* BackupManager.swift in Sources */,
+				B95300ABB1A3BA060063247B /* ChatBubbleView.swift in Sources */,
+				7A1225EDDD213C491C265342 /* ChatMessage.swift in Sources */,
+				8F3CD3FA4FA0B6C2CD425E4F /* Color+Hex.swift in Sources */,
+				665BD5BF970EC1626FBDB70A /* Date+Formatting.swift in Sources */,
+				AE61D133B33EE3E44B8F9055 /* DeviceInfo.swift in Sources */,
+				614A52B64DF61597767F1FE0 /* FontSizeManager.swift in Sources */,
+				CADFB63029A1091706DBF2BB /* HelpAPIService.swift in Sources */,
+				EA72015E053616BA2750ED31 /* HelpDTOs.swift in Sources */,
+				288F600E090D6F14FAC4AD88 /* HelpView.swift in Sources */,
+				70BC2A8F24D88A0DA1CE8794 /* HelpViewModel.swift in Sources */,
+				B113D49E46402BFC0D949759 /* IdleStateView.swift in Sources */,
+				9CCE7182ED102DD6030F04CC /* IntentRecognitionService.swift in Sources */,
+				C6023A072983097366E80430 /* Item.swift in Sources */,
+				9B9E73E6A38911C4D4D492C3 /* ItemAPIService.swift in Sources */,
+				C24D54E35021D9180FD17900 /* ItemCardView.swift in Sources */,
+				F25949094815E88E123DDD10 /* ItemDTOs.swift in Sources */,
+				82011379A2926C21005ADB78 /* ItemListView.swift in Sources */,
+				FF789436410004909FBB72F5 /* ItemListViewModel.swift in Sources */,
+				812ECE693E57575E0DBFCC12 /* ItemRepository.swift in Sources */,
+				1FB0414A7B8AD0F33CDF6434 /* KeychainManager.swift in Sources */,
+				8B1EE4955FFC6D845F72494D /* ListeningStateView.swift in Sources */,
+				2B4818CBC31E81D134D297DF /* LoginView.swift in Sources */,
+				15FAD3BED8084CDA08227B38 /* MainView.swift in Sources */,
+				71BFC026E80EA7D5F48E12CE /* MainViewModel.swift in Sources */,
+				42A9B179D47B78105BEC076D /* NetworkError.swift in Sources */,
+				3FDF8B4B09EEDF9DCA289747 /* OnboardingView.swift in Sources */,
+				4B1A714C356AAA5320853DE7 /* PulseAnimationView.swift in Sources */,
+				5B8B3ABF7061FF0B62640420 /* ResultStateView.swift in Sources */,
+				43095B6B21FCB1FB6C954F5E /* ServerConfig.swift in Sources */,
+				D705FB56FFC833DF95FED892 /* SettingsView.swift in Sources */,
+				F8CDD357583C516F30A738F4 /* SettingsViewModel.swift in Sources */,
+				78FF894E3B01AC09B481C07E /* SpeechRecognitionManager.swift in Sources */,
+				D6A4F46CADF058AAAB36C82F /* SplashView.swift in Sources */,
+				D3415F206CCDADDEA29BD0D3 /* ThemeManager.swift in Sources */,
+				1800D9E95E8DF9036E350585 /* TokenRefreshHandler.swift in Sources */,
+				584684B35753C7D8634EFBB0 /* UndoSnackbarView.swift in Sources */,
+				941031113DDF1192ACBA6138 /* UserPreferencesManager.swift in Sources */,
+				BFCBCD599492FC9BE7259B5E /* VoiceFabView.swift in Sources */,
+				6324A665374FCCC3C0D4B524 /* WaterDropApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		38A219CB04E58FFD17B74C9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		86F1D75BE9D413FA7151655A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		CDDFFB0F344767B6DD8FC8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"\"Frameworks\"",
+				);
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WaterDrop/Resources/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "水滴管家需要使用麦克风来录制语音指令";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "水滴管家需要语音识别功能来理解您的语音指令";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					AlicomFusionAuth,
+					"-framework",
+					UMCommon,
+					"-framework",
+					UMDevice,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yjqi.waterdrop.ios;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = WaterDrop/BridgingHeader.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4E29C5DA2BEAA76E3204294 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"\"Frameworks\"",
+				);
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WaterDrop/Resources/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "水滴管家需要使用麦克风来录制语音指令";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "水滴管家需要语音识别功能来理解您的语音指令";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					AlicomFusionAuth,
+					"-framework",
+					UMCommon,
+					"-framework",
+					UMDevice,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yjqi.waterdrop.ios;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = WaterDrop/BridgingHeader.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C2705098FA2F7551C52F9BEB /* Build configuration list for PBXNativeTarget "WaterDrop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4E29C5DA2BEAA76E3204294 /* Debug */,
+				CDDFFB0F344767B6DD8FC8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D8CD55C4782FF83A0B92D32E /* Build configuration list for PBXProject "WaterDrop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38A219CB04E58FFD17B74C9C /* Debug */,
+				86F1D75BE9D413FA7151655A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22C880BF866DA97196670CF8 /* Project object */;
+}
