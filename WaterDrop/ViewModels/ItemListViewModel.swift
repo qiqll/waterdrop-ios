@@ -38,11 +38,23 @@ final class ItemListViewModel {
 
     func confirmDelete() async {
         guard let item = pendingDeleteItem else { return }
-        await itemRepository.delete(id: item.id)
+        // Clear the pending slot before the await so a concurrent flush/timer can't
+        // double-delete. ItemRepository.delete() already refreshes items on success,
+        // and on failure the item stays pending so the user can still undo.
+        let id = item.id
         pendingDeleteItem = nil
         undoItemName = ""
         showUndoSnackbar = false
         undoTimerTask?.cancel()
+
+        await itemRepository.delete(id: id)
+
+        // If the delete failed, the item was never persisted-removed — restore it to the
+        // list so the on-screen state matches the server instead of silently losing it.
+        if let restored = itemRepository.allItems.first(where: { $0.id == id }) {
+            items.append(restored)
+            items.sort { $0.name < $1.name }
+        }
     }
 
     func cancelDelete() {

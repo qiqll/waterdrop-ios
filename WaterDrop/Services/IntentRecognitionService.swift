@@ -82,9 +82,22 @@ final class IntentRecognitionService {
     private func recognizeIntentLocal(text: String) -> IntentResult {
         let lower = text.lowercased()
 
-        // Record location
-        if lower.contains("放在") || lower.contains("放到") || lower.contains("在") || lower.contains("记录") {
-            let itemName = extractItemName(lower)
+        // 1. Unambiguous question forms. Checked before the record branch, because
+        //    "护照在哪" also contains "在" and would otherwise be read as a record.
+        if lower.contains("在哪") || lower.contains("在哪里") || lower.contains("哪去了") ||
+           lower.contains("放哪了") || lower.contains("哪有") || lower.contains("放哪里") {
+            return IntentResult(
+                type: .queryLocation,
+                itemName: extractItemName(lower, stripping: ["找一个", "找一下", "查找", "查询", "寻找", "找"]),
+                queryText: text
+            )
+        }
+
+        // 2. Explicit record verbs. "记录一下" is stripped, but bare "记录" is not —
+        //    "记录本" is a noun, so stripping it would corrupt the item name. "找到"/"找"
+        //    are stripped too, for compound "找到钥匙放在玄关" → "钥匙".
+        if lower.contains("放在") || lower.contains("放到") || lower.contains("记录一下") || lower.contains("记录") {
+            let itemName = extractItemName(lower, stripping: ["找到", "把", "将", "记录一下"])
             let location = extractLocation(lower)
             return IntentResult(
                 type: .recordLocation,
@@ -96,19 +109,9 @@ final class IntentRecognitionService {
             )
         }
 
-        // Query location
-        if lower.contains("在哪") || lower.contains("在哪里") || lower.contains("放哪了") ||
-           lower.contains("查询") || lower.contains("找") || lower.contains("哪有") {
-            return IntentResult(
-                type: .queryLocation,
-                itemName: extractItemName(lower),
-                queryText: text
-            )
-        }
-
         // Update location
         if lower.contains("现在在") || lower.contains("移动到") || lower.contains("搬到") {
-            let itemName = extractItemName(lower)
+            let itemName = extractItemName(lower, stripping: ["把", "将", "搬到"])
             let location = extractLocation(lower)
             if !itemName.isEmpty && !location.isEmpty {
                 return IntentResult(
@@ -120,20 +123,44 @@ final class IntentRecognitionService {
             }
         }
 
-        // Delete item
-        if lower.contains("删除") || lower.contains("移除") {
-            return IntentResult(
-                type: .deleteItem,
-                itemName: extractItemName(lower),
-                queryText: text
-            )
-        }
-
-        // Query category
+        // Query category — before the generic "找"/"查询" catch, so "查询所有钥匙"
+        // reads as a category query rather than a single-item lookup.
         if lower.contains("查看所有") || lower.contains("查询所有") || lower.contains("所有的") {
             return IntentResult(
                 type: .queryCategory,
                 category: extractCategory(lower)
+            )
+        }
+
+        // 3. "找"/"查询" with no explicit record verb — a single-item lookup.
+        if lower.contains("找") || lower.contains("查询") {
+            return IntentResult(
+                type: .queryLocation,
+                itemName: extractItemName(lower, stripping: ["找一个", "找一下", "查找", "查询", "寻找", "找"]),
+                queryText: text
+            )
+        }
+
+        // 4. Bare "在" as a location statement, e.g. "钥匙在玄关" → record.
+        if lower.contains("在") {
+            let itemName = extractItemName(lower, stripping: ["把", "将"])
+            let location = extractLocation(lower)
+            return IntentResult(
+                type: .recordLocation,
+                itemName: itemName,
+                location: location,
+                category: guessCategory(itemName),
+                storeUser: getCurrentUser(),
+                queryText: text
+            )
+        }
+
+        // Delete item
+        if lower.contains("删除") || lower.contains("移除") {
+            return IntentResult(
+                type: .deleteItem,
+                itemName: extractItemName(lower, stripping: ["删除", "移除"]),
+                queryText: text
             )
         }
 
@@ -264,15 +291,36 @@ final class IntentRecognitionService {
 
     // MARK: - Text Extraction
 
-    private func extractItemName(_ text: String) -> String {
-        let locationMarkers = ["放在", "放到", "在", "现在在"]
+    /// Extract the item name from an utterance.
+    ///
+    /// `stripping` is the caller-supplied list of leading action verbs to remove, so a
+    /// noun that happens to start with a verb (e.g. "记录本") is never corrupted. The
+    /// possessives "我的"/"把"/"将" are always stripped; everything else uses the given list.
+    private func extractItemName(_ text: String, stripping actionPrefixes: [String]) -> String {
+        var text = text
+
+        // Possessive/object markers are always safe to strip.
+        if text.hasPrefix("我的") { text = String(text.dropFirst(2)) }
+        if text.hasPrefix("把") { text = String(text.dropFirst(1)) }
+        if text.hasPrefix("将") { text = String(text.dropFirst(1)) }
+
+        // Strip only what the caller says is an action verb for this intent.
+        for prefix in actionPrefixes where text.hasPrefix(prefix) {
+            text = String(text.dropFirst(prefix.count))
+        }
+
+        // "记录本放在桌上" → "记录本" (location marker cuts off after the noun).
+        // Most-specific markers first: "现在在"/"放在"/"放到" all contain "在", so a bare
+        // "在" checked before them would split "手机现在在玄关" as "手机现"/"在玄关".
+        let locationMarkers = ["现在在", "放在", "放到", "在"]
         for marker in locationMarkers {
             if let range = text.range(of: marker), range.lowerBound > text.startIndex {
                 return String(text[text.startIndex..<range.lowerBound]).trimmingCharacters(in: .whitespaces)
             }
         }
 
-        let patterns = ["我的", "的"]
+        // "我的护照" → strip possessive (handled above) then take the noun before "在"
+        let patterns = ["的"]
         for pattern in patterns {
             if let range = text.range(of: pattern) {
                 let afterPattern = text[range.upperBound...]
@@ -302,7 +350,9 @@ final class IntentRecognitionService {
     }
 
     private func extractLocation(_ text: String) -> String {
-        let markers = ["在", "放在", "放到", "现在在"]
+        // Most-specific first: "现在在"/"放在"/"放到" all contain "在", so a bare "在"
+        // checked before them would truncate "手机现在在玄关" as location "在玄关".
+        let markers = ["现在在", "放在", "放到", "在"]
         for marker in markers {
             if let range = text.range(of: marker) {
                 let afterMarker = text[range.upperBound...]

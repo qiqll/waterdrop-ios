@@ -33,7 +33,9 @@ final class BackupManager {
                 name: item.name,
                 location: item.location,
                 description: item.description,
-                category: item.category
+                category: item.category,
+                imageUrl: item.imageUrl,
+                remark: item.remark
             )
             let id = await ItemRepository.shared.insert(request)
             if !id.isEmpty {

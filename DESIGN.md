@@ -29,9 +29,9 @@
 | **服务端** | `.../wd_server` | Spring Boot 3.2.0 + Java 17 + MySQL | REST API 后端，20 个业务模块（item/ai/auth/group/membership/payment 等），对接 AI 大模型与阿里云号码认证 |
 
 > 完整绝对路径：
-> - iOS：`/Users/yjqi/Library/Mobile Documents/com~apple~CloudDocs/waterdrop_ios/waterdrop_ios`
-> - Android：`/Users/yjqi/Library/Mobile Documents/com~apple~CloudDocs/waterdrop`
-> - 服务端：`/Users/yjqi/Library/Mobile Documents/com~apple~CloudDocs/wd_server`
+> - iOS：`/Users/yjhome/Library/Mobile Documents/com~apple~CloudDocs/waterdrop_ios/waterdrop_ios`
+> - Android：`/Users/yjhome/Library/Mobile Documents/com~apple~CloudDocs/waterdrop`
+> - 服务端：`/Users/yjhome/Library/Mobile Documents/com~apple~CloudDocs/wd_server`
 
 ---
 

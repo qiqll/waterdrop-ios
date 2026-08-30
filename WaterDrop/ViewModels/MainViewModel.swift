@@ -67,11 +67,15 @@ final class MainViewModel {
 
     func confirmDelete() async {
         guard let item = pendingDeleteItem else { return }
-        await itemRepository.delete(id: item.id)
+        // Snapshot the id up-front and clear the pending slot before the await, so a
+        // concurrent flush (e.g. onDisappear) can't double-delete the same item.
+        let id = item.id
         pendingDeleteItem = nil
         pendingDeleteItemName = ""
         showUndoSnackbar = false
         undoTimerTask?.cancel()
+
+        await itemRepository.delete(id: id)
     }
 
     func cancelDelete() {
@@ -83,11 +87,12 @@ final class MainViewModel {
 
     func flushPendingDelete() {
         guard let item = pendingDeleteItem else { return }
-        Task {
-            await itemRepository.delete(id: item.id)
-        }
+        let id = item.id
         pendingDeleteItem = nil
         showUndoSnackbar = false
+        Task {
+            await itemRepository.delete(id: id)
+        }
     }
 
     // MARK: - Auto Reset

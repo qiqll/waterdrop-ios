@@ -99,6 +99,9 @@ final class AuthService {
 
         fusionAuthManager.destroy()
         AuthStateManager.shared.clearAuthInfo()
+        // Notify the app to switch back to the login screen. Post on the main actor
+        // because AuthEventBus.loginRequired backs an @Observable consumed by SwiftUI.
+        AuthEventBus.shared.postLoginRequired()
         logger.info("User logged out")
     }
 
