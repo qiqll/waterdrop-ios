@@ -20,7 +20,7 @@
 - **Android**：`/Users/yjhome/Library/Mobile Documents/com~apple~CloudDocs/waterdrop`
 - **服务端**：`/Users/yjhome/Library/Mobile Documents/com~apple~CloudDocs/wd_server`
 
-> 服务端项目的说明见 `wd_server/CLAUDE.md`。需要对照服务端 Controller、DTO、application.yml 里的配置（JWT 有效期、阿里云认证 scheme code、端点路径）时，可直接到该路径下读取。
+> 服务端项目的说明见 `wd_server/AGENTS.md`。需要对照服务端 Controller、DTO、application.yml 里的配置（JWT 有效期、阿里云认证 scheme code、端点路径）时，可直接到该路径下读取。
 
 ## 本项目补充说明
 

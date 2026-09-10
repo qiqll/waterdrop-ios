@@ -21,10 +21,39 @@ enum ServerConfig {
         static let aiUsageToday = "ai/usage/today"
         static let aiHelp = "ai/help"
         static let aiHelpHistory = "ai/help/history"
+        static let filesUpload = "files/upload"
 
         static func itemById(_ id: String) -> String { "items/\(id)" }
         static func itemsByCategory(_ category: String) -> String {
             "items/category/\(category.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? category)"
         }
+    }
+
+    // MARK: - Image URL Resolution
+
+    /// 服务端返回的 fileUrl 形如 `/api/files/xxx`，而 baseURL 已含 `/api` 前缀，
+    /// 直接拼接会得到重复的 `/api/api/...`。这里提取 scheme+host+port 得到 origin，
+    /// 将相对路径拼接为完整 URL。
+    static var origin: String {
+        if let url = URL(string: baseURL),
+           let scheme = url.scheme,
+           let host = url.host {
+            var components = URLComponents()
+            components.scheme = scheme
+            components.host = host
+            if let port = url.port { components.port = port }
+            if let resolved = components.string { return resolved }
+        }
+        return baseURL
+    }
+
+    /// 将服务端返回的相对 fileUrl 解析为可用于加载的完整 URL。
+    /// 绝对地址（http/https）原样返回；相对地址则拼上 origin。
+    static func resolveImageUrl(_ fileUrl: String?) -> String? {
+        guard let fileUrl, !fileUrl.isEmpty else { return nil }
+        if fileUrl.hasPrefix("http://") || fileUrl.hasPrefix("https://") {
+            return fileUrl
+        }
+        return origin + fileUrl
     }
 }

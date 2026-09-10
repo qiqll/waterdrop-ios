@@ -18,6 +18,8 @@
 		1FB0414A7B8AD0F33CDF6434 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86346A2913F296968EE28D /* KeychainManager.swift */; };
 		2529307A6D40ACF3EC7C10C0 /* BackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68709D4D234AB5F40BF36556 /* BackupManager.swift */; };
 		257FBEBD44F08717BD820A43 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AC8E6770E9AE725E90B530 /* APIClient.swift */; };
+		95AD28D1F54DEE76219DD77A /* FileAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B74F7C38BD853B1F930FD2 /* FileAPIService.swift */; };
+		5F80E80097B01C9BC6E3CBCF /* AuthenticatedRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEC4F6B0843113AC5828C89 /* AuthenticatedRemoteImage.swift */; };
 		288F600E090D6F14FAC4AD88 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCBA18FBB38EAEAD666A226 /* HelpView.swift */; };
 		2B4818CBC31E81D134D297DF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9BCE3366BCAAD0B2B7BE47 /* LoginView.swift */; };
 		3FDF8B4B09EEDF9DCA289747 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBCD2CCEAE25FE03246E389 /* OnboardingView.swift */; };
@@ -56,6 +58,7 @@
 		B95300ABB1A3BA060063247B /* ChatBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15896C031F61065FEFFBA4AE /* ChatBubbleView.swift */; };
 		BFCBCD599492FC9BE7259B5E /* VoiceFabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4117C8A1FDEA028F5B5B52A /* VoiceFabView.swift */; };
 		C24D54E35021D9180FD17900 /* ItemCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA3BF4E91BB9625DA526971 /* ItemCardView.swift */; };
+		BDA401DB6ECF778BAA44B45A /* ItemEditSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3299A4F66034E32CE5BAA8 /* ItemEditSheetView.swift */; };
 		C44CCA79AFD3B390AC65B5BD /* AlicomFusionAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194E5E48E2E434976EBFE784 /* AlicomFusionAuth.framework */; };
 		C6023A072983097366E80430 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE053B4AFD8A0F631ACA8D9 /* Item.swift */; };
 		CADFB63029A1091706DBF2BB /* HelpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307EBDAEA7D74A197F7C5E7C /* HelpAPIService.swift */; };
@@ -115,11 +118,14 @@
 		68709D4D234AB5F40BF36556 /* BackupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupManager.swift; sourceTree = "<group>"; };
 		6AB6B024E726AD4ECC51251F /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		73AC8E6770E9AE725E90B530 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		10B74F7C38BD853B1F930FD2 /* FileAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileAPIService.swift; sourceTree = "<group>"; };
+		DCEC4F6B0843113AC5828C89 /* AuthenticatedRemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedRemoteImage.swift; sourceTree = "<group>"; };
 		747C535077AEA7E3CA96D4E8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		76D4B52E322981EE54F530A1 /* ItemDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDTOs.swift; sourceTree = "<group>"; };
 		77A98C333C7D04EE3BFA2018 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		7A029F33BE54C6BFCF385BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CA3BF4E91BB9625DA526971 /* ItemCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardView.swift; sourceTree = "<group>"; };
+		EF3299A4F66034E32CE5BAA8 /* ItemEditSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditSheetView.swift; sourceTree = "<group>"; };
 		88B06559577B4E91F5744EAD /* FontSizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeManager.swift; sourceTree = "<group>"; };
 		89134D14F4FE47C9E7460F90 /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMCommon.framework; path = Frameworks/UMCommon.framework; sourceTree = "<group>"; };
 		89A786FC54A43D750A4AF498 /* AuthAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIService.swift; sourceTree = "<group>"; };
@@ -180,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				7CA3BF4E91BB9625DA526971 /* ItemCardView.swift */,
+				EF3299A4F66034E32CE5BAA8 /* ItemEditSheetView.swift */,
 				19DFB4574337297007484B82 /* ItemListView.swift */,
 			);
 			path = ItemList;
@@ -221,6 +228,7 @@
 			children = (
 				C88F89B903A0937EF9F09026 /* PulseAnimationView.swift */,
 				D177E90B3C8ED6844C3C32BD /* UndoSnackbarView.swift */,
+				DCEC4F6B0843113AC5828C89 /* AuthenticatedRemoteImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -279,6 +287,7 @@
 				89A786FC54A43D750A4AF498 /* AuthAPIService.swift */,
 				307EBDAEA7D74A197F7C5E7C /* HelpAPIService.swift */,
 				AF984159CA41EA2730F3833D /* ItemAPIService.swift */,
+				10B74F7C38BD853B1F930FD2 /* FileAPIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -568,7 +577,10 @@
 				9CCE7182ED102DD6030F04CC /* IntentRecognitionService.swift in Sources */,
 				C6023A072983097366E80430 /* Item.swift in Sources */,
 				9B9E73E6A38911C4D4D492C3 /* ItemAPIService.swift in Sources */,
+				95AD28D1F54DEE76219DD77A /* FileAPIService.swift in Sources */,
 				C24D54E35021D9180FD17900 /* ItemCardView.swift in Sources */,
+				BDA401DB6ECF778BAA44B45A /* ItemEditSheetView.swift in Sources */,
+				5F80E80097B01C9BC6E3CBCF /* AuthenticatedRemoteImage.swift in Sources */,
 				F25949094815E88E123DDD10 /* ItemDTOs.swift in Sources */,
 				82011379A2926C21005ADB78 /* ItemListView.swift in Sources */,
 				FF789436410004909FBB72F5 /* ItemListViewModel.swift in Sources */,

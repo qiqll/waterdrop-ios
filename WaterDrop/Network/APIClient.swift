@@ -116,6 +116,83 @@ actor APIClient {
         return request
     }
 
+    // MARK: - Multipart Upload
+
+    /// 上传单个文件（multipart/form-data），复用 executeRequest 的鉴权+重试逻辑。
+    /// - Returns: 服务端返回的 `{ fileName, fileUrl }`。
+    func uploadFile(
+        data: Data,
+        fileName: String,
+        mimeType: String,
+        fieldName: String = "file"
+    ) async throws -> ApiResponse<[String: String]> {
+        let body = try makeMultipartBody(data: data, fileName: fileName, mimeType: mimeType, fieldName: fieldName)
+
+        var urlString = ServerConfig.baseURL
+        if !urlString.hasSuffix("/") { urlString += "/" }
+        urlString += ServerConfig.Endpoints.filesUpload
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidResponse
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.POST.rawValue
+        request.timeoutInterval = ServerConfig.Timeout.read
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("WaterDrop-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("iOS", forHTTPHeaderField: "X-Client-Platform")
+        request.setValue(UUID().uuidString, forHTTPHeaderField: "X-Request-ID")
+        request.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body.data
+
+        if let token = AuthStateManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        // Try upload, handle 401 with token refresh (与 request() 保持一致)
+        do {
+            return try await executeRequest(request)
+        } catch NetworkError.unauthorized {
+            let refreshed = await TokenRefreshHandler.shared.refreshTokenIfNeeded()
+            if refreshed {
+                if let token = AuthStateManager.shared.getAccessToken() {
+                    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                }
+                return try await executeRequest(request)
+            } else {
+                throw NetworkError.unauthorized
+            }
+        }
+    }
+
+    private struct MultipartBody {
+        let boundary: String
+        let data: Data
+    }
+
+    private func makeMultipartBody(
+        data: Data,
+        fileName: String,
+        mimeType: String,
+        fieldName: String
+    ) throws -> MultipartBody {
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var body = Data()
+
+        func append(_ string: String) {
+            body.append(string.data(using: .utf8)!)
+        }
+
+        append("--\(boundary)\r\n")
+        append("Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"\r\n")
+        append("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        append("\r\n")
+        append("--\(boundary)--\r\n")
+
+        return MultipartBody(boundary: boundary, data: body)
+    }
+
     // MARK: - Execute with Retry
 
     private func executeRequest<T: Decodable>(_ request: URLRequest) async throws -> ApiResponse<T> {
