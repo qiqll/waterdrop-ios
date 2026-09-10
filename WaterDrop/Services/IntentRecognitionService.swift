@@ -33,6 +33,7 @@ final class IntentRecognitionService {
         var storeTime: Date = Date()
         var storeUser: String = ""
         var queryText: String = ""
+        var degraded: Bool = false   // 对齐 Android：仅传输失败降级时置 true
     }
 
     // MARK: - Pending Delete
@@ -48,23 +49,32 @@ final class IntentRecognitionService {
     func recognizeIntent(text: String) async -> IntentResult {
         // Try online API first
         do {
-            let result = try await recognizeIntentOnline(text: text)
-            if result.type != .unknown {
-                return result
-            }
+            return try await recognizeIntentOnline(text: text)
         } catch {
             logger.error("Online intent recognition failed: \(error.localizedDescription)")
+            // 对齐 Android：仅网络/服务异常时降级到本地关键词，并标记 degraded
+            var result = recognizeIntentLocal(text: text)
+            result.degraded = true
+            return result
         }
+    }
 
-        // Fallback to local keyword matching
-        return recognizeIntentLocal(text: text)
+    /// 对齐 Android：本地关键词兜底时反馈给用户。
+    enum IntentRecognitionError: LocalizedError {
+        case serverError
+
+        var errorDescription: String? {
+            switch self {
+            case .serverError: return "意图识别服务返回异常"
+            }
+        }
     }
 
     private func recognizeIntentOnline(text: String) async throws -> IntentResult {
         let response = try await AiAPIService.recognizeIntent(text: text)
 
         guard response.code == 200, let data = response.data else {
-            return IntentResult(type: .unknown, queryText: text)
+            throw IntentRecognitionError.serverError
         }
 
         let intentType = IntentType(rawValue: data.type) ?? .unknown
@@ -171,40 +181,45 @@ final class IntentRecognitionService {
 
     func processUserInput(_ text: String) async -> String {
         let intent = await recognizeIntent(text: text)
+        let reply: String
 
             switch intent.type {
             case .recordLocation:
                 if intent.itemName.isEmpty || intent.location.isEmpty {
-                    return "抱歉，我没有理解您要存储的物品或位置，请重新描述"
+                    reply = "抱歉，我没有理解您要存储的物品或位置，请重新描述"
+                } else {
+                    let category = intent.category.isEmpty ? guessCategory(intent.itemName) : intent.category
+                    let itemId = await itemRepository.recordItemLocation(
+                        name: intent.itemName,
+                        location: intent.location,
+                        category: category,
+                        description: intent.description
+                    )
+                    if itemId.isEmpty {
+                        reply = "物品存储失败，请检查网络连接后重试"
+                    } else {
+                        reply = formatItemRecordResult(
+                            itemName: intent.itemName,
+                            location: intent.location,
+                            category: category,
+                            description: intent.description,
+                            storeTime: intent.storeTime,
+                            storeUser: intent.storeUser
+                        )
+                    }
                 }
-                let category = intent.category.isEmpty ? guessCategory(intent.itemName) : intent.category
-                let itemId = await itemRepository.recordItemLocation(
-                    name: intent.itemName,
-                    location: intent.location,
-                    category: category,
-                    description: intent.description
-                )
-                if itemId.isEmpty {
-                    return "物品存储失败，请检查网络连接后重试"
-                }
-                return formatItemRecordResult(
-                    itemName: intent.itemName,
-                    location: intent.location,
-                    category: category,
-                    description: intent.description,
-                    storeTime: intent.storeTime,
-                    storeUser: intent.storeUser
-                )
 
             case .queryLocation:
                 if intent.itemName.isEmpty {
-                    return "抱歉，我没有理解您要查询的物品，请重新描述"
+                    reply = "抱歉，我没有理解您要查询的物品，请重新描述"
+                } else {
+                    let items = await itemRepository.searchItemsByName(intent.itemName)
+                    if !items.isEmpty {
+                        reply = formatItemQueryResults(items)
+                    } else {
+                        reply = "抱歉，我不知道 \(intent.itemName) 在哪里"
+                    }
                 }
-                let items = await itemRepository.searchItemsByName(intent.itemName)
-                if !items.isEmpty {
-                    return formatItemQueryResults(items)
-                }
-                return "抱歉，我不知道 \(intent.itemName) 在哪里"
 
             case .updateLocation:
                 let success = await itemRepository.updateItemLocation(
@@ -212,27 +227,36 @@ final class IntentRecognitionService {
                     newLocation: intent.location
                 )
                 if success {
-                    return "已更新：\(intent.itemName) 现在在 \(intent.location)"
+                    reply = "已更新：\(intent.itemName) 现在在 \(intent.location)"
+                } else {
+                    reply = "抱歉，找不到 \(intent.itemName) 的记录"
                 }
-                return "抱歉，找不到 \(intent.itemName) 的记录"
 
             case .deleteItem:
                 if let item = await itemRepository.getItemByName(intent.itemName) {
                     _pendingDeleteItem = item
-                    return "\(Self.deletePendingPrefix)\(intent.itemName)"
+                    reply = "\(Self.deletePendingPrefix)\(intent.itemName)"
+                } else {
+                    reply = "抱歉，找不到 \(intent.itemName) 的记录"
                 }
-                return "抱歉，找不到 \(intent.itemName) 的记录"
 
             case .queryCategory:
                 let items = await itemRepository.getItemsByCategory(intent.category)
                 if !items.isEmpty {
-                    return formatCategoryQueryResults(intent.category, items)
+                    reply = formatCategoryQueryResults(intent.category, items)
+                } else {
+                    reply = "\(intent.category) 类别下没有物品"
                 }
-                return "\(intent.category) 类别下没有物品"
 
             case .unknown:
-                return "当前问题能力正在开发中"
+                reply = "当前问题能力正在开发中"
             }
+
+        // 对齐 Android：仅降级识别时添加文本前缀提示
+        if intent.degraded && !reply.hasPrefix(Self.deletePendingPrefix) {
+            return "⚠️ 当前网络不佳，已使用离线识别（结果可能不准）\n\n\(reply)"
+        }
+        return reply
     }
 
     // MARK: - Formatting

@@ -2,6 +2,10 @@ import SwiftUI
 
 struct ItemCardView: View {
     let item: Item
+    /// 编辑保存成功后回调，用于让外层刷新列表（ItemListViewModel 持有独立 items 快照）。
+    var onUpdated: () async -> Void = {}
+
+    @State private var showEditSheet = false
 
     private var categoryIcon: String {
         switch item.category {
@@ -20,13 +24,20 @@ struct ItemCardView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Category icon
-            Image(systemName: categoryIcon)
-                .font(.system(size: 20))
-                .foregroundStyle(AppColors.primary)
-                .frame(width: 40, height: 40)
-                .background(AppColors.primaryLight)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            // Item image (if any), else category icon
+            if let imageUrl = item.imageUrl,
+               let resolved = ServerConfig.resolveImageUrl(imageUrl) {
+                AuthenticatedRemoteImage(urlString: resolved)
+                    .frame(width: 48, height: 48)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } else {
+                Image(systemName: categoryIcon)
+                    .font(.system(size: 20))
+                    .foregroundStyle(AppColors.primary)
+                    .frame(width: 40, height: 40)
+                    .background(AppColors.primaryLight)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.name)
@@ -42,5 +53,14 @@ struct ItemCardView: View {
             Spacer()
         }
         .padding(.vertical, 4)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            showEditSheet = true
+        }
+        .sheet(isPresented: $showEditSheet) {
+            ItemEditSheetView(item: item) {
+                await onUpdated()
+            }
+        }
     }
 }

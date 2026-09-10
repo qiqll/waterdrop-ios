@@ -65,6 +65,7 @@ struct ItemCreateRequest: Codable {
     let unit: String?
     let remark: String?
     let groupId: String?
+    let status: Int?
 
     init(
         name: String,
@@ -83,7 +84,8 @@ struct ItemCreateRequest: Codable {
         quantity: Int? = nil,
         unit: String? = nil,
         remark: String? = nil,
-        groupId: String? = nil
+        groupId: String? = nil,
+        status: Int? = nil
     ) {
         self.name = name
         self.location = location
@@ -102,6 +104,7 @@ struct ItemCreateRequest: Codable {
         self.unit = unit
         self.remark = remark
         self.groupId = groupId
+        self.status = status
     }
 }
 

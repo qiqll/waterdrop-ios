@@ -41,15 +41,20 @@ final class ItemRepository {
         return ""
     }
 
-    func update(id: String, _ request: ItemCreateRequest) async {
+    /// 更新物品。返回是否成功（成功时已刷新 allItems）。
+    /// 仅供 ItemEditSheetView 等直接面向用户更新的路径使用，调用方据此决定是否保留/撤销编辑状态。
+    func update(id: String, _ request: ItemCreateRequest) async -> Bool {
         do {
             let response = try await ItemAPIService.updateItem(id: id, request)
             if response.code == 200 {
                 await refreshItems()
+                return true
             }
+            logger.error("Update item business error: \(response.message)")
         } catch {
             logger.error("Update item failed: \(error.localizedDescription)")
         }
+        return false
     }
 
     func delete(id: String) async {
@@ -141,7 +146,8 @@ final class ItemRepository {
             name: item.name,
             location: newLocation,
             description: item.description,
-            category: item.category
+            category: item.category,
+            imageUrl: item.imageUrl
         )
         do {
             let response = try await ItemAPIService.updateItem(id: item.id, request)

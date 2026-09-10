@@ -38,8 +38,10 @@ struct ItemListView: View {
                         ForEach(viewModel.groupedItems, id: \.category) { group in
                             Section {
                                 ForEach(group.items) { item in
-                                    ItemCardView(item: item)
-                                        .swipeActions(edge: .trailing) {
+                                    ItemCardView(item: item) {
+                                        await viewModel.refreshItems()
+                                    }
+                                    .swipeActions(edge: .trailing) {
                                             Button(role: .destructive) {
                                                 itemToDelete = item
                                                 showDeleteAlert = true
