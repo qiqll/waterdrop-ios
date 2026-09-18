@@ -32,6 +32,33 @@
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>水滴管家需要使用麦克风来录制语音指令</string>
+	<!--
+	  服务端目前只提供明文 HTTP（无 TLS），而 ATS 默认拒绝一切明文请求，
+	  表现为 NSURLErrorDomain -1022「requires the use of a secure connection」，
+	  app 会完全连不上后端。这里按主机放行，而不是一刀切 NSAllowsArbitraryLoads。
+
+	  注意：域名必须**字面写死**。Xcode 只在字符串 value 里替换 $(VAR)，不替换 dict 的 key，
+	  写 $(SERVER_HOST) 的话产物里就是字面量 "$(SERVER_HOST)"，例外永远匹配不上
+	  （而失败同样只是请求被拒，不会报错，很难发现）。
+	  所以改 SERVER_BASE_URL 的 host 时，这里要跟着改。
+
+	  NSAllowsLocalNetworking 单独放开 loopback，供本机联调（127.0.0.1 / localhost）。
+
+	  待办：服务端上 HTTPS 后应删掉 NSExceptionDomains 整块。
+	-->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>101.42.225.65</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>水滴管家需要语音识别功能来理解您的语音指令</string>
 	<key>SERVER_BASE_URL</key>
