@@ -13,6 +13,10 @@ final class SettingsViewModel {
     var showImportPicker: Bool = false
     var exportURL: URL?
     var statusMessage: String = ""
+    var showMembership = false
+
+    /// 「会员中心」行右侧的文案。初值即占位符，取到结果后覆盖。
+    var membershipEntryValue: String = "加载中…"
 
     private let logger = Logger(subsystem: "com.waterdrop.ios", category: "SettingsViewModel")
 
@@ -92,5 +96,26 @@ final class SettingsViewModel {
 
     func logout() async {
         await AuthService.shared.logout()
+    }
+
+    /// F-012 ③：会员中心入口的右侧回显。
+    ///
+    /// 用 `GET /membership/check-premium` 而不是 `/membership/current` —— 前者才是
+    /// 「是不是 VIP」的权威判定（额外要求 `memberType == 1` 且 `status == "active"`
+    /// 且未过期），`/current` 只要有生效记录就返回正常对象。
+    ///
+    /// 失败时保留占位符不打扰：用户点进去后 `MembershipView` 会再拉一次完整状态，
+    /// 没必要在这里弹错。与 Android `SettingsActivity.setupMembershipEntry` 同策略。
+    func loadMembershipEntry() async {
+        do {
+            let response = try await MembershipAPIService.checkPremium()
+            guard response.code == 200 else {
+                membershipEntryValue = "免费用户"
+                return
+            }
+            membershipEntryValue = (response.data == true) ? "会员" : "免费用户"
+        } catch {
+            logger.warning("会员状态回显失败: \(error.localizedDescription)")
+        }
     }
 }

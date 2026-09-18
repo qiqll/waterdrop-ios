@@ -30,6 +30,26 @@ enum ServerConfig {
         static let syncMerge = "sync/sync"
         static let syncVersionCheck = "sync/version/check"
 
+        // F-012 ③: 会员与支付。对应服务端 membership / payment 两个包。
+        static let membershipPlans = "membership/plans"
+        static let membershipCurrent = "membership/current"
+        static let membershipHistory = "membership/history"
+        static let membershipPurchase = "membership/purchase"
+        static let membershipActivate = "membership/activate"
+        static let membershipCancelAutoRenew = "membership/cancel-auto-renew"
+        static let membershipCheckPremium = "membership/check-premium"
+
+        static let paymentCreate = "payment/create"
+        static let paymentHistory = "payment/history"
+
+        static func membershipPlansByType(_ planType: String) -> String {
+            "membership/plans/\(planType.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? planType)"
+        }
+        static func paymentOrder(_ orderId: String) -> String { "payment/order/\(orderId)" }
+        static func paymentCancel(_ orderId: String) -> String { "payment/cancel/\(orderId)" }
+        static func paymentRefund(_ orderId: String) -> String { "payment/refund/\(orderId)" }
+        static func paymentStatus(_ orderId: String) -> String { "payment/status/\(orderId)" }
+
         static func itemById(_ id: String) -> String { "items/\(id)" }
         static func itemsByCategory(_ category: String) -> String {
             "items/category/\(category.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? category)"

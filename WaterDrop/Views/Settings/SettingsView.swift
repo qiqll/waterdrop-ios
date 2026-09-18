@@ -22,6 +22,23 @@ struct SettingsView: View {
                 }
             }
 
+            // Membership (F-012 ③)
+            Section {
+                HStack {
+                    Text("会员中心")
+                    Spacer()
+                    Text(viewModel.membershipEntryValue)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral500)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 13))
+                        .foregroundStyle(ThemeManager.shared.palette.neutral400)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.showMembership = true
+                }
+            }
+
             // Theme
             Section("主题") {
                 Picker("主题风格", selection: Binding(
@@ -76,6 +93,20 @@ struct SettingsView: View {
         }
         .navigationTitle("设置")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: $viewModel.showMembership) {
+            MembershipView()
+        }
+        .task {
+            await viewModel.loadMembershipEntry()
+        }
+        // 从会员中心返回时 `.task` 不会重跑（SettingsView 一直留在导航栈里），
+        // 所以额外盯着导航开关：它翻回 false 就是用户回来了，此时刷新右侧文案 ——
+        // 用户刚下单成功的话，这里要立刻从「免费用户」变成「会员」。
+        .onChange(of: viewModel.showMembership) { _, isShowing in
+            if !isShowing {
+                Task { await viewModel.loadMembershipEntry() }
+            }
+        }
         .alert("修改昵称", isPresented: $viewModel.showNicknameEditor) {
             TextField("输入昵称", text: $nicknameInput)
             Button("确定") {
