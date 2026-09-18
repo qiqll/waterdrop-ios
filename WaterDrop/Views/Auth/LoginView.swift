@@ -8,7 +8,7 @@ struct LoginView: View {
 
     var body: some View {
         ZStack {
-            AppColors.background.ignoresSafeArea()
+            ThemeManager.shared.palette.background.ignoresSafeArea()
 
             VStack(spacing: 32) {
                 Spacer()
@@ -16,15 +16,15 @@ struct LoginView: View {
                 // App icon
                 Image(systemName: "drop.fill")
                     .font(.system(size: 64))
-                    .foregroundStyle(AppColors.primary)
+                    .foregroundStyle(ThemeManager.shared.palette.primary)
 
                 Text("水滴管家")
                     .font(.system(size: 28, weight: .bold))
-                    .foregroundStyle(AppColors.neutral800)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 Text("点点滴滴，记在心里")
                     .font(.system(size: 14))
-                    .foregroundStyle(AppColors.neutral600)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral600)
 
                 Spacer()
 
@@ -40,7 +40,7 @@ struct LoginView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
-                    .background(AppColors.primary)
+                    .background(ThemeManager.shared.palette.primary)
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                 }
@@ -51,7 +51,7 @@ struct LoginView: View {
                 if let errorMessage {
                     Text(errorMessage)
                         .font(.system(size: 14))
-                        .foregroundStyle(AppColors.semanticError)
+                        .foregroundStyle(ThemeManager.shared.palette.semanticError)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 40)
                 }
@@ -59,7 +59,7 @@ struct LoginView: View {
                 // Terms hint
                 Text("登录即表示同意用户协议和隐私政策")
                     .font(.system(size: 12))
-                    .foregroundStyle(AppColors.neutral400)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral400)
                     .padding(.bottom, 40)
             }
         }
@@ -105,6 +105,13 @@ struct LoginView: View {
         Task {
             do {
                 try await AuthService.shared.performAlicloudAuthentication(from: viewController)
+
+                // F-012 ②: 登录成功后拉取云端设置（昵称/主题/字体大小）。
+                // 放在这里而不是别处：这是拿到 token 之后、进入主界面前唯一的汇合点，
+                // 早于它的任何请求都会因为还没鉴权而被 401 拒掉。
+                // 不 await —— pull() 自身是同步的 fire-and-forget（内部起 Task），
+                // 设置同步是尽力而为的后台行为，不该让进主页等它。
+                SettingsSyncManager.pull()
 
                 await MainActor.run {
                     isLoading = false
