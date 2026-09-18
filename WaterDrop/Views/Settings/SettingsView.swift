@@ -13,7 +13,7 @@ struct SettingsView: View {
                     Text("昵称")
                     Spacer()
                     Text(viewModel.nickname)
-                        .foregroundStyle(AppColors.neutral600)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral600)
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -62,7 +62,7 @@ struct SettingsView: View {
                 Button("退出登录") {
                     viewModel.showLogoutConfirm = true
                 }
-                .foregroundStyle(AppColors.semanticError)
+                .foregroundStyle(ThemeManager.shared.palette.semanticError)
             }
 
             // Status message
@@ -70,7 +70,7 @@ struct SettingsView: View {
                 Section {
                     Text(viewModel.statusMessage)
                         .font(.system(size: 14))
-                        .foregroundStyle(AppColors.neutral600)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral600)
                 }
             }
         }

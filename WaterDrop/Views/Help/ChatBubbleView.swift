@@ -9,11 +9,11 @@ struct ChatBubbleView: View {
 
             Text(message.content)
                 .font(.system(size: 15))
-                .foregroundStyle(message.isUser ? .white : (message.isError ? AppColors.semanticError : AppColors.neutral800))
+                .foregroundStyle(message.isUser ? .white : (message.isError ? ThemeManager.shared.palette.semanticError : ThemeManager.shared.palette.neutral800))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
                 .background(
-                    message.isUser ? AppColors.primary : (message.isError ? AppColors.semanticErrorBg : AppColors.neutral100)
+                    message.isUser ? ThemeManager.shared.palette.primary : (message.isError ? ThemeManager.shared.palette.semanticErrorBg : ThemeManager.shared.palette.neutral100)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 16))
 

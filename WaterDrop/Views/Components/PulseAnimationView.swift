@@ -2,7 +2,9 @@ import SwiftUI
 
 struct PulseAnimationView: View {
     let isAnimating: Bool
-    var color: Color = AppColors.recordingActive
+    // 默认参数不能引用 `ThemeManager.shared.palette`（实例属性无法用于默认值），
+    // 故留一个无害占位；唯一调用点 VoiceFabView 始终显式传色。
+    var color: Color = .clear
     var slowMode: Bool = false
 
     @State private var scale: CGFloat = 1.0

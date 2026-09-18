@@ -23,15 +23,15 @@ struct AuthenticatedRemoteImage: View {
                     .scaledToFill()
             case .loading:
                 ZStack {
-                    Rectangle().fill(AppColors.neutral100)
+                    Rectangle().fill(ThemeManager.shared.palette.neutral100)
                     ProgressView()
                 }
             case .failed:
                 ZStack {
-                    Rectangle().fill(AppColors.neutral100)
+                    Rectangle().fill(ThemeManager.shared.palette.neutral100)
                     Image(systemName: "photo")
                         .font(.system(size: 24))
-                        .foregroundStyle(AppColors.neutral400)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral400)
                 }
             }
         }

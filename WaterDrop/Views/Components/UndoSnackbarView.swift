@@ -18,11 +18,11 @@ struct UndoSnackbarView: View {
                     onUndo()
                 }
                 .font(.system(size: 14, weight: .bold))
-                .foregroundStyle(AppColors.accent)
+                .foregroundStyle(ThemeManager.shared.palette.accent)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .background(AppColors.neutral800)
+            .background(ThemeManager.shared.palette.neutral800)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .padding(.horizontal, 16)
             .padding(.bottom, 16)

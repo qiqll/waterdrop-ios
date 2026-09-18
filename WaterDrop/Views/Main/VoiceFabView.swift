@@ -31,9 +31,9 @@ struct VoiceFabView: View {
                     Spacer()
                     Text("聆听模式")
                         .font(.system(size: 14))
-                        .foregroundStyle(AppColors.neutral600.opacity(Double(slideProgress)))
+                        .foregroundStyle(ThemeManager.shared.palette.neutral600.opacity(Double(slideProgress)))
                     Image(systemName: "chevron.right")
-                        .foregroundStyle(AppColors.neutral400.opacity(Double(slideProgress)))
+                        .foregroundStyle(ThemeManager.shared.palette.neutral400.opacity(Double(slideProgress)))
                 }
                 .padding(.trailing, 24)
                 .transition(.opacity)
@@ -42,14 +42,14 @@ struct VoiceFabView: View {
             // Pulse ring
             PulseAnimationView(
                 isAnimating: isPulseAnimating,
-                color: AppColors.recordingActive,
+                color: ThemeManager.shared.palette.recordingActive,
                 slowMode: isInListenMode
             )
             .frame(width: fabSize * 1.8, height: fabSize * 1.8)
 
             // FAB button
             Circle()
-                .fill(fabState == .idle ? AppColors.accent : AppColors.recordingActive)
+                .fill(fabState == .idle ? ThemeManager.shared.palette.accent : ThemeManager.shared.palette.recordingActive)
                 .frame(width: fabSize, height: fabSize)
                 .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
                 .overlay {
@@ -64,10 +64,10 @@ struct VoiceFabView: View {
             if showCoachHint {
                 Text("按住说话，右滑进入聆听模式")
                     .font(.system(size: 13))
-                    .foregroundStyle(AppColors.neutral600)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(AppColors.surface)
+                    .background(ThemeManager.shared.palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                     .offset(y: -fabSize - 16)

@@ -13,7 +13,7 @@ struct OnboardingView: View {
 
     var body: some View {
         ZStack {
-            AppColors.background.ignoresSafeArea()
+            ThemeManager.shared.palette.background.ignoresSafeArea()
 
             VStack {
                 // Skip button
@@ -24,7 +24,7 @@ struct OnboardingView: View {
                             completeOnboarding()
                         }
                         .font(.system(size: 16))
-                        .foregroundStyle(AppColors.neutral600)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral600)
                         .padding(.trailing, 24)
                         .padding(.top, 16)
                     }
@@ -38,16 +38,16 @@ struct OnboardingView: View {
 
                             Image(systemName: pages[index].icon)
                                 .font(.system(size: 64))
-                                .foregroundStyle(AppColors.primary)
+                                .foregroundStyle(ThemeManager.shared.palette.primary)
 
                             Text(pages[index].title)
                                 .font(.system(size: 24, weight: .bold))
-                                .foregroundStyle(AppColors.neutral800)
+                                .foregroundStyle(ThemeManager.shared.palette.neutral800)
                                 .multilineTextAlignment(.center)
 
                             Text(pages[index].subtitle)
                                 .font(.system(size: 16))
-                                .foregroundStyle(AppColors.neutral600)
+                                .foregroundStyle(ThemeManager.shared.palette.neutral600)
                                 .multilineTextAlignment(.center)
                                 .lineSpacing(6)
 
@@ -73,7 +73,7 @@ struct OnboardingView: View {
                         .font(.system(size: 18, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .background(AppColors.primary)
+                        .background(ThemeManager.shared.palette.primary)
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 25))
                 }

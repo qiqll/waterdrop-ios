@@ -1,8 +1,13 @@
 import SwiftUI
 
-// MARK: - WaterDrop Design System Colors
-// Pixel-perfect match with Android colors.xml
+// MARK: - WaterDrop Design System Colors (DEPRECATED)
+//
+// ⚠️ 已废弃：本枚举是**静态暖色**常量，不随主题切换。
+// F-009 起全部颜色改走 `ThemeManager.shared.palette.<member>`（见 `Theme/Palette.swift`）。
+// 保留本文件仅为 `Palette.warm` 的取值提供对照出处；**不要在新代码中引用**。
+// 仍然引用会编译通过但**不响应主题切换** —— 这是 F-009 修复的原始缺陷，勿再引入。
 
+@available(*, deprecated, message: "主题色已迁移：请使用 ThemeManager.shared.palette.<member>")
 enum AppColors {
     // MARK: Primary Palette
     static let primary = Color(hex: "5B7E6B")              // Mist Pine Green

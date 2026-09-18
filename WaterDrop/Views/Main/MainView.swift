@@ -10,7 +10,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AppColors.background.ignoresSafeArea()
+                ThemeManager.shared.palette.background.ignoresSafeArea()
 
                 VStack {
                     // Top bar
@@ -18,14 +18,14 @@ struct MainView: View {
                         Button(action: { showSettings = true }) {
                             Image(systemName: "gearshape")
                                 .font(.system(size: 22))
-                                .foregroundStyle(AppColors.neutral700)
+                                .foregroundStyle(ThemeManager.shared.palette.neutral700)
                         }
 
                         Spacer()
 
                         Text("水滴管家")
                             .font(.system(size: 18, weight: .semibold))
-                            .foregroundStyle(AppColors.neutral800)
+                            .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                         Spacer()
 
@@ -33,13 +33,13 @@ struct MainView: View {
                             Button(action: { showItemList = true }) {
                                 Image(systemName: "list.bullet")
                                     .font(.system(size: 22))
-                                    .foregroundStyle(AppColors.neutral700)
+                                    .foregroundStyle(ThemeManager.shared.palette.neutral700)
                             }
 
                             Button(action: { showHelp = true }) {
                                 Image(systemName: "questionmark.circle")
                                     .font(.system(size: 22))
-                                    .foregroundStyle(AppColors.neutral700)
+                                    .foregroundStyle(ThemeManager.shared.palette.neutral700)
                             }
                         }
                     }
@@ -66,7 +66,7 @@ struct MainView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .background(AppColors.surface)
+                    .background(ThemeManager.shared.palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .shadow(color: .black.opacity(0.06), radius: 8, y: 2)
                     .padding(.horizontal, 20)

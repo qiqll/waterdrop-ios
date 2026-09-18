@@ -7,7 +7,7 @@ struct HelpView: View {
 
     var body: some View {
         ZStack {
-            AppColors.background.ignoresSafeArea()
+            ThemeManager.shared.palette.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
                 if viewModel.messages.isEmpty {
@@ -16,15 +16,15 @@ struct HelpView: View {
                     VStack(spacing: 12) {
                         Image(systemName: "questionmark.bubble")
                             .font(.system(size: 48))
-                            .foregroundStyle(AppColors.neutral400)
+                            .foregroundStyle(ThemeManager.shared.palette.neutral400)
 
                         Text("有什么可以帮您？")
                             .font(.system(size: 20, weight: .medium))
-                            .foregroundStyle(AppColors.neutral700)
+                            .foregroundStyle(ThemeManager.shared.palette.neutral700)
 
                         Text("您可以问我任何关于水滴管家的使用问题")
                             .font(.system(size: 14))
-                            .foregroundStyle(AppColors.neutral500)
+                            .foregroundStyle(ThemeManager.shared.palette.neutral500)
                     }
                     Spacer()
                 } else {
@@ -42,7 +42,7 @@ struct HelpView: View {
                                         ProgressView()
                                             .padding(.horizontal, 14)
                                             .padding(.vertical, 10)
-                                            .background(AppColors.neutral100)
+                                            .background(ThemeManager.shared.palette.neutral100)
                                             .clipShape(RoundedRectangle(cornerRadius: 16))
                                         Spacer()
                                     }
@@ -67,7 +67,7 @@ struct HelpView: View {
                         .font(.system(size: 16))
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)
-                        .background(AppColors.surfaceVariant)
+                        .background(ThemeManager.shared.palette.surfaceVariant)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .focused($isInputFocused)
 
@@ -76,15 +76,15 @@ struct HelpView: View {
                             .font(.system(size: 32))
                             .foregroundStyle(
                                 inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                                    ? AppColors.neutral300
-                                    : AppColors.primary
+                                    ? ThemeManager.shared.palette.neutral300
+                                    : ThemeManager.shared.palette.primary
                             )
                     }
                     .disabled(inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || viewModel.isLoading)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-                .background(AppColors.surface)
+                .background(ThemeManager.shared.palette.surface)
             }
         }
         .navigationTitle("帮助中心")

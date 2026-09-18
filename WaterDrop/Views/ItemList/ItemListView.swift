@@ -7,29 +7,29 @@ struct ItemListView: View {
 
     var body: some View {
         ZStack {
-            AppColors.background.ignoresSafeArea()
+            ThemeManager.shared.palette.background.ignoresSafeArea()
 
             if viewModel.items.isEmpty {
                 // Empty state
                 VStack(spacing: 16) {
                     Image(systemName: "tray")
                         .font(.system(size: 48))
-                        .foregroundStyle(AppColors.neutral400)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral400)
 
                     Text("还没有记录任何物品")
                         .font(.system(size: 18, weight: .medium))
-                        .foregroundStyle(AppColors.neutral700)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral700)
 
                     Text("试试对麦克风说「钥匙放在玄关」")
                         .font(.system(size: 14))
-                        .foregroundStyle(AppColors.neutral500)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral500)
                 }
             } else {
                 VStack(alignment: .leading, spacing: 0) {
                     // Item count
                     Text("共 \(viewModel.items.count) 件物品")
                         .font(.system(size: 14))
-                        .foregroundStyle(AppColors.neutral600)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral600)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 12)
 
@@ -54,10 +54,10 @@ struct ItemListView: View {
                                 HStack {
                                     Text(group.category)
                                         .font(.system(size: 14, weight: .medium))
-                                        .foregroundStyle(AppColors.neutral600)
+                                        .foregroundStyle(ThemeManager.shared.palette.neutral600)
                                     Text("\(group.items.count)件")
                                         .font(.system(size: 12))
-                                        .foregroundStyle(AppColors.neutral400)
+                                        .foregroundStyle(ThemeManager.shared.palette.neutral400)
                                 }
                             }
                         }

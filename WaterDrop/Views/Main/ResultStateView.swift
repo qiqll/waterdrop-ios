@@ -9,15 +9,15 @@ struct ResultStateView: View {
             if !errorMessage.isEmpty {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(AppColors.semanticWarning)
+                        .foregroundStyle(ThemeManager.shared.palette.semanticWarning)
                     Text(errorMessage)
                         .font(.system(size: FontSizeManager.shared.currentFontSize.textSize))
-                        .foregroundStyle(AppColors.semanticError)
+                        .foregroundStyle(ThemeManager.shared.palette.semanticError)
                 }
             } else {
                 Text(result)
                     .font(.system(size: FontSizeManager.shared.currentFontSize.textSize))
-                    .foregroundStyle(AppColors.neutral800)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral800)
                     .lineSpacing(4)
             }
         }
