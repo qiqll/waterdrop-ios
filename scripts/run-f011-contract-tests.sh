@@ -29,7 +29,9 @@ BASE_URL="${BASE_URL%/}"
 # 必须是 1[3-9]xxxxxxxxx，且服务端没见过的号会自动注册，所以随便挑一个专用测试号即可。
 TEST_PHONE="${F011_PHONE:-13800000001}"
 
-# 本地 Redis 口令见 wd_server/src/main/resources/application.yml（不写进文档）。
+# 本地 Redis 口令。默认值与 wd_server 的 docker-compose.yml /
+# application-local.yml 一致 —— 那两处是**已入库**的本地开发值，不是这里新泄露的，
+# 脚本沿用同一个默认值只是省得每次手填。生产口令走环境变量覆盖，绝不进本文件。
 REDIS_PASSWORD="${REDIS_PASSWORD:-123456}"
 
 DEVICE_NAME="${F011_DEVICE:-iPhone 16 Pro}"
