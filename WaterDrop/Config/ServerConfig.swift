@@ -22,6 +22,13 @@ enum ServerConfig {
         static let aiHelp = "ai/help"
         static let aiHelpHistory = "ai/help/history"
         static let filesUpload = "files/upload"
+        static let versionCheck = "version/check"
+
+        // F-012 ②: 数据同步。对应服务端 sync 包下的四个端点。
+        static let syncUpload = "sync/upload"
+        static let syncDownload = "sync/download"
+        static let syncMerge = "sync/sync"
+        static let syncVersionCheck = "sync/version/check"
 
         static func itemById(_ id: String) -> String { "items/\(id)" }
         static func itemsByCategory(_ category: String) -> String {
