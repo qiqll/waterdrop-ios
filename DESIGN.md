@@ -223,6 +223,12 @@ Main 可导航至：ItemList（清单） / Help（帮助） / Settings（设置�
 ## 9. 已知限制与后续优化
 
 1. **HTTP 明文传输**：当前 `SERVER_BASE_URL` 为 `http://101.42.225.65:8080/api/`，上线前需切换 HTTPS 并移除 ATS 例外。
-2. **主题切换未完全落地**：`ThemeManager` 提供 warm/neutral 选择，但 UI 尚未按主题应用不同色板。
+2. ~~**主题切换未完全落地**：`ThemeManager` 提供 warm/neutral 选择，但 UI 尚未按主题应用不同色板。~~
+   **已修复（F-009，2026-09-12）**：新增 `Theme/Palette.swift`（warm/neutral 两套色板），
+   `ThemeManager.palette` 接入 `@Observable`，全项目颜色引用已由 `AppColors.` 迁移至
+   `ThemeManager.shared.palette.`（69 处 / 17 文件），设置页主题选项即时生效。
+   `AppColors` 保留但已标 `@available(*, deprecated)`，仅作取值对照，不应再引用。
 3. **代码签名**：`DEVELOPMENT_TEAM` 为空，真机运行/上架需配置签名团队。
-4. **图片能力**：`Item` 模型含 `imageUrl` 字段，但客户端暂未实现拍照/上传物品图片。
+4. ~~**图片能力**：`Item` 模型含 `imageUrl` 字段，但客户端暂未实现拍照/上传物品图片。~~
+   **已修复（F-001）**：`ItemEditSheetView` 走 `PhotosPicker` → `APIClient.uploadFile`（multipart）
+   → `FileAPIService.uploadImage`，上传成功后回填 `imageUrl`。

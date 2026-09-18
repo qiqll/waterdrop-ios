@@ -424,13 +424,40 @@ xcodebuild -project WaterDrop.xcodeproj -target WaterDrop \
 
 ### 12.4 配置项（Configs/Secrets.xcconfig → Info.plist）
 
-| Key | 值 |
-|-----|-----|
-| `SERVER_BASE_URL` | `http://101.42.225.65:8080/api/` |
-| `ALICLOUD_APP_KEY` | `LTAI5tQU...`（已填） |
-| `ALICLOUD_SCHEME_CODE` | `FA000000009801364003` |
-| `ALICLOUD_APP_SECRET` | 空（未填） |
-| `ALICLOUD_AUTH_SDK_INFO` | 空（未填） |
+接线由 `project.yml` 的 `configFiles` 声明，xcodegen 生成时落到**工程级** `baseConfigurationReference`：
+
+```yaml
+configFiles:
+  Debug: Configs/Secrets.xcconfig
+  Release: Configs/Secrets.xcconfig
+```
+
+取值链路：`Configs/Secrets.xcconfig` → 构建设置 → `Info.plist` 的 `$(VAR)` 占位 → `Bundle.main`（`AppConfig`）。
+
+> ⚠️ **这条链路断掉不会编译失败**，只会让 `Info.plist` 里出现空串。因此 `AppConfig.infoPlistValue`
+> 把空串一律当「未配置」返回 `nil`，使 `??` 兜底和 Debug 断言能真正生效。
+> 这正是 F-014 能长期潜伏的原因（详见 §14.8）。
+
+`Configs/Secrets.xcconfig` 已被 gitignore，新克隆需从 `.example` 复制后填值：
+
+```bash
+cp Configs/Secrets.xcconfig.example Configs/Secrets.xcconfig
+```
+
+| Key | 说明 |
+|-----|------|
+| `SLASH` | 固定为 `/`。xcconfig 把 `//` 当行内注释，URL 里的斜杠只能用它拼出来 |
+| `SERVER_BASE_URL` | 服务端地址，形如 `http:$(SLASH)$(SLASH)<host>:8080$(SLASH)api$(SLASH)` |
+| `ALICLOUD_APP_KEY` | 阿里云 AppKey（真值不入库） |
+| `ALICLOUD_SCHEME_CODE` | 一键登录场景码（真值不入库） |
+| `ALICLOUD_APP_SECRET` / `ALICLOUD_AUTH_SDK_INFO` | 当前为空 |
+
+自检：
+
+```bash
+xcodebuild -project WaterDrop.xcodeproj -target WaterDrop -configuration Debug -showBuildSettings \
+  | grep SERVER_BASE_URL    # 应有非空值
+```
 
 ---
 
@@ -451,11 +478,29 @@ xcodebuild -project WaterDrop.xcodeproj -target WaterDrop \
 
 ## 14. 已知限制与风险（基于代码实际）
 
-1. **HTTP 明文**：当前 `SERVER_BASE_URL` 为 `http://101.42.225.65:8080/api/`，上线前需切 HTTPS 并移除 ATS 例外。
-2. **主题未落地**：`ThemeManager` 记录 `warm/neutral`，但 UI **未按主题应用不同色板**（`AppColors` 是静态色，View 中未读取 `ThemeManager.currentTheme`）。
+1. **HTTP 明文**：当前 `SERVER_BASE_URL` 为 `http://<host>:8080/api/`，服务端无 TLS。
+   `Info.plist` 里按主机字面量放行了 ATS（`NSExceptionDomains`），
+   loopback 走 `NSAllowsLocalNetworking`。**上线前需切 HTTPS 并删掉 `NSExceptionDomains` 整块。**
+   注意域名必须写死 —— Xcode 只替换字符串 value 里的 `$(VAR)`，不替换 dict 的 key，
+   写变量会变成字面量而静默失效。
+2. ~~**主题未落地**：`ThemeManager` 记录 `warm/neutral`，但 UI 未按主题应用不同色板。~~
+   **已修（F-009）**：新增 `Theme/Palette.swift`，全项目颜色引用迁移至 `ThemeManager.shared.palette.*`。
+   见 `DESIGN.md` §9.2。
 3. **字体大小未全量落地**：`FontSizeManager` 仅在 `IdleStateView/ListeningStateView/ResultStateView` 三处使用，其余 View（ItemList/Help/Settings/导航栏等）仍用固定字号。
 4. **代码签名**：`project.yml` 的 `DEVELOPMENT_TEAM` 为空，真机/上架需配置。
-5. **图片能力未实现**：`Item.imageUrl` 字段存在，但客户端无拍照/上传物品图片。
+5. ~~**图片能力未实现**：`Item.imageUrl` 字段存在，但客户端无拍照/上传物品图片。~~
+   **已修（F-001）**：`ItemEditSheetView` 走 `PhotosPicker` → `APIClient.uploadFile`（multipart）
+   → `FileAPIService.uploadImage`，上传成功回填 `imageUrl`。
 6. **密钥缺失**：`ALICLOUD_APP_SECRET`、`ALICLOUD_AUTH_SDK_INFO` 为空（可能 SFR 流程不需要 Secret，但需确认）。
 7. **`open target` 构建目录被检出为 `yjqi` 路径**：当前 `yjhome` 账户下编译通过，但 build 产物记录刷旧的 `yjqi` 路径，建议清理 `build/` 目录。
-8. **无测试**：项目不含任何单元测试/UI 测试 target（`project.yml` 只有一个 application target）。
+8. **构建配置取值链路静默失败（F-014，已修）**：`Info.plist` 的 `$(SERVER_BASE_URL)` 占位在
+   xcconfig 未接线时解析为**空串**而非报错，`AppConfig` 的 `??` 兜底又只认 `nil`，于是
+   `ServerConfig.baseURL == ""`、`APIClient` 拼出无 scheme/host 的路径，**所有请求失败**，
+   但 App 仍能正常启动到登录页 —— 表现为「能开、点不动」。
+   现已修：`project.yml` 声明 `configFiles` + `AppConfig.infoPlistValue` 把空串视为缺失。
+   同类改动的检查手法：改完配置务必 `xcodebuild -showBuildSettings | grep <KEY>` 验证，
+   不要只看「编译通过」。
+9. ~~**无测试**：项目不含任何单元测试/UI 测试 target。~~
+   **已修**：新增 `WaterDropTests` target 与 `WaterDropTests/F011ContractAPITests.swift`，
+   由 `scripts/run-f011-contract-tests.sh` 注入登录态后运行（脚本判定要求「跳过数 = 0」，
+   因用例全 skip 时 xcodebuild 仍报 TEST SUCCEEDED）。覆盖范围仅 API 契约，无 UI 测试。

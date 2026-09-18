@@ -25,8 +25,43 @@
 ## 本项目补充说明
 
 - 架构：MVVM（View → ViewModel → Repository → APIService → APIClient）
-- 详细设计见 `DESIGN.md`，工程手册见 `TECH.md`
-- 服务器地址配置在 `WaterDrop/Resources/Info.plist` 的 `SERVER_BASE_URL`
+- 详细设计见 `DESIGN.md`，工程手册见 `TECH.md`（配置项见 §9）
+
+## 新克隆怎么跑起来
+
+1. **补配置**（`Secrets.xcconfig` 已 gitignore，不复制出来就没有服务端地址）：
+
+   ```bash
+   cp Configs/Secrets.xcconfig.example Configs/Secrets.xcconfig
+   # 然后填入真实的 SERVER_BASE_URL / ALICLOUD_* 值
+   ```
+
+   注意 xcconfig 把 `//` 当行内注释，URL 里的斜杠必须用模板里的 `SLASH` 变量拼，
+   直接写 `http://...` 会被截断成 `http:`。
+
+2. **生成工程**（`WaterDrop.xcodeproj` 由 `project.yml` 生成，改工程配置请改 yml 再重新生成，
+   不要手改 pbxproj）：
+
+   ```bash
+   xcodegen generate --spec project.yml
+   ```
+
+3. **验证配置真的进了构建**（这步别省 —— 取值链路断了不会报错，只会得到空串）：
+
+   ```bash
+   export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+   xcodebuild -project WaterDrop.xcodeproj -target WaterDrop -configuration Debug -showBuildSettings \
+     | grep SERVER_BASE_URL
+   ```
+
+   输出为空 = 配置没接上，App 会「能启动但所有请求失败」。
+
+4. 编译 / 跑契约用例：
+
+   ```bash
+   xcodebuild -project WaterDrop.xcodeproj -scheme WaterDrop -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build
+   ./scripts/run-f011-contract-tests.sh    # F-011 契约回归，需本机服务端在跑
+   ```
 
 ## 开发工作流（读公共库 → 执行 → 回写）
 

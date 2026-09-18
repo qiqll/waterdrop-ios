@@ -284,14 +284,32 @@ swiftc -typecheck -target arm64-apple-ios17.0-simulator \
 
 ## 9. 配置项（Info.plist）
 
-| Key | 当前值 | 说明 |
-|-----|--------|------|
-| `SERVER_BASE_URL` | `http://101.42.225.65:8080/api/` | 服务端地址（上线需切 HTTPS）|
-| `ALICLOUD_APP_KEY` | `LTAI5tQU...` | 阿里云 AppKey |
-| `ALICLOUD_SCHEME_CODE` | `FA000000009801364003` | 一键登录场景码 |
-| `NSMicrophoneUsageDescription` | 已配置 | 麦克风权限文案 |
-| `NSSpeechRecognitionUsageDescription` | 已配置 | 语音识别权限文案 |
-| `CFBundleDisplayName` | 水滴管家 | 应用显示名 |
+`Info.plist` **不存真值**，只写 `$(VAR)` 占位；真值来自 `Configs/Secrets.xcconfig`
+（gitignore，仅 `.example` 入库），由 `project.yml` 的 `configFiles` 接线：
+
+```
+Configs/Secrets.xcconfig → 构建设置 → Info.plist 的 $(VAR) → Bundle.main（AppConfig）
+```
+
+| Key | 说明 |
+|-----|------|
+| `SERVER_BASE_URL` | 服务端地址。写入 xcconfig 时须用 `SLASH = /` 拼斜杠（`//` 会被当注释截断）|
+| `ALICLOUD_APP_KEY` | 阿里云 AppKey（真值在 Secrets.xcconfig）|
+| `ALICLOUD_SCHEME_CODE` | 一键登录场景码（真值在 Secrets.xcconfig）|
+| `NSAppTransportSecurity` | 服务端为明文 HTTP，按主机**字面量**放行；loopback 走 `NSAllowsLocalNetworking`（域名不能写 `$(VAR)`，见下） |
+| `NSMicrophoneUsageDescription` | 已配置 |
+| `NSSpeechRecognitionUsageDescription` | 已配置 |
+| `CFBundleDisplayName` | 水滴管家 |
+
+> ⚠️ 这条链路**断掉不会编译失败**，只会得到空串。`AppConfig.infoPlistValue` 因此把空串
+> 一律当「未配置」（返回 `nil`），Debug 下还会断言失败。改完配置务必用
+> `xcodebuild -showBuildSettings | grep <KEY>` 复核，别只看构建成功。
+
+联调时可用环境变量临时覆盖地址（`AppConfig.serverBaseURL` 优先读它），无需改配置文件：
+
+```bash
+SERVER_BASE_URL_OVERRIDE=http://127.0.0.1:8080/api/ ...
+```
 
 ---
 
@@ -314,10 +332,14 @@ swiftc -typecheck -target arm64-apple-ios17.0-simulator \
 | 源码编译 | ✅ BUILD SUCCEEDED（禁用签名） |
 | 工程生成 | ✅ xcodegen 正常生成 xcodeproj |
 | API 端点匹配 | ✅ 17/17 端点与服务端一致 |
-| 配置完整性 | ✅ 服务器地址、阿里云密钥、权限文案齐全 |
+| 配置完整性 | ✅ 接线已补（F-014）；`xcodebuild -showBuildSettings` 实测 `SERVER_BASE_URL` 非空 |
 | 认证流程 | ✅ 阿里云一键登录 + Token 刷新链路完整 |
 | 代码签名 | ⚠️ DEVELOPMENT_TEAM 为空，真机/上架需配置 |
-| 传输安全 | ⚠️ 当前 HTTP 明文，上线需切 HTTPS |
-| 运行时验证 | ⏳ 未在模拟器实际运行冒烟测试（本报告仅静态+编译验证） |
+| 传输安全 | ⚠️ 当前 HTTP 明文，上线需切 HTTPS 并移除 ATS 例外 |
+| 运行时验证 | ✅ 编译产物可装可启；API 层联调见 `WaterDropTests/F011ContractAPITests.swift`（2026-09-14 实跑 7/7 通过） |
 
 **总体判断**：项目结构完整、代码编译通过、与服务端 API 完全对齐，处于**可运行/可联调状态**。上线前需解决 2 个 ⚠️ 项（签名、HTTPS）。
+
+> 「配置完整性 ✅」是**修完 F-014 之后**的结论。此前该项虽然也是 ✅，但构建产物里
+> `SERVER_BASE_URL` 实为空串 —— 静态检查看到的是「配置文件里有值」，而没验证「产物里有值」。
+> 这类结论必须以 `-showBuildSettings` / 产物 `Info.plist` 为准。
