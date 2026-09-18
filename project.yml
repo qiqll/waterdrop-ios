@@ -75,3 +75,36 @@ targets:
       - sdk: libz.tbd
     preBuildScripts: []
     postBuildScripts: []
+
+  # F-005：iOS 侧 F-011 契约回归用例。
+  # 走 API 层而非 UI 层，原因见 WaterDropTests/F011ContractAPITests.swift 顶部注释
+  # （一键登录需真 SIM、模拟器 keychain 无法外部写入）。
+  WaterDropTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: WaterDropTests
+    # 注意：本 target 有 TEST_HOST，用例跑在宿主 App 的进程里，
+    # 所以 ATS 走的是 WaterDrop/Resources/Info.plist 那份配置，这里不用重复声明。
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yjqi.waterdrop.ios.tests
+        # 必须与宿主 App 一致，否则测试 bundle 的架构跟宿主对不上
+        EXCLUDED_ARCHS[sdk=iphonesimulator*]: arm64
+    dependencies:
+      - target: WaterDrop
+
+schemes:
+  WaterDrop:
+    build:
+      targets:
+        WaterDrop: all
+        WaterDropTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: false
+      targets:
+        - WaterDropTests
