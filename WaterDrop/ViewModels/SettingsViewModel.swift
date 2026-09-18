@@ -2,6 +2,7 @@ import Foundation
 import os.log
 
 @Observable
+@MainActor
 final class SettingsViewModel {
     var nickname: String
     var theme: ThemeManager.Theme
@@ -21,21 +22,51 @@ final class SettingsViewModel {
         self.fontSize = FontSizeManager.shared.currentFontSize
     }
 
+    /// F-011 (D-1)：改名 = 本地先写 + 服务端后同步、失败不回滚。
+    ///
+    /// 对齐 Android `SettingsActivity.updateNickname`：本地立即生效，服务端同步放到
+    /// 后台 Task，失败只提示「稍后重试」而不撤销本地值 —— 否则用户改完昵称看到它被
+    /// 打回原样，比「已存本地、暂未上云」更糟。
     func updateNickname(_ name: String) {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         nickname = trimmed
         UserPreferencesManager.shared.nickname = trimmed
+        // 清掉上一次的残留提示，避免重试成功时仍显示旧的失败文案
+        statusMessage = ""
+
+        // F-012 ②: 昵称也纳入设置项跨设备同步（dataType = settings_nickname）。
+        // 与下面的 PUT /users/profile 不重复：那条走用户资料表，这条走 sync 通道，
+        // 二者共用同一个本地值，各自失败互不影响。
+        SettingsSyncManager.push()
+
+        Task { @MainActor in
+            do {
+                let response = try await AuthAPIService.updateProfile(nickname: trimmed)
+                if response.code == 200 {
+                    logger.info("Nickname synced to server")
+                } else {
+                    logger.error("Nickname sync business error: \(response.message)")
+                    statusMessage = "昵称已保存到本地，服务端同步失败，稍后会自动重试"
+                }
+            } catch {
+                logger.error("Nickname sync failed: \(error.localizedDescription)")
+                statusMessage = "昵称已保存到本地，服务端同步失败，稍后会自动重试"
+            }
+        }
     }
 
     func updateTheme(_ newTheme: ThemeManager.Theme) {
         theme = newTheme
         ThemeManager.shared.currentTheme = newTheme
+        // F-012 ②: 推送策略在 SettingsSyncManager 内部固定为 client_priority。
+        SettingsSyncManager.push()
     }
 
     func updateFontSize(_ newSize: FontSizeManager.FontSize) {
         fontSize = newSize
         FontSizeManager.shared.currentFontSize = newSize
+        SettingsSyncManager.push()
     }
 
     func exportData() async {

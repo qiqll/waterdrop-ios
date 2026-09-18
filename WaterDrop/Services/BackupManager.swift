@@ -29,14 +29,9 @@ final class BackupManager {
 
         var importedCount = 0
         for item in items {
-            let request = ItemCreateRequest(
-                name: item.name,
-                location: item.location,
-                description: item.description,
-                category: item.category,
-                imageUrl: item.imageUrl,
-                remark: item.remark
-            )
+            // F-011：导入时一并回传 item 的全部已知字段（brand/model/quantity…），
+            // 否则备份里的这些字段在恢复后会丢失
+            let request = ItemCreateRequest(from: item)
             let id = await ItemRepository.shared.insert(request)
             if !id.isEmpty {
                 importedCount += 1

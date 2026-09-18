@@ -25,4 +25,17 @@ enum AuthAPIService {
             endpoint: ServerConfig.Endpoints.userProfile
         )
     }
+
+    /// F-011 (D-1)：更新昵称/头像。
+    ///
+    /// 服务端返回 `Result<Void>`（data 为空），故用 `ApiResponse<EmptyData>` 解码。
+    /// 传入 `nil` 的字段不会出现在请求体里，服务端按「本次不修改」处理。
+    static func updateProfile(nickname: String? = nil, avatar: String? = nil) async throws -> ApiResponse<EmptyData> {
+        let request = UpdateProfileRequest(nickname: nickname, avatar: avatar)
+        return try await APIClient.shared.request(
+            endpoint: ServerConfig.Endpoints.userProfile,
+            method: .PUT,
+            body: request
+        )
+    }
 }

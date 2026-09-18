@@ -40,12 +40,56 @@ struct ItemDto: Codable {
             imageUrl: imageUrl,
             status: status ?? 1,
             remark: remark,
-            operatorUser: createBy ?? ""
+            operatorUser: createBy ?? "",
+            // F-011：以下 11 个字段此前被静默丢弃，导致只写不读
+            locationDetail: locationDetail,
+            tags: tags,
+            value: value,
+            brand: brand,
+            model: model,
+            serialNumber: serialNumber,
+            purchaseDate: purchaseDate,
+            warranty: warranty,
+            quantity: quantity,
+            unit: unit,
+            groupId: groupId
         )
     }
 }
 
 // MARK: - Item Create/Update Request
+
+extension ItemCreateRequest {
+    /// F-011：Item -> 写请求。
+    ///
+    /// 更新/创建一律回传本地已知的全部业务字段，而非只传 7 个。原因（见 D-4 契约）：
+    /// 服务端 updateById 走 MyBatis-Plus 默认 NOT_NULL 策略，请求里为 nil 的字段会被跳过更新。
+    /// 若这里不全量回传，那些字段在客户端就永远无法被修改（不是「保持不变」，而是「不可达」）。
+    ///
+    /// 注意：id / userId / createTime / createBy / updateTime / updateBy 由服务端维护，此处不传。
+    init(from item: Item) {
+        self.init(
+            name: item.name,
+            location: item.location,
+            description: item.description,
+            category: item.category,
+            locationDetail: item.locationDetail,
+            imageUrl: item.imageUrl,
+            tags: item.tags,
+            value: item.value,
+            brand: item.brand,
+            model: item.model,
+            serialNumber: item.serialNumber,
+            purchaseDate: item.purchaseDate,
+            warranty: item.warranty,
+            quantity: item.quantity,
+            unit: item.unit,
+            remark: item.remark,
+            groupId: item.groupId,
+            status: item.status
+        )
+    }
+}
 
 struct ItemCreateRequest: Codable {
     let name: String

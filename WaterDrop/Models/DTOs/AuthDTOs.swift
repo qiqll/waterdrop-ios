@@ -24,6 +24,21 @@ struct UserInfoResponse: Codable {
     let lastLoginTime: String?
 }
 
+// MARK: - Update Profile
+
+/// F-011 (D-1)：`PUT /users/profile` 请求体。
+///
+/// 可选字段契约（与 D-4 一致）：`nil` = 本次不修改；`""` = 显式清空。
+struct UpdateProfileRequest: Codable {
+    let nickname: String?
+    let avatar: String?
+
+    init(nickname: String? = nil, avatar: String? = nil) {
+        self.nickname = nickname
+        self.avatar = avatar
+    }
+}
+
 // MARK: - Logout
 
 struct LogoutRequest: Codable {

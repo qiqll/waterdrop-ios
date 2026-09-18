@@ -112,13 +112,13 @@ final class ItemRepository {
     func recordItemLocation(name: String, location: String, category: String = "其他", description: String = "") async -> String {
         // Check if item exists, update or create
         if let existing = await getItemByName(name) {
-            let request = ItemCreateRequest(
-                name: name,
-                location: location,
-                description: description.isEmpty ? existing.description : description,
-                category: category,
-                imageUrl: existing.imageUrl
-            )
+            // 在既有记录上只覆盖本次变动的位置/描述/分类/图片，其余字段（brand/model/remark 等）
+            // 原样带上，避免被服务端 updateById 的 NOT_NULL 策略漏掉而无法修改
+            var merged = existing
+            merged.location = location
+            merged.description = description.isEmpty ? existing.description : description
+            merged.category = category
+            let request = ItemCreateRequest(from: merged)
             do {
                 let response = try await ItemAPIService.updateItem(id: existing.id, request)
                 if response.code == 200 {
@@ -142,13 +142,9 @@ final class ItemRepository {
 
     func updateItemLocation(name: String, newLocation: String) async -> Bool {
         guard let item = await getItemByName(name) else { return false }
-        let request = ItemCreateRequest(
-            name: item.name,
-            location: newLocation,
-            description: item.description,
-            category: item.category,
-            imageUrl: item.imageUrl
-        )
+        var moved = item
+        moved.location = newLocation
+        let request = ItemCreateRequest(from: moved)
         do {
             let response = try await ItemAPIService.updateItem(id: item.id, request)
             if response.code == 200 {

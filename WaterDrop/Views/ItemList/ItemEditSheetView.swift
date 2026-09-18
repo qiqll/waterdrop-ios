@@ -50,12 +50,12 @@ struct ItemEditSheetView: View {
                             } else {
                                 Image(systemName: "photo")
                                     .font(.system(size: 24))
-                                    .foregroundStyle(AppColors.neutral400)
+                                    .foregroundStyle(ThemeManager.shared.palette.neutral400)
                             }
                         }
                         .frame(width: 72, height: 72)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .background(AppColors.neutral100)
+                        .background(ThemeManager.shared.palette.neutral100)
 
                         PhotosPicker(selection: $pickerItem, matching: .images) {
                             Label(pickedImageData == nil ? "选择图片" : "更换图片", systemImage: "photo.badge.plus")
@@ -164,31 +164,24 @@ struct ItemEditSheetView: View {
         isSaving = true
         Task {
             let trimmedRemark = remark.trimmingCharacters(in: .whitespacesAndNewlines)
-            // 服务端 ItemServiceImpl.updateItem 用 BeanUtils.copyProperties（会拷贝 null），
-            // 因此这里须回传 iOS 已知字段，避免把服务端未传字段覆盖为 null。
-            var request = ItemCreateRequest(
-                name: item.name,
-                location: trimmedLocation,
-                description: item.description,
-                category: item.category,
-                imageUrl: item.imageUrl,
-                remark: trimmedRemark.isEmpty ? nil : trimmedRemark,
-                status: status
-            )
+
+            // D-4 契约：remark 传 "" 表示用户主动清空；不能传 nil（nil 在服务端是「本次不修改」，
+            // 清空会静默失效）。本 sheet 只编辑位置/备注/状态，其余服务端字段
+            // （brand/model/quantity…）由 Request(from:) 原样带上，避免被服务端
+            // updateById 的 NOT_NULL 策略漏掉而永远无法修改。
+            var edited = item
+            edited.location = trimmedLocation
+            edited.remark = trimmedRemark
+            edited.status = status
+            var request = ItemCreateRequest(from: edited)
 
             // 若选择了新图片，先上传得到 fileUrl，再随物品信息一起更新。
             if let data = pickedImageData {
                 do {
                     if let uploadedUrl = try await FileAPIService.uploadImage(data: data, mimeType: pickedMimeType) {
-                        request = ItemCreateRequest(
-                            name: item.name,
-                            location: trimmedLocation,
-                            description: item.description,
-                            category: item.category,
-                            imageUrl: uploadedUrl,
-                            remark: trimmedRemark.isEmpty ? nil : trimmedRemark,
-                            status: status
-                        )
+                        var withImage = edited
+                        withImage.imageUrl = uploadedUrl
+                        request = ItemCreateRequest(from: withImage)
                     } else {
                         isSaving = false
                         errorMessage = "图片上传失败，未保存更改"

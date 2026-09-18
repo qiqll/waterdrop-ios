@@ -22,6 +22,16 @@ struct ItemCardView: View {
         }
     }
 
+    /// F-011：品牌 / 型号 / 序列号拼接成的规格行，全空时返回 nil（整行不显示）。
+    private var specLine: String? {
+        let parts = [
+            item.brand.flatMap { $0.isEmpty ? nil : "品牌：\($0)" },
+            item.model.flatMap { $0.isEmpty ? nil : "型号：\($0)" },
+            item.serialNumber.flatMap { $0.isEmpty ? nil : "SN：\($0)" }
+        ].compactMap { $0 }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+
     var body: some View {
         HStack(spacing: 12) {
             // Item image (if any), else category icon
@@ -33,21 +43,29 @@ struct ItemCardView: View {
             } else {
                 Image(systemName: categoryIcon)
                     .font(.system(size: 20))
-                    .foregroundStyle(AppColors.primary)
+                    .foregroundStyle(ThemeManager.shared.palette.primary)
                     .frame(width: 40, height: 40)
-                    .background(AppColors.primaryLight)
+                    .background(ThemeManager.shared.palette.primaryLight)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.name)
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(AppColors.neutral800)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 Text(item.location)
                     .font(.system(size: 14))
-                    .foregroundStyle(AppColors.neutral600)
+                    .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     .lineLimit(1)
+
+                // F-011：规格行（有值才显示）
+                if let specLine {
+                    Text(specLine)
+                        .font(.system(size: 12))
+                        .foregroundStyle(ThemeManager.shared.palette.neutral500)
+                        .lineLimit(1)
+                }
             }
 
             Spacer()
