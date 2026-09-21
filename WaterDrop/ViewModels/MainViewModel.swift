@@ -6,6 +6,14 @@ final class MainViewModel {
     enum UIState {
         case idle
         case listening
+        /// 「正在理解…」（F-017 §4.2）。
+        ///
+        /// 从「松手」到「出结果」之间要经过 ASR 终稿 → 网络 → 服务端 AI → 返回 **两次往返**。
+        /// 在此之前这段是无反馈的空窗期，用户会以为没听见而重复按。
+        ///
+        /// 这是 F-017 四态设计里**唯一新增**的状态 —— 其余三态（idle/listening/result）
+        /// 双端原本就有，只是都没有表达这一段。
+        case processing
         case result
     }
 
@@ -32,6 +40,10 @@ final class MainViewModel {
             scheduleAutoReset()
             return
         }
+
+        // F-017 §4.2：进入「理解中」，消除松手后的零反馈空窗期。
+        // 放到 await 之前，让 UI 在第一次网络往返开始前就切换过去。
+        uiState = .processing
 
         let result = await intentService.processUserInput(text)
 

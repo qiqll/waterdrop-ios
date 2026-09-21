@@ -57,6 +57,10 @@ struct MainView: View {
                         case .listening:
                             ListeningStateView(partialText: viewModel.speechManager.partialText)
                                 .transition(.opacity)
+                        case .processing:
+                            // F-017 §4.2：松手后的零反馈空窗期，本设计唯一新增的状态
+                            ProcessingStateView()
+                                .transition(.opacity)
                         case .result:
                             ResultStateView(
                                 result: viewModel.processedResult,
