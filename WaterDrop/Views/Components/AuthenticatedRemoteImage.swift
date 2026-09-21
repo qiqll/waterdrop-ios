@@ -30,7 +30,7 @@ struct AuthenticatedRemoteImage: View {
                 ZStack {
                     Rectangle().fill(ThemeManager.shared.palette.neutral100)
                     Image(systemName: "photo")
-                        .font(.system(size: 24))
+                        .font(.wd(.headlineLarge))
                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
                 }
             }

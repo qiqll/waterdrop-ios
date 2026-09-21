@@ -6,12 +6,12 @@ struct ListeningStateView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text("正在聆听…")
-                .font(.system(size: 18, weight: .semibold))
+                .font(.wd(.titleLarge, weight: .semibold))
                 .foregroundStyle(ThemeManager.shared.palette.primary)
 
             if !partialText.isEmpty {
                 Text(partialText)
-                    .font(.system(size: FontSizeManager.shared.currentFontSize.textSize))
+                    .font(.wd(.bodyLarge, userScale: FontSizeManager.shared.currentFontSize.scaleFactor))
                     .foregroundStyle(ThemeManager.shared.palette.neutral700)
                     .multilineTextAlignment(.center)
                     .transition(.opacity)

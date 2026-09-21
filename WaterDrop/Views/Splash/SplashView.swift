@@ -19,20 +19,20 @@ struct SplashView: View {
 
                 // Water drop icon
                 Image(systemName: "drop.fill")
-                    .font(.system(size: 80))
+                    .font(.wdHero(size: 80))
                     .foregroundStyle(ThemeManager.shared.palette.primary)
                     .offset(y: dropOffset)
                     .opacity(dropOpacity)
 
                 // App name
                 Text("水滴管家")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.wd(.display, weight: .bold))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
                     .opacity(textOpacity)
 
                 // Slogan
                 Text("点点滴滴，记在心里")
-                    .font(.system(size: 16))
+                    .font(.wd(.bodyLarge))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     .opacity(sloganOpacity)
 
@@ -156,29 +156,29 @@ struct ForceUpdateView: View {
                 Spacer()
 
                 Image(systemName: "arrow.down.circle.fill")
-                    .font(.system(size: 64))
+                    .font(.wdHero(size: 64))
                     .foregroundStyle(ThemeManager.shared.palette.primary)
 
                 Text("发现新版本")
-                    .font(.system(size: 24, weight: .bold))
+                    .font(.wd(.headlineLarge, weight: .bold))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 if let latest = info.latestVersion {
                     Text(latest)
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.wd(.titleLarge, weight: .medium))
                         .foregroundStyle(ThemeManager.shared.palette.primary)
                 }
 
                 if let fileSize = info.fileSize, fileSize > 0 {
                     Text("大小：\(formatSize(fileSize))")
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral600)
                 }
 
                 if let notes = updateNotes, !notes.isEmpty {
                     ScrollView {
                         Text(notes)
-                            .font(.system(size: 15))
+                            .font(.wd(.bodyLarge))
                             .foregroundStyle(ThemeManager.shared.palette.neutral600)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
@@ -190,7 +190,7 @@ struct ForceUpdateView: View {
                 }
 
                 Text("当前版本已无法继续使用，请升级后重试")
-                    .font(.system(size: 13))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
 
                 Spacer()
@@ -199,7 +199,7 @@ struct ForceUpdateView: View {
                     openDownload()
                 } label: {
                     Text("立即更新")
-                        .font(.system(size: 17, weight: .semibold))
+                        .font(.wd(.titleMedium, weight: .semibold))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)

@@ -58,33 +58,33 @@ struct MembershipView: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
                 Text(statusTitle)
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.wd(.titleLarge, weight: .medium))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 Spacer()
 
                 if let remainingText {
                     Text(remainingText)
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.primary)
                 }
             }
 
             if let planNameText {
                 Text(planNameText)
-                    .font(.system(size: 14))
+                    .font(.wd(.bodyMedium))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
             }
 
             if let expireText {
                 Text(expireText)
-                    .font(.system(size: 12))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral500)
             }
 
             if !viewModel.statusHint.isEmpty {
                 Text(viewModel.statusHint)
-                    .font(.system(size: 12))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral500)
                     .padding(.top, 2)
             }
@@ -135,7 +135,7 @@ struct MembershipView: View {
     private var planSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("选择套餐")
-                .font(.system(size: 16, weight: .medium))
+                .font(.wd(.titleMedium, weight: .medium))
                 .foregroundStyle(ThemeManager.shared.palette.neutral800)
                 .padding(.horizontal, 20)
 
@@ -148,7 +148,7 @@ struct MembershipView: View {
 
             case .failed:
                 Text("套餐加载失败")
-                    .font(.system(size: 14))
+                    .font(.wd(.bodyMedium))
                     .foregroundStyle(ThemeManager.shared.palette.semanticError)
                     .frame(maxWidth: .infinity)
                     .padding(16)
@@ -158,10 +158,10 @@ struct MembershipView: View {
                 // 联调时最常撞见的就是这一态，所以把种子脚本的提示一起写出来。
                 VStack(spacing: 6) {
                     Text("暂无可用套餐")
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     Text("服务端尚未配置套餐。联调时请先执行 seed-membership-plans.sh。")
-                        .font(.system(size: 12))
+                        .font(.wd(.bodySmall))
                         .foregroundStyle(ThemeManager.shared.palette.neutral500)
                         .multilineTextAlignment(.center)
                 }

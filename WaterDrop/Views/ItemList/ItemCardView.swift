@@ -42,7 +42,7 @@ struct ItemCardView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } else {
                 Image(systemName: categoryIcon)
-                    .font(.system(size: 20))
+                    .font(.wd(.headlineMedium))
                     .foregroundStyle(ThemeManager.shared.palette.primary)
                     .frame(width: 40, height: 40)
                     .background(ThemeManager.shared.palette.primaryLight)
@@ -51,18 +51,18 @@ struct ItemCardView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.name)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.wd(.titleMedium, weight: .medium))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 Text(item.location)
-                    .font(.system(size: 14))
+                    .font(.wd(.bodyMedium))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     .lineLimit(1)
 
                 // F-011：规格行（有值才显示）
                 if let specLine {
                     Text(specLine)
-                        .font(.system(size: 12))
+                        .font(.wd(.bodySmall))
                         .foregroundStyle(ThemeManager.shared.palette.neutral500)
                         .lineLimit(1)
                 }

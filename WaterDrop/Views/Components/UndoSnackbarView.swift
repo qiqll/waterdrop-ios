@@ -9,7 +9,7 @@ struct UndoSnackbarView: View {
         if isShowing {
             HStack {
                 Text("已删除「\(itemName)」")
-                    .font(.system(size: 14))
+                    .font(.wd(.bodyMedium))
                     .foregroundStyle(.white)
 
                 Spacer()
@@ -17,7 +17,7 @@ struct UndoSnackbarView: View {
                 Button("撤销") {
                     onUndo()
                 }
-                .font(.system(size: 14, weight: .bold))
+                .font(.wd(.labelLarge, weight: .bold))
                 .foregroundStyle(ThemeManager.shared.palette.accent)
             }
             .padding(.horizontal, 16)

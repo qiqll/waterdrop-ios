@@ -14,6 +14,12 @@ enum ServerConfig {
         static let refreshToken = "users/refresh"
         static let logout = "users/logout"
         static let userProfile = "users/profile"
+
+        /// F-012 ⑥ (D-10)：活跃上报。服务端返回 `Result<Void>`，且**失败也不影响任何业务**。
+        /// ⚠️ 服务端对 `user:activity:{userId}:{date}` 做的是 **increment**（累加计数），
+        /// 不是去重集合 —— 按 onResume 无脑上报会把「活跃次数」灌成几十。调用方需自行按天节流。
+        static let heartbeat = "users/heartbeat"
+
         static let items = "items"
         static let itemSearch = "items/search"
         static let itemByName = "items/search/by-name"
@@ -54,6 +60,55 @@ enum ServerConfig {
         static func itemsByCategory(_ category: String) -> String {
             "items/category/\(category.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? category)"
         }
+
+        // F-012 ④: 群组共享。对应服务端 group 包，外加一条挂在 items 包下的群内物品读取。
+        static let groups = "groups"
+
+        /// ⚠️ 入群**没有** `{groupId}` 路径段 —— 只有邀请码。写成 `groups/\(groupId)/join`
+        /// 会落到没有映射的路径上，服务端返回 **HTTP 200 + `body.code=500`**，
+        /// 前端若只看 HTTP 状态就会当成成功。
+        static let groupJoin = "groups/join"
+
+        static func groupById(_ groupId: String) -> String { "groups/\(groupId)" }
+        static func groupMembers(_ groupId: String) -> String { "groups/\(groupId)/members" }
+
+        /// ⚠️ 路径参数是 **userId 不是 memberId**（`member.id` 是 `group_members` 主键，
+        /// 传它必然移错人）。取 `GroupMemberResponse.userId`。
+        static func groupMember(_ groupId: String, userId: String) -> String {
+            "groups/\(groupId)/members/\(userId)"
+        }
+
+        static func groupLeave(_ groupId: String) -> String { "groups/\(groupId)/leave" }
+
+        /// 邀请码的**唯一出口**：群组响应里永远不含 `inviteCode`（缺陷 S）。
+        /// `GET` 取码 / `DELETE` 作废，仅群主、管理员可用。
+        static func groupInviteCode(_ groupId: String) -> String { "groups/\(groupId)/invite-code" }
+
+        /// 群内共享物品。**非分页**，直接返回 `[Item]`（与 `items` 的 `PagedResult` 不同）。
+        static func itemsByGroup(_ groupId: String) -> String { "items/group/\(groupId)" }
+
+        // F-012 ⑤: 计划任务（提醒）。对应服务端 schedule 包，契约见 `api-reference.md` §5。
+        static let schedules = "schedules"
+
+        /// ⚠️ `keyword` **必填**，不传是 HTTP 400 而不是空结果。
+        static let scheduleSearch = "schedules/search"
+
+        /// ⚠️ **降级实现**：服务端没有模板表，`templateId` 传什么都一样，
+        /// 等价于「用一套默认值建一条普通提醒」。客户端别拿它当真正的模板功能。
+        static func scheduleTemplate(_ templateId: String) -> String {
+            "schedules/templates/\(templateId)"
+        }
+
+        static func scheduleById(_ scheduleId: String) -> String { "schedules/\(scheduleId)" }
+
+        /// 启用/停用是**独立端点**，不是 `PUT {enabled: false}` ——
+        /// 只有这两个端点会重算 `nextExecutionAt`（停用置 `null`）。
+        static func scheduleEnable(_ scheduleId: String) -> String { "schedules/\(scheduleId)/enable" }
+        static func scheduleDisable(_ scheduleId: String) -> String { "schedules/\(scheduleId)/disable" }
+
+        /// ⚠️ 「立即执行」只往 `schedule_executions` 记一条，**不产生任何通知**。
+        /// 别接到「测试提醒」按钮上。
+        static func scheduleExecute(_ scheduleId: String) -> String { "schedules/\(scheduleId)/execute" }
     }
 
     // MARK: - Image URL Resolution

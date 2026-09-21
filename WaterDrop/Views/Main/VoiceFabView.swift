@@ -30,7 +30,7 @@ struct VoiceFabView: View {
                 HStack {
                     Spacer()
                     Text("聆听模式")
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral600.opacity(Double(slideProgress)))
                     Image(systemName: "chevron.right")
                         .foregroundStyle(ThemeManager.shared.palette.neutral400.opacity(Double(slideProgress)))
@@ -54,7 +54,7 @@ struct VoiceFabView: View {
                 .shadow(color: .black.opacity(0.15), radius: 8, y: 4)
                 .overlay {
                     Image(systemName: fabState == .idle ? "mic.fill" : "stop.fill")
-                        .font(.system(size: 24))
+                        .font(.wd(.headlineLarge))
                         .foregroundStyle(.white)
                 }
                 .scaleEffect(fabScale)
@@ -63,7 +63,7 @@ struct VoiceFabView: View {
             // Coach hint
             if showCoachHint {
                 Text("按住说话，右滑进入聆听模式")
-                    .font(.system(size: 13))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)

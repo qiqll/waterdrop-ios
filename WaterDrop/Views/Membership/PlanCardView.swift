@@ -13,12 +13,12 @@ struct PlanCardView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .firstTextBaseline) {
                 Text(plan.planName ?? "")
-                    .font(.system(size: 17, weight: .medium))
+                    .font(.wd(.titleMedium, weight: .medium))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 if plan.isRecommended == true {
                     Text("推荐")
-                        .font(.system(size: 11, weight: .medium))
+                        .font(.wd(.labelSmall, weight: .medium))
                         .foregroundStyle(ThemeManager.shared.palette.primary)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
@@ -31,20 +31,20 @@ struct PlanCardView: View {
 
             HStack(alignment: .firstTextBaseline, spacing: 6) {
                 Text("¥\(formatAmount(plan.price))")
-                    .font(.system(size: 24, weight: .semibold))
+                    .font(.wd(.headlineLarge, weight: .semibold))
                     .foregroundStyle(ThemeManager.shared.palette.primary)
 
                 // 只有原价**高于**现价才划线 —— 否则看着像涨价。
                 // 判定逻辑放在 DTO 的 `hasDiscount` 上，与 Android `PlanViewHolder` 同一口径。
                 if plan.hasDiscount {
                     Text("¥\(formatAmount(plan.originalPrice))")
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
                         .strikethrough()
 
                     if let discountText = plan.discountText, !discountText.isEmpty {
                         Text(discountText)
-                            .font(.system(size: 12))
+                            .font(.wd(.bodySmall))
                             .foregroundStyle(ThemeManager.shared.palette.semanticWarning)
                     }
                 }
@@ -54,27 +54,27 @@ struct PlanCardView: View {
 
             if let metaText {
                 Text(metaText)
-                    .font(.system(size: 12))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral500)
             }
 
             if let privilegesText {
                 Text(privilegesText)
-                    .font(.system(size: 13))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
             if let description = plan.description, !description.isEmpty {
                 Text(description)
-                    .font(.system(size: 12))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral500)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
             Button(action: onBuy) {
                 Text(isPurchasing ? "处理中…" : "立即开通")
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.wd(.bodyLarge, weight: .medium))
                     .foregroundStyle(ThemeManager.shared.palette.onPrimary)
                     .frame(maxWidth: .infinity)
                     .frame(height: 40)

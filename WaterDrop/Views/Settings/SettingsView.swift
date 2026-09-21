@@ -22,6 +22,18 @@ struct SettingsView: View {
                 }
             }
 
+            // 今日 AI 用量 (F-012 ⑥ / D-7)
+            // 纯展示行，不可点 —— 与 Android `activity_settings.xml` 的 ai_usage 卡片同位
+            // （在「个人」和「会员中心」之间）。
+            Section {
+                HStack {
+                    Text("今日 AI 用量")
+                    Spacer()
+                    Text(viewModel.aiUsageEntryValue)
+                        .foregroundStyle(ThemeManager.shared.palette.neutral500)
+                }
+            }
+
             // Membership (F-012 ③)
             Section {
                 HStack {
@@ -30,12 +42,45 @@ struct SettingsView: View {
                     Text(viewModel.membershipEntryValue)
                         .foregroundStyle(ThemeManager.shared.palette.neutral500)
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 13))
+                        .font(.wd(.labelMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
                     viewModel.showMembership = true
+                }
+            }
+
+            // Groups (F-012 ④)
+            // ⚠️ 这一行是必需的入口：群组页面写好了但没有入口，用户就永远到不了 ——
+            // Android B-2.2 踩过同一个坑（页面写完了、不可达）。
+            Section {
+                HStack {
+                    Text("我的群组")
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.wd(.labelMedium))
+                        .foregroundStyle(ThemeManager.shared.palette.neutral400)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.showGroups = true
+                }
+            }
+
+            // Reminders (F-012 ⑤)
+            // ⚠️ 同样是必需的入口：提醒页写完了没有入口，用户就永远到不了。
+            Section {
+                HStack {
+                    Text("提醒")
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.wd(.labelMedium))
+                        .foregroundStyle(ThemeManager.shared.palette.neutral400)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.showSchedules = true
                 }
             }
 
@@ -86,7 +131,7 @@ struct SettingsView: View {
             if !viewModel.statusMessage.isEmpty {
                 Section {
                     Text(viewModel.statusMessage)
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral600)
                 }
             }
@@ -96,8 +141,18 @@ struct SettingsView: View {
         .navigationDestination(isPresented: $viewModel.showMembership) {
             MembershipView()
         }
+        .navigationDestination(isPresented: $viewModel.showGroups) {
+            GroupListView()
+        }
+        .navigationDestination(isPresented: $viewModel.showSchedules) {
+            ScheduleListView()
+        }
         .task {
-            await viewModel.loadMembershipEntry()
+            // 两个回显互不依赖，**并发**取 —— 串行会让设置页首屏多等一个网络往返。
+            // 两者都是失败静默、失败保留占位符，谁先回来都不影响谁。
+            async let membership: Void = viewModel.loadMembershipEntry()
+            async let aiUsage: Void = viewModel.loadAiUsage()
+            _ = await (membership, aiUsage)
         }
         // 从会员中心返回时 `.task` 不会重跑（SettingsView 一直留在导航栈里），
         // 所以额外盯着导航开关：它翻回 false 就是用户回来了，此时刷新右侧文案 ——

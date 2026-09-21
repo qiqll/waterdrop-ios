@@ -23,7 +23,7 @@ struct OnboardingView: View {
                         Button("跳过") {
                             completeOnboarding()
                         }
-                        .font(.system(size: 16))
+                        .font(.wd(.bodyLarge))
                         .foregroundStyle(ThemeManager.shared.palette.neutral600)
                         .padding(.trailing, 24)
                         .padding(.top, 16)
@@ -37,16 +37,16 @@ struct OnboardingView: View {
                             Spacer()
 
                             Image(systemName: pages[index].icon)
-                                .font(.system(size: 64))
+                                .font(.wdHero(size: 64))
                                 .foregroundStyle(ThemeManager.shared.palette.primary)
 
                             Text(pages[index].title)
-                                .font(.system(size: 24, weight: .bold))
+                                .font(.wd(.headlineLarge, weight: .bold))
                                 .foregroundStyle(ThemeManager.shared.palette.neutral800)
                                 .multilineTextAlignment(.center)
 
                             Text(pages[index].subtitle)
-                                .font(.system(size: 16))
+                                .font(.wd(.bodyLarge))
                                 .foregroundStyle(ThemeManager.shared.palette.neutral600)
                                 .multilineTextAlignment(.center)
                                 .lineSpacing(6)
@@ -70,7 +70,7 @@ struct OnboardingView: View {
                     }
                 }) {
                     Text(currentPage < pages.count - 1 ? "下一步" : "开始使用")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.wd(.titleLarge, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(ThemeManager.shared.palette.primary)

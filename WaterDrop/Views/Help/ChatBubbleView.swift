@@ -8,7 +8,7 @@ struct ChatBubbleView: View {
             if message.isUser { Spacer(minLength: 60) }
 
             Text(message.content)
-                .font(.system(size: 15))
+                .font(.wd(.bodyLarge))
                 .foregroundStyle(message.isUser ? .white : (message.isError ? ThemeManager.shared.palette.semanticError : ThemeManager.shared.palette.neutral800))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)

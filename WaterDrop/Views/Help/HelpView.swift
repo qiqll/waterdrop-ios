@@ -15,15 +15,15 @@ struct HelpView: View {
                     Spacer()
                     VStack(spacing: 12) {
                         Image(systemName: "questionmark.bubble")
-                            .font(.system(size: 48))
+                            .font(.wdHero(size: 48))
                             .foregroundStyle(ThemeManager.shared.palette.neutral400)
 
                         Text("有什么可以帮您？")
-                            .font(.system(size: 20, weight: .medium))
+                            .font(.wd(.headlineMedium, weight: .medium))
                             .foregroundStyle(ThemeManager.shared.palette.neutral700)
 
                         Text("您可以问我任何关于水滴管家的使用问题")
-                            .font(.system(size: 14))
+                            .font(.wd(.bodyMedium))
                             .foregroundStyle(ThemeManager.shared.palette.neutral500)
                     }
                     Spacer()
@@ -64,7 +64,7 @@ struct HelpView: View {
                 // Input bar
                 HStack(spacing: 12) {
                     TextField("输入您的问题...", text: $inputText)
-                        .font(.system(size: 16))
+                        .font(.wd(.bodyLarge))
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)
                         .background(ThemeManager.shared.palette.surfaceVariant)
@@ -73,7 +73,7 @@ struct HelpView: View {
 
                     Button(action: sendQuestion) {
                         Image(systemName: "arrow.up.circle.fill")
-                            .font(.system(size: 32))
+                            .font(.wd(.display))
                             .foregroundStyle(
                                 inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                                     ? ThemeManager.shared.palette.neutral300
@@ -89,6 +89,11 @@ struct HelpView: View {
         }
         .navigationTitle("帮助中心")
         .navigationBarTitleDisplayMode(.inline)
+        // F-012 ⑥ (D-6)：进入页面时加载历史问答记录（仅当消息列表为空时生效）。
+        // 对齐 Android `HelpActivity.onCreate` 里的 `viewModel.loadHistory()`。
+        .task {
+            await viewModel.loadHistory()
+        }
     }
 
     private func sendQuestion() {

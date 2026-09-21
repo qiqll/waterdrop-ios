@@ -13,22 +13,22 @@ struct ItemListView: View {
                 // Empty state
                 VStack(spacing: 16) {
                     Image(systemName: "tray")
-                        .font(.system(size: 48))
+                        .font(.wdHero(size: 48))
                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
 
                     Text("还没有记录任何物品")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(.wd(.titleLarge, weight: .medium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral700)
 
                     Text("试试对麦克风说「钥匙放在玄关」")
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral500)
                 }
             } else {
                 VStack(alignment: .leading, spacing: 0) {
                     // Item count
                     Text("共 \(viewModel.items.count) 件物品")
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral600)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 12)
@@ -53,10 +53,10 @@ struct ItemListView: View {
                             } header: {
                                 HStack {
                                     Text(group.category)
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.wd(.labelLarge, weight: .medium))
                                         .foregroundStyle(ThemeManager.shared.palette.neutral600)
                                     Text("\(group.items.count)件")
-                                        .font(.system(size: 12))
+                                        .font(.wd(.labelMedium))
                                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
                                 }
                             }

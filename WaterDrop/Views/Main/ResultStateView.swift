@@ -11,12 +11,12 @@ struct ResultStateView: View {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(ThemeManager.shared.palette.semanticWarning)
                     Text(errorMessage)
-                        .font(.system(size: FontSizeManager.shared.currentFontSize.textSize))
+                        .font(.wd(.bodyLarge, userScale: FontSizeManager.shared.currentFontSize.scaleFactor))
                         .foregroundStyle(ThemeManager.shared.palette.semanticError)
                 }
             } else {
                 Text(result)
-                    .font(.system(size: FontSizeManager.shared.currentFontSize.textSize))
+                    .font(.wd(.bodyLarge, userScale: FontSizeManager.shared.currentFontSize.scaleFactor))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
                     .lineSpacing(4)
             }

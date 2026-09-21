@@ -15,15 +15,15 @@ struct LoginView: View {
 
                 // App icon
                 Image(systemName: "drop.fill")
-                    .font(.system(size: 64))
+                    .font(.wdHero(size: 64))
                     .foregroundStyle(ThemeManager.shared.palette.primary)
 
                 Text("水滴管家")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.wd(.headlineLarge, weight: .bold))
                     .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                 Text("点点滴滴，记在心里")
-                    .font(.system(size: 14))
+                    .font(.wd(.bodyMedium))
                     .foregroundStyle(ThemeManager.shared.palette.neutral600)
 
                 Spacer()
@@ -36,7 +36,7 @@ struct LoginView: View {
                                 .tint(.white)
                         }
                         Text("一键登录")
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.wd(.titleLarge, weight: .semibold))
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
@@ -50,7 +50,7 @@ struct LoginView: View {
                 // Error message
                 if let errorMessage {
                     Text(errorMessage)
-                        .font(.system(size: 14))
+                        .font(.wd(.bodyMedium))
                         .foregroundStyle(ThemeManager.shared.palette.semanticError)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 40)
@@ -58,7 +58,7 @@ struct LoginView: View {
 
                 // Terms hint
                 Text("登录即表示同意用户协议和隐私政策")
-                    .font(.system(size: 12))
+                    .font(.wd(.bodySmall))
                     .foregroundStyle(ThemeManager.shared.palette.neutral400)
                     .padding(.bottom, 40)
             }

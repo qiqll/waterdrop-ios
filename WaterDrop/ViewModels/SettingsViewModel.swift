@@ -15,8 +15,20 @@ final class SettingsViewModel {
     var statusMessage: String = ""
     var showMembership = false
 
+    /// F-012 ④：群组列表的导航开关。Android B-2.2 的教训 —— 页面写完不等于可达，
+    /// 入口必须在设置里显式补上，否则用户永远点不到。
+    var showGroups = false
+
+    /// F-012 ⑤：提醒列表的导航开关。同上 —— 页面可达才算做完。
+    var showSchedules = false
+
     /// 「会员中心」行右侧的文案。初值即占位符，取到结果后覆盖。
     var membershipEntryValue: String = "加载中…"
+
+    /// F-012 ⑥ (D-7)：「今日 AI 用量」行右侧的文案。占位符与 Android
+    /// `activity_settings.xml` 里的 `"—"` 保持一致（**不写「加载中…」** ——
+    /// 用量是旁路信息，加载失败时就该停在「—」，而不是把「加载中」永远挂在那里）。
+    var aiUsageEntryValue: String = "—"
 
     private let logger = Logger(subsystem: "com.waterdrop.ios", category: "SettingsViewModel")
 
@@ -116,6 +128,26 @@ final class SettingsViewModel {
             membershipEntryValue = (response.data == true) ? "会员" : "免费用户"
         } catch {
             logger.warning("会员状态回显失败: \(error.localizedDescription)")
+        }
+    }
+
+    /// F-012 ⑥ (D-7)：今日 AI 用量回显。对齐 Android `SettingsActivity.setupAiUsage()`。
+    ///
+    /// 只显示 `"count/limit 次"`，**不显示 `cost`** —— 服务端确实返回了 `cost`（BigDecimal），
+    /// 但那是内部计费字段，展示给用户既看不懂也无意义，两端显示口径还不一致。
+    ///
+    /// 失败静默保留占位符「—」：用量是**旁路信息**，不是用户此行目的。为了它弹错、
+    /// 或者一直显示「加载中…」，都比显示「—」更糟。与 `loadMembershipEntry()` 同策略。
+    func loadAiUsage() async {
+        do {
+            let response = try await AiAPIService.getTodayUsage()
+            guard response.code == 200, let data = response.data else {
+                logger.warning("AI 用量回显业务失败: \(response.message)")
+                return
+            }
+            aiUsageEntryValue = "\(data.count)/\(data.limit) 次"
+        } catch {
+            logger.warning("AI 用量回显失败: \(error.localizedDescription)")
         }
     }
 }

@@ -17,14 +17,14 @@ struct MainView: View {
                     HStack {
                         Button(action: { showSettings = true }) {
                             Image(systemName: "gearshape")
-                                .font(.system(size: 22))
+                                .font(.wd(.headlineMedium))
                                 .foregroundStyle(ThemeManager.shared.palette.neutral700)
                         }
 
                         Spacer()
 
                         Text("水滴管家")
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.wd(.titleLarge, weight: .semibold))
                             .foregroundStyle(ThemeManager.shared.palette.neutral800)
 
                         Spacer()
@@ -32,13 +32,13 @@ struct MainView: View {
                         HStack(spacing: 16) {
                             Button(action: { showItemList = true }) {
                                 Image(systemName: "list.bullet")
-                                    .font(.system(size: 22))
+                                    .font(.wd(.headlineMedium))
                                     .foregroundStyle(ThemeManager.shared.palette.neutral700)
                             }
 
                             Button(action: { showHelp = true }) {
                                 Image(systemName: "questionmark.circle")
-                                    .font(.system(size: 22))
+                                    .font(.wd(.headlineMedium))
                                     .foregroundStyle(ThemeManager.shared.palette.neutral700)
                             }
                         }
@@ -130,6 +130,14 @@ struct MainView: View {
         }
         .onDisappear {
             viewModel.flushPendingDelete()
+        }
+        // F-012 ⑥ (D-10)：进入主界面时上报一次活跃。
+        //
+        // 放在 `.task` 里（主界面的唯一入口）而不是 `WaterDropApp` 的 scenePhase：
+        // 后者每次切回前台都会触发，而服务端落的是累加计数器。`.task` 本身也只在
+        // 视图出现时跑一次，两重保险。真正的幂等由 `HeartbeatReporter` 的按天节流保证。
+        .task {
+            await HeartbeatReporter.reportIfNeeded()
         }
     }
 

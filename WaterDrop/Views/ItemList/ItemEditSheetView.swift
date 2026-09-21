@@ -49,7 +49,7 @@ struct ItemEditSheetView: View {
                                 AuthenticatedRemoteImage(urlString: resolved)
                             } else {
                                 Image(systemName: "photo")
-                                    .font(.system(size: 24))
+                                    .font(.wd(.headlineLarge))
                                     .foregroundStyle(ThemeManager.shared.palette.neutral400)
                             }
                         }
