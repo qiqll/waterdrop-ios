@@ -249,7 +249,18 @@ final class IntentRecognitionService {
                 }
 
             case .unknown:
-                reply = "当前问题能力正在开发中"
+                // F-017 §3.2（D2）：五类物品意图都没命中时，兜底到开放问答。
+                //
+                // 这样「问一句」（如「这个季节适合养什么花」）无需新增意图 ——
+                // QUERY_LOCATION / QUERY_CATEGORY 答的是**库里的结构化事实**，
+                // 而 /ai/help 才是**通用知识问答**，两者是不同的能力。
+                // 先识别、识别不出再问，用户不必知道这条分界。
+                //
+                // 但离线降级时不要再发这次请求：degraded=true 的含义就是
+                // 「服务端不可达」，此刻再调 help 只会白等一次超时。
+                reply = intent.degraded
+                    ? "我没太听懂，换个说法再试试？比如「钥匙放在玄关了」"
+                    : await askHelpOrFallback(text)
             }
 
         // 对齐 Android：仅降级识别时添加文本前缀提示
@@ -258,6 +269,46 @@ final class IntentRecognitionService {
         }
         return reply
     }
+
+    // MARK: - UNKNOWN 兜底
+
+    /// UNKNOWN 兜底：转开放问答（F-017 §3.2 / 决策 D2）。
+    ///
+    /// 五类物品意图都没命中时，把原话交给 `/ai/help` 再试一次。
+    ///
+    /// ⚠️ **覆盖范围有限**：`/ai/help` 的职责是「根据产品帮助文档回答使用问题」，
+    /// 不是通用问答。实测（2026-09-22）它答不了「这个季节适合养什么花」这类通用知识问题
+    /// （返回 `inScope=false`）。所以本兜底实际解决的是**产品使用类提问**，
+    /// 而非字面意义上的「随便问一句」。
+    ///
+    /// 返回文案而非抛出：调用方 `processUserInput` 期望一个可直接上屏的字符串，
+    /// 兜底本身失败也不该让整轮对话变成错误态。
+    ///
+    /// - Parameter userInput: 用户原话
+    /// - Returns: 帮助回答，或提示换种说法的降级文案
+    private func askHelpOrFallback(_ userInput: String) async -> String {
+        do {
+            let response = try await HelpAPIService.askHelp(question: userInput)
+            guard response.code == 200, let answer = response.data?.answer, !answer.isEmpty else {
+                logger.warning("help 兜底失败：code=\(response.code)")
+                return Self.unknownFallbackReply
+            }
+            // inScope=false 的含义是「这个问题超出了产品帮助文档范围」——
+            // 服务端会给一句标准回复，并**把它登记成功能需求**（那也是产品
+            // 收集「用户想要什么」的入口）。此时不要把它当作权威答案展示，
+            // 要如实说明我们答不了这类问题。
+            if response.data?.inScope == false {
+                return "这个我暂时答不了 —— 我只能帮你记录和查找物品。\n\n\(answer)"
+            }
+            return answer
+        } catch {
+            logger.error("help 兜底异常：\(error.localizedDescription)")
+            return Self.unknownFallbackReply
+        }
+    }
+
+    /// 兜底文案。两端共用同一句 —— 用户看到的话术不该因平台而异。
+    static let unknownFallbackReply = "我没太听懂，换个说法再试试？比如「钥匙放在玄关了」"
 
     // MARK: - Formatting
 
