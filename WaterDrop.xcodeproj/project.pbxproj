@@ -38,6 +38,7 @@
 		5A5E97C5F31C6BDC02776919 /* GroupDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEA0041795550DD23BA7DC4 /* GroupDetailViewModel.swift */; };
 		5B8B3ABF7061FF0B62640420 /* ResultStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5389796AB17861C6C05089 /* ResultStateView.swift */; };
 		602331BDA83D2EAF836C73CA /* AuthEventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF47D8E084596ADDC9A4B522 /* AuthEventBus.swift */; };
+		4D0AAF4CCF71073C2EC1CDE3 /* VoiceEntryBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164E7E4B7D3F9C161E67DAA /* VoiceEntryBus.swift */; };
 		614A52B64DF61597767F1FE0 /* FontSizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B06559577B4E91F5744EAD /* FontSizeManager.swift */; };
 		70C5B021C1ABE1DB9CE94519 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482AF32F159B82E25D115E5C /* Typography.swift */; };
 		6324A665374FCCC3C0D4B524 /* WaterDropApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FE4FFE0D6B04AE9C703C87 /* WaterDropApp.swift */; };
@@ -219,6 +220,7 @@
 		DB9BCE3366BCAAD0B2B7BE47 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DD05EE5DD454FC2B05AFF6BE /* SpeechRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionManager.swift; sourceTree = "<group>"; };
 		DF47D8E084596ADDC9A4B522 /* AuthEventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEventBus.swift; sourceTree = "<group>"; };
+		A164E7E4B7D3F9C161E67DAA /* VoiceEntryBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceEntryBus.swift; sourceTree = "<group>"; };
 		E4F5935F4D02701E319E2B7B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E8BE190F62073E5A8AEE9C1B /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		EAC85B796D28E7A633607048 /* TokenRefreshHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshHandler.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			children = (
 				631D183B37A0A70BE382AF03 /* AlicomFusionAuthManager.swift */,
 				DF47D8E084596ADDC9A4B522 /* AuthEventBus.swift */,
+				A164E7E4B7D3F9C161E67DAA /* VoiceEntryBus.swift */,
 				CDFEBC1B763D9396154C23A1 /* AuthService.swift */,
 				60F952EF210879543D64313B /* AuthStateManager.swift */,
 				5A86346A2913F296968EE28D /* KeychainManager.swift */,
@@ -720,6 +723,7 @@
 				13BA333DD2673832BF8BD6AE /* AuthAPIService.swift in Sources */,
 				8414462CF3EDCFFC85B16F25 /* AuthDTOs.swift in Sources */,
 				602331BDA83D2EAF836C73CA /* AuthEventBus.swift in Sources */,
+				4D0AAF4CCF71073C2EC1CDE3 /* VoiceEntryBus.swift in Sources */,
 				B60A4AFE465C95FAC08984D4 /* AuthService.swift in Sources */,
 				EEA28DD25C1DFAA341E6A74C /* AuthStateManager.swift in Sources */,
 				79999BD05CB1C81683928F0C /* AuthenticatedRemoteImage.swift in Sources */,

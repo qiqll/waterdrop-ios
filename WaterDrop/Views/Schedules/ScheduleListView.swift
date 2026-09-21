@@ -16,6 +16,8 @@ import UIKit
 ///    记一条历史、**不产生任何通知**，接到「测试提醒」上是骗用户。
 /// 5. **状态只读 `enabled`、时间只读 `nextExecutionAt`**，不读派生的 `taskStatus`。
 struct ScheduleListView: View {
+    /// F-017 §3.4（D5）：工具栏语音按钮退出本页后回到主页
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel = ScheduleListViewModel()
 
     /// 编辑目标。`nil` = 新建 —— 两者字段完全相同，共用一个表单。
@@ -60,6 +62,22 @@ struct ScheduleListView: View {
             }
         }
         .navigationTitle("提醒")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                // F-017 §3.4（决策 D5）：语音入口常驻。
+                // iOS 这里用导航栏按钮而非浮动按钮 —— 三个列表页的底部都已有内容
+                // （群组/提醒是横向操作按钮、物品是撤销提示条），浮动按钮会遮挡。
+                // 语义相同：不必退回主页就能开口。
+                Button {
+                    VoiceEntryBus.shared.postStartListening()
+                    dismiss()
+                } label: {
+                    Image(systemName: "mic")
+                }
+                .accessibilityLabel("用语音记录或查找物品")
+            }
+        }
+
         .navigationBarTitleDisplayMode(.inline)
         .task {
             // 首次进入本页才请求通知权限（不在启动时弹，见 ScheduleListViewModel）

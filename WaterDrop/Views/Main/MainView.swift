@@ -112,6 +112,15 @@ struct MainView: View {
                 }
                 .animation(.spring(response: 0.3), value: viewModel.showUndoSnackbar)
             }
+            // F-017 §3.4（决策 D5）：列表页工具栏的语音按钮会 post 一个信号，
+            // 退出导航回到主页后由这里接手开始聆听。
+            //
+            // 用 onChange 而非 onAppear：本页在 push 期间并未消失，从列表页返回时
+            // onAppear **不会**再触发，只有观察标志位的变化才收得到。
+            .onChange(of: VoiceEntryBus.shared.pendingStartListening) { _, pending in
+                guard pending, VoiceEntryBus.shared.consumeStartListening() else { return }
+                handlePressStart()
+            }
             .navigationDestination(isPresented: $showSettings) {
                 SettingsView()
             }

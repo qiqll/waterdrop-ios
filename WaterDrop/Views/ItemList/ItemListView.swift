@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ItemListView: View {
+    /// F-017 §3.4（D5）：工具栏语音按钮退出本页后回到主页
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel = ItemListViewModel()
     @State private var showDeleteAlert = false
     @State private var itemToDelete: Item?
@@ -85,6 +87,22 @@ struct ItemListView: View {
             .animation(.spring(response: 0.3), value: viewModel.showUndoSnackbar)
         }
         .navigationTitle("我的物品")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                // F-017 §3.4（决策 D5）：语音入口常驻。
+                // iOS 这里用导航栏按钮而非浮动按钮 —— 三个列表页的底部都已有内容
+                // （群组/提醒是横向操作按钮、物品是撤销提示条），浮动按钮会遮挡。
+                // 语义相同：不必退回主页就能开口。
+                Button {
+                    VoiceEntryBus.shared.postStartListening()
+                    dismiss()
+                } label: {
+                    Image(systemName: "mic")
+                }
+                .accessibilityLabel("用语音记录或查找物品")
+            }
+        }
+
         .navigationBarTitleDisplayMode(.inline)
         .alert("确认删除", isPresented: $showDeleteAlert) {
             Button("取消", role: .cancel) {
