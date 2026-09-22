@@ -260,7 +260,7 @@ final class IntentRecognitionService {
                 // 「服务端不可达」，此刻再调 help 只会白等一次超时。
                 reply = intent.degraded
                     ? "我没太听懂，换个说法再试试？比如「钥匙放在玄关了」"
-                    : await askHelpOrFallback(text)
+                    : await askChatOrFallback(text)
             }
 
         // 对齐 Android：仅降级识别时添加文本前缀提示
@@ -272,37 +272,38 @@ final class IntentRecognitionService {
 
     // MARK: - UNKNOWN 兜底
 
-    /// UNKNOWN 兜底：转开放问答（F-017 §3.2 / 决策 D2）。
+    /// UNKNOWN 兜底：转通用问答（F-017 §3.2 / 决策 D2，**2026-09-22 修订**）。
     ///
-    /// 五类物品意图都没命中时，把原话交给 `/ai/help` 再试一次。
+    /// ## 为什么从 `/ai/help` 改成 `/ai/chat`
     ///
-    /// ⚠️ **覆盖范围有限**：`/ai/help` 的职责是「根据产品帮助文档回答使用问题」，
-    /// 不是通用问答。实测（2026-09-22）它答不了「这个季节适合养什么花」这类通用知识问题
-    /// （返回 `inScope=false`）。所以本兜底实际解决的是**产品使用类提问**，
-    /// 而非字面意义上的「随便问一句」。
+    /// 初版接的是 `/ai/help`，但实测发现它的职责被提示词**限定在产品帮助文档内**
+    /// （`HelpServiceImpl` 的 system prompt 明写「根据以下帮助文档回答用户的使用问题」），
+    /// 超出范围一律返回「该功能需求当前尚未开发」，并**把问题记入功能需求表**。
+    /// 于是「这个季节适合养什么花」得到的是一句答非所问的产品话术，
+    /// 还在库里留下一条被自动分类为「植物养护」的伪需求。
     ///
-    /// 返回文案而非抛出：调用方 `processUserInput` 期望一个可直接上屏的字符串，
-    /// 兜底本身失败也不该让整轮对话变成错误态。
+    /// `/ai/chat` 是为此新开的通用问答路径：不注入帮助文档、不判定 inScope、
+    /// 不写功能需求表，由模型按通用知识作答。
+    ///
+    /// ## 覆盖范围
+    ///
+    /// 产品使用类与通用知识类**都能答**（实测：三种问法均返回具体回答）。
+    /// 唯一不适合的是需要实时数据的（天气、股价）—— 模型会说明自己查不了。
     ///
     /// - Parameter userInput: 用户原话
-    /// - Returns: 帮助回答，或提示换种说法的降级文案
-    private func askHelpOrFallback(_ userInput: String) async -> String {
+    /// - Returns: 回答，或提示换种说法的兜底文案
+    private func askChatOrFallback(_ userInput: String) async -> String {
         do {
-            let response = try await HelpAPIService.askHelp(question: userInput)
-            guard response.code == 200, let answer = response.data?.answer, !answer.isEmpty else {
-                logger.warning("help 兜底失败：code=\(response.code)")
+            let response = try await AiAPIService.chat(question: userInput)
+            guard response.code == 200, let data = response.data else {
+                logger.warning("chat 兜底失败：code=\(response.code)")
                 return Self.unknownFallbackReply
             }
-            // inScope=false 的含义是「这个问题超出了产品帮助文档范围」——
-            // 服务端会给一句标准回复，并**把它登记成功能需求**（那也是产品
-            // 收集「用户想要什么」的入口）。此时不要把它当作权威答案展示，
-            // 要如实说明我们答不了这类问题。
-            if response.data?.inScope == false {
-                return "这个我暂时答不了 —— 我只能帮你记录和查找物品。\n\n\(answer)"
-            }
-            return answer
+            // degraded 表示服务端也没答上来（模型调用失败），它给的是兜底文案。
+            // 照常展示即可 —— 服务端已经保证 answer 不会是空串。
+            return data.answer.isEmpty ? Self.unknownFallbackReply : data.answer
         } catch {
-            logger.error("help 兜底异常：\(error.localizedDescription)")
+            logger.error("chat 兜底异常：\(error.localizedDescription)")
             return Self.unknownFallbackReply
         }
     }

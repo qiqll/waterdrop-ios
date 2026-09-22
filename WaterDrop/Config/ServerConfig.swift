@@ -25,7 +25,13 @@ enum ServerConfig {
         static let itemByName = "items/search/by-name"
         static let aiIntent = "ai/intent"
         static let aiUsageToday = "ai/usage/today"
-        static let aiHelp = "ai/help"
+        /// 通用问答（F-017 §11.5 修订版）。
+        ///
+        /// 与 `aiHelp` 的区别：help 的职责被服务端提示词限定在**产品帮助文档内**，
+        /// 超出范围会返回「该功能需求当前尚未开发」并记入功能需求表；
+        /// chat 面向**通用知识**，不限范围、不记需求。语音的 UNKNOWN 兜底走这条。
+        static let aiChat = "ai/chat"
+        static let aiHelp = "ai/help" 
         static let aiHelpHistory = "ai/help/history"
         static let filesUpload = "files/upload"
         static let versionCheck = "version/check"
