@@ -472,7 +472,7 @@ xcodebuild -project WaterDrop.xcodeproj -target WaterDrop -configuration Debug -
 | 状态管理 | iOS 17 `@Observable` | 细粒度刷新 |
 | 安全存储 | Keychain（`AfterFirstUnlock`） | 对标 Android EncryptedSharedPreferences |
 | 语音识别 | Apple `SFSpeechRecognizer` (zh-CN) | 原生免费 |
-| 配置外置 | 服务器地址/云密钥写入 Info.plist | 环境切换无需改代码 |
+| 配置外置 | 服务器地址/云密钥写入 `Configs/Secrets.xcconfig`（`Info.plist` 仅承接 `$(SERVER_BASE_URL)`） | 环境切换无需改代码 |
 
 ---
 

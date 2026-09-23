@@ -120,7 +120,7 @@
 | 状态管理 | iOS 17 `@Observable`（Observation 框架） | 比 `ObservableObject` 更细粒度、更高性能 |
 | 安全存储 | Keychain（`AfterFirstUnlock`） | Token 加密存储，对标 Android EncryptedSharedPreferences |
 | 语音识别 | Apple `SFSpeechRecognizer`（zh-CN） | 原生、免费、无需第三方，对标 DashScope |
-| 配置外置 | 服务器地址、阿里云密钥写入 Info.plist | 环境切换无需改代码 |
+| 配置外置 | 服务器地址、阿里云密钥写入 `Configs/Secrets.xcconfig`（`Info.plist` 仅承接 `$(SERVER_BASE_URL)`） | 环境切换无需改代码 |
 
 ---
 

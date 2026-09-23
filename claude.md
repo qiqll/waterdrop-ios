@@ -26,7 +26,10 @@
 
 - 架构：MVVM（View → ViewModel → Repository → APIService → APIClient）
 - 详细设计见 `DESIGN.md`，工程手册见 `TECH.md`
-- 服务器地址配置在 `WaterDrop/Resources/Info.plist` 的 `SERVER_BASE_URL`
+- 服务器地址配置在 `Configs/Secrets.xcconfig` 的 `SERVER_BASE_URL`
+  （`project.yml:11-12` 把 Debug/Release 都绑到该 xcconfig；该文件不进版本控制，只提交 `.example`）。
+  `WaterDrop/Resources/Info.plist` 只是承接槽（写的是 `$(SERVER_BASE_URL)`），改它没有意义。
+  另：xcconfig 把 `//` 当行内注释，URL 必须用 `SLASH` 变量拼写。
 
 ## 开发工作流（读公共库 → 执行 → 回写）
 
