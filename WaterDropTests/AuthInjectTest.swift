@@ -38,9 +38,13 @@ final class AuthInjectTest: XCTestCase {
         // 取 1 小时后：足够覆盖整轮手工点按，又不会留下一个长期有效的假登录态。
         let expiresAt = Int64(Date().timeIntervalSince1970 * 1000) + 3_600_000
 
+        // refreshToken 也要注入（F-017 §14.1）：
+        // 空串时 TokenRefreshHandler 会走 handleRefreshFailure() →
+        // clearAuthInfo() + postLoginRequired()，把整份登录态清掉并踢回登录页。
+        // 症状是「注入报成功，但一操作就被登出」。
         AuthStateManager.shared.saveAuthInfo(
             userId: userId, accessToken: token,
-            refreshToken: "", expiresAt: expiresAt
+            refreshToken: env["F011_REFRESH_TOKEN"] ?? "", expiresAt: expiresAt
         )
 
         XCTAssertTrue(

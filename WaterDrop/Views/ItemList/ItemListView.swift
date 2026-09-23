@@ -75,7 +75,7 @@ struct ItemListView: View {
             VStack {
                 Spacer()
                 UndoSnackbarView(
-                    itemName: viewModel.undoItemName,
+                    message: "已删除「\(viewModel.undoItemName)」",
                     onUndo: {
                         withAnimation {
                             viewModel.cancelDelete()

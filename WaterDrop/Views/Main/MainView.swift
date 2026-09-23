@@ -86,8 +86,8 @@ struct MainView: View {
                         onPressRelease: {
                             handlePressRelease()
                         },
-                        onSlideToListenMode: {
-                            // Already listening, just update UI
+                        onEnterListenMode: {
+                            // 连续聆听：录音已在跑，这里只切界面状态
                             viewModel.setListening()
                         },
                         onExitListenMode: {
@@ -98,17 +98,31 @@ struct MainView: View {
                 }
 
                 // Undo snackbar overlay
+                //
+                // 同一位置承载两种撤销：删除的、和刚记下那条的。
+                // **两者互斥** —— 删除条优先（它是用户刚点的动作，更即时），
+                // 否则两条会叠在一起，用户不知道该点哪个。
                 VStack {
                     Spacer()
-                    UndoSnackbarView(
-                        itemName: viewModel.pendingDeleteItemName,
-                        onUndo: {
-                            withAnimation {
-                                viewModel.cancelDelete()
-                            }
-                        },
-                        isShowing: viewModel.showUndoSnackbar
-                    )
+                    if viewModel.showUndoSnackbar {
+                        UndoSnackbarView(
+                            message: "已删除「\(viewModel.pendingDeleteItemName)」",
+                            onUndo: {
+                                withAnimation {
+                                    viewModel.cancelDelete()
+                                }
+                            },
+                            isShowing: true
+                        )
+                    } else if let recordedName = viewModel.lastRecordedItemId != nil ? viewModel.lastRecordedItemName : nil {
+                        UndoSnackbarView(
+                            message: "已记下「\(recordedName)」",
+                            onUndo: {
+                                viewModel.undoLastRecord()
+                            },
+                            isShowing: true
+                        )
+                    }
                 }
                 .animation(.spring(response: 0.3), value: viewModel.showUndoSnackbar)
             }

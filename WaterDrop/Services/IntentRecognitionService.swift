@@ -13,6 +13,27 @@ final class IntentRecognitionService {
 
     private init() {}
 
+    /// 一轮语音交互的结果（F-017 §14.1）。
+    ///
+    /// ## 为什么不再是裸 String
+    ///
+    /// 上一版用字符串前缀传递「待确认删除」（`DELETE_PENDING:`）。
+    /// 现在回应态还要表达「刚记下的那条可以撤回」，再叠一个前缀就成了
+    /// 两套字符串协议 —— 解析靠 hasPrefix，脆弱且容易互相污染。
+    ///
+    /// 改成结构体后，每种附加语义都有**具名字段**，调用方不必再猜字符串。
+    /// 与 Android `IntentRecognitionService.ProcessOutcome` 一一对应。
+    struct ProcessOutcome {
+        /// 可直接上屏的文案
+        let reply: String
+        /// 本次记录创建的物品 ID；非记录场景为 nil。用于回应页的「撤回」。
+        let createdItemId: String?
+        /// 本次创建的物品名 —— 撤回条要说「已记下「钥匙」」，光有 ID 没法交代撤的是哪条。
+        let createdItemName: String?
+        /// 待用户确认删除的物品名；非删除场景为 nil
+        let pendingDeleteName: String?
+    }
+
     // MARK: - Intent Types
 
     enum IntentType: String {
@@ -179,9 +200,14 @@ final class IntentRecognitionService {
 
     // MARK: - Process User Input
 
-    func processUserInput(_ text: String) async -> String {
+    func processUserInput(_ text: String) async -> ProcessOutcome {
         let intent = await recognizeIntent(text: text)
         let reply: String
+
+        // 记录场景下创建出的物品 —— 供回应页「撤回」使用
+        var createdItemId: String?
+        var createdItemName: String?
+        var pendingDeleteName: String?
 
             switch intent.type {
             case .recordLocation:
@@ -198,6 +224,9 @@ final class IntentRecognitionService {
                     if itemId.isEmpty {
                         reply = "物品存储失败，请检查网络连接后重试"
                     } else {
+                        // F-017 §14.1：记下 ID 与名称，回应页据此提供「撤回」
+                        createdItemId = itemId
+                        createdItemName = intent.itemName
                         reply = formatItemRecordResult(
                             itemName: intent.itemName,
                             location: intent.location,
@@ -235,7 +264,9 @@ final class IntentRecognitionService {
             case .deleteItem:
                 if let item = await itemRepository.getItemByName(intent.itemName) {
                     _pendingDeleteItem = item
-                    reply = "\(Self.deletePendingPrefix)\(intent.itemName)"
+                    // 不再是字符串前缀 —— 见 ProcessOutcome 的注释
+                    pendingDeleteName = intent.itemName
+                    reply = "确定要删除「\(intent.itemName)」的记录吗？"
                 } else {
                     reply = "抱歉，找不到 \(intent.itemName) 的记录"
                 }
@@ -264,10 +295,18 @@ final class IntentRecognitionService {
             }
 
         // 对齐 Android：仅降级识别时添加文本前缀提示
-        if intent.degraded && !reply.hasPrefix(Self.deletePendingPrefix) {
-            return "⚠️ 当前网络不佳，已使用离线识别（结果可能不准）\n\n\(reply)"
-        }
-        return reply
+        // 删除确认那条不加前缀：它本身就是一句完整的问句，
+        // 前面再顶一段网络提示会把「要删哪个」淹没掉。
+        let finalReply = (intent.degraded && pendingDeleteName == nil)
+            ? "⚠️ 当前网络不佳，已使用离线识别（结果可能不准）\n\n\(reply)"
+            : reply
+
+        return ProcessOutcome(
+            reply: finalReply,
+            createdItemId: createdItemId,
+            createdItemName: createdItemName,
+            pendingDeleteName: pendingDeleteName
+        )
     }
 
     // MARK: - UNKNOWN 兜底

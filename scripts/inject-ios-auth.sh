@@ -74,6 +74,9 @@ say "模拟器已就绪"
 # 测试进程读不到 —— 表现是用例全 skip 而 xcodebuild 仍报 TEST SUCCEEDED。
 export TEST_RUNNER_F011_ACCESS_TOKEN="$ACCESS_TOKEN"
 export TEST_RUNNER_F011_USER_ID="$USER_ID"
+# 第 3 行（若存在）是 refreshToken。不传的话 App 一旦遇到 401 就会
+# 因「无法刷新」清空登录态并踢回登录页。
+export TEST_RUNNER_F011_REFRESH_TOKEN="$(sed -n '3p' "$TOKEN_FILE" | tr -d ' \r\n')"
 export TEST_RUNNER_SERVER_BASE_URL_OVERRIDE="$BASE_URL"
 
 say "xcodebuild test（只跑 AuthInjectTest）"
