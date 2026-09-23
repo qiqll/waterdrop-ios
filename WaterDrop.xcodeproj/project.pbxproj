@@ -73,6 +73,7 @@
 		AE61D133B33EE3E44B8F9055 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E82A871861E587B3DA636 /* DeviceInfo.swift */; };
 		B113D49E46402BFC0D949759 /* IdleStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22FDD60E84E2B01144D9AFD /* IdleStateView.swift */; };
 		FA6C3E21F2E21DA72389F56C /* ProcessingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F294BAB7BA0E5B29CA5B /* ProcessingStateView.swift */; };
+		AB1717FDC3887087B655B13E /* CoachMarkOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FBA34DE7898A5EE55D4D4 /* CoachMarkOverlay.swift */; };
 		B60A4AFE465C95FAC08984D4 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEBC1B763D9396154C23A1 /* AuthService.swift */; };
 		B95300ABB1A3BA060063247B /* ChatBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15896C031F61065FEFFBA4AE /* ChatBubbleView.swift */; };
 		B9B03001F7B216A793293115 /* ScheduleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8CC1DE8511A2C86AE295A /* ScheduleListView.swift */; };
@@ -196,6 +197,7 @@
 		A1ACE19286E123D5BE3E163A /* ScheduleReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderManager.swift; sourceTree = "<group>"; };
 		A22FDD60E84E2B01144D9AFD /* IdleStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleStateView.swift; sourceTree = "<group>"; };
 		7646F294BAB7BA0E5B29CA5B /* ProcessingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingStateView.swift; sourceTree = "<group>"; };
+		012FBA34DE7898A5EE55D4D4 /* CoachMarkOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkOverlay.swift; sourceTree = "<group>"; };
 		A468A870FBE5E5C9BD490E28 /* PlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCardView.swift; sourceTree = "<group>"; };
 		A562DB483C7EF345EE58A00D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		A8C87ECFE1BB5D1214A90AF8 /* ScheduleAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAPIService.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			children = (
 				A22FDD60E84E2B01144D9AFD /* IdleStateView.swift */,
 				7646F294BAB7BA0E5B29CA5B /* ProcessingStateView.swift */,
+				012FBA34DE7898A5EE55D4D4 /* CoachMarkOverlay.swift */,
 				B298BC37BAD5253668F3E8C4 /* ListeningStateView.swift */,
 				E4F5935F4D02701E319E2B7B /* MainView.swift */,
 				5D5389796AB17861C6C05089 /* ResultStateView.swift */,
@@ -749,6 +752,7 @@
 				70BC2A8F24D88A0DA1CE8794 /* HelpViewModel.swift in Sources */,
 				B113D49E46402BFC0D949759 /* IdleStateView.swift in Sources */,
 				FA6C3E21F2E21DA72389F56C /* ProcessingStateView.swift in Sources */,
+				AB1717FDC3887087B655B13E /* CoachMarkOverlay.swift in Sources */,
 				9CCE7182ED102DD6030F04CC /* IntentRecognitionService.swift in Sources */,
 				C6023A072983097366E80430 /* Item.swift in Sources */,
 				9B9E73E6A38911C4D4D492C3 /* ItemAPIService.swift in Sources */,

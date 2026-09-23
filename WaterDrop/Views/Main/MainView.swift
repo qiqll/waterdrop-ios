@@ -7,6 +7,16 @@ struct MainView: View {
     @State private var showHelp = false
     @State private var permissionDenied = false
 
+    // F-018 §1：主页新手引导。
+    //
+    // 首次进入主页时展示四步蒙版引导（按住说 / 点按说 / 物品列表 / 问一句）。
+    // 只做主页 —— 四步指向的都是主页控件；跨页面引导需先跳转再定位，
+    // 复杂度高一个量级，本期不做。
+    @State private var showCoachMark = false
+    /// 引导锚点的 frame。在 ZStack 这一层收集 —— 见 CoachMarkOverlay 里
+    /// 关于「preference 只能子传父」的注释。
+    @State private var coachAnchors: [String: CGRect] = [:]
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -41,6 +51,7 @@ struct MainView: View {
                                     .font(.wd(.headlineMedium))
                                     .foregroundStyle(ThemeManager.shared.palette.neutral700)
                             }
+                            .coachAnchor("help")
                         }
                     }
                     .padding(.horizontal, 20)
@@ -94,6 +105,7 @@ struct MainView: View {
                             handlePressRelease()
                         }
                     )
+                    .coachAnchor("voiceFab")
                     .padding(.bottom, 32)
                 }
 
@@ -125,7 +137,25 @@ struct MainView: View {
                     }
                 }
                 .animation(.spring(response: 0.3), value: viewModel.showUndoSnackbar)
+
+                // F-018 §1：新手引导蒙版（放最上层，盖住所有控件）
+                if showCoachMark {
+                    CoachMarkOverlay(
+                        steps: coachSteps,
+                        anchors: coachAnchors,
+                        onFinish: {
+                            CoachMarkPrefs.markSeen()
+                            withAnimation(.easeOut(duration: 0.2)) { showCoachMark = false }
+                        },
+                        onSkip: {
+                            // 跳过**不写标记** —— 下次进入还会展示（他们确实还没学会怎么用）
+                            withAnimation(.easeOut(duration: 0.2)) { showCoachMark = false }
+                        }
+                    )
+                    .transition(.opacity)
+                }
             }
+            .onPreferenceChange(CoachAnchorKey.self) { coachAnchors = $0 }
             // F-017 §3.4（决策 D5）：列表页工具栏的语音按钮会 post 一个信号，
             // 退出导航回到主页后由这里接手开始聆听。
             //
@@ -166,6 +196,49 @@ struct MainView: View {
         .task {
             await HeartbeatReporter.reportIfNeeded()
         }
+        // F-018 §1：首次进入主页时展示引导。
+        //
+        // 用延迟而不是立即 —— 引导要读锚点 frame（`.coachAnchor` 注册的），
+        // 而 frame 要等第一帧布局完成才有值；立刻展示会拿到全 0 的 rect，
+        // 洞挖在左上角。（Android 侧踩过同一个坑，那边用 addOnPreDrawListener 解决。）
+        .onAppear {
+            guard !CoachMarkPrefs.hasSeen, !showCoachMark else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                withAnimation(.easeIn(duration: 0.22)) { showCoachMark = true }
+            }
+        }
+    }
+
+    // MARK: - 新手引导（F-018 §1）
+
+    private var coachSteps: [CoachMarkOverlay.Step] {
+        [
+            .init(
+                anchor: "voiceFab",
+                title: "按住说一句",
+                body: "按住这个圆按钮，说完松手就好。比如「钥匙放在玄关了」。",
+                placement: .above
+            ),
+            .init(
+                anchor: "voiceFab",
+                title: "点一下，连着说",
+                body: "要一次记好几样？点一下开始，说完再点一下结束 —— 中间手可以放下。",
+                placement: .above
+            ),
+            .init(
+                anchor: "itemList",
+                title: "记下的都在这儿",
+                body: "说过的物品会自动分成类，在这里能翻看、修改、删除。",
+                placement: .below
+            ),
+            .init(
+                anchor: "help",
+                title: "忘了就问一声",
+                body: "想不起来放哪了，直接问。也可以问点别的。",
+                placement: .below,
+                skippable: false
+            ),
+        ]
     }
 
     // MARK: - Voice Handling
