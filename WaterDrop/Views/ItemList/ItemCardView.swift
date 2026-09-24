@@ -22,6 +22,33 @@ struct ItemCardView: View {
         }
     }
 
+    /// 物品状态标签（F-017-screens §03）。
+    ///
+    /// 与 Android `ItemListActivity.statusLabelOf` 逐条对应 —— 两端必须一致，
+    /// 否则同一件东西在两个平台上叫法不同。
+    /// 正常（1）返回 nil，不显示徽章：满屏的「正常」是噪音。
+    private var statusLabel: String? {
+        switch item.status {
+        case 2: return "已借出"
+        case 3: return "已丢失"
+        case 4: return "已损坏"
+        default: return nil
+        }
+    }
+
+    /// 状态徽章配色。借出/丢失用警示色，损坏用中性色 ——
+    /// 「损坏」是既成事实，不是待处理的事，用红色反而像在报警。
+    private var statusColors: (fg: Color, bg: Color) {
+        switch item.status {
+        case 2: return (ThemeManager.shared.palette.semanticWarning,
+                        ThemeManager.shared.palette.semanticWarningBg)
+        case 3: return (ThemeManager.shared.palette.semanticError,
+                        ThemeManager.shared.palette.semanticErrorBg)
+        default: return (ThemeManager.shared.palette.neutral600,
+                         ThemeManager.shared.palette.surfaceVariant)
+        }
+    }
+
     /// F-011：品牌 / 型号 / 序列号拼接成的规格行，全空时返回 nil（整行不显示）。
     private var specLine: String? {
         let parts = [
@@ -68,7 +95,20 @@ struct ItemCardView: View {
                 }
             }
 
-            Spacer()
+            Spacer(minLength: 8)
+
+            // 状态徽章（非正常状态才显示）。
+            // 放右侧而不是名称下方：位置是卡片的第二主角，
+            // 状态是补充信息，挤在位置下面会让两行都变窄。
+            if let statusLabel {
+                Text(statusLabel)
+                    .font(.wd(.labelMedium))
+                    .foregroundStyle(statusColors.fg)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(statusColors.bg)
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+            }
         }
         .padding(.vertical, 4)
         .contentShape(Rectangle())
