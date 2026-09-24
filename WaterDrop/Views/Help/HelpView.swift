@@ -31,9 +31,25 @@ struct HelpView: View {
                             .font(.wd(.headlineMedium, weight: .medium))
                             .foregroundStyle(ThemeManager.shared.palette.neutral700)
 
-                        Text("您可以问我任何关于水滴管家的使用问题")
+                        // 文案按设计稿 §08 改：原来写「您可以问我任何关于水滴管家的
+                        // 使用问题」，那把人框在了「产品问题」里，而这一屏现在
+                        // 同时承接语音听不懂的通用问题。
+                        Text("问产品怎么用，或者随便问点什么")
                             .font(.wd(.bodyMedium))
                             .foregroundStyle(ThemeManager.shared.palette.neutral500)
+
+                        // 可点示例（F-017-screens §08）。
+                        // 作用不是「展示能问什么」，而是**降低开口门槛** ——
+                        // 面对空白输入框，一个可点的例子比一句「随便问」有用得多。
+                        // 三个覆盖三类：通用知识 / 产品操作 / 功能设置。
+                        VStack(spacing: 8) {
+                            HStack(spacing: 8) {
+                                exampleChip("这个季节适合养什么花")
+                                exampleChip("怎么共享给家人")
+                            }
+                            exampleChip("提醒怎么设置")
+                        }
+                        .padding(.top, 10)
                     }
                     Spacer()
                 } else {
@@ -194,6 +210,24 @@ struct HelpView: View {
                 try? await Task.sleep(for: .milliseconds(120))
             }
         }
+    }
+
+    /// 空态的可点示例。
+    ///
+    /// 点了**直接发起提问**，不是只填进输入框 ——
+    /// 那等于把「不用想的入口」又变回了「表单」。
+    private func exampleChip(_ text: String) -> some View {
+        Text(text)
+            .font(.wd(.bodySmall))
+            .foregroundStyle(ThemeManager.shared.palette.primary)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(ThemeManager.shared.palette.primaryLight)
+            .clipShape(Capsule())
+            .contentShape(Capsule())
+            .onTapGesture {
+                Task { await viewModel.sendQuestion(text) }
+            }
     }
 
     private func sendQuestion() {
