@@ -58,6 +58,12 @@ struct SettingsView: View {
                 HStack {
                     Text("我的群组")
                     Spacer()
+                    // 数量回显（F-017-screens §06）。空串时不占位 ——
+                    // 网络失败与「真的没有」都一样空，此时靠箭头表达「可点」。
+                    if !viewModel.groupsEntryValue.isEmpty {
+                        Text(viewModel.groupsEntryValue)
+                            .foregroundStyle(ThemeManager.shared.palette.neutral500)
+                    }
                     Image(systemName: "chevron.right")
                         .font(.wd(.labelMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
@@ -74,6 +80,10 @@ struct SettingsView: View {
                 HStack {
                     Text("提醒")
                     Spacer()
+                    if !viewModel.schedulesEntryValue.isEmpty {
+                        Text(viewModel.schedulesEntryValue)
+                            .foregroundStyle(ThemeManager.shared.palette.neutral500)
+                    }
                     Image(systemName: "chevron.right")
                         .font(.wd(.labelMedium))
                         .foregroundStyle(ThemeManager.shared.palette.neutral400)
@@ -152,7 +162,9 @@ struct SettingsView: View {
             // 两者都是失败静默、失败保留占位符，谁先回来都不影响谁。
             async let membership: Void = viewModel.loadMembershipEntry()
             async let aiUsage: Void = viewModel.loadAiUsage()
-            _ = await (membership, aiUsage)
+            async let groups: Void = viewModel.loadGroupsEntry()
+            async let schedules: Void = viewModel.loadSchedulesEntry()
+            _ = await (membership, aiUsage, groups, schedules)
         }
         // 从会员中心返回时 `.task` 不会重跑（SettingsView 一直留在导航栈里），
         // 所以额外盯着导航开关：它翻回 false 就是用户回来了，此时刷新右侧文案 ——
@@ -161,6 +173,15 @@ struct SettingsView: View {
             if !isShowing {
                 Task { await viewModel.loadMembershipEntry() }
             }
+        }
+        // 同样的道理：从群组页返回，群组数量可能变了（刚建了一个）；
+        // 从提醒页返回，提醒数量可能变了（刚删了一条）。
+        // 不刷新的话用户会看到「建完群回来还是 1 个」。
+        .onChange(of: viewModel.showGroups) { _, isShowing in
+            if !isShowing { Task { await viewModel.loadGroupsEntry() } }
+        }
+        .onChange(of: viewModel.showSchedules) { _, isShowing in
+            if !isShowing { Task { await viewModel.loadSchedulesEntry() } }
         }
         .alert("修改昵称", isPresented: $viewModel.showNicknameEditor) {
             TextField("输入昵称", text: $nicknameInput)

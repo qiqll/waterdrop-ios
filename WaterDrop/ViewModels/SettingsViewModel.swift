@@ -30,6 +30,16 @@ final class SettingsViewModel {
     /// 用量是旁路信息，加载失败时就该停在「—」，而不是把「加载中」永远挂在那里）。
     var aiUsageEntryValue: String = "—"
 
+    /// 设置页「我的群组」右侧的数量回显。
+    ///
+    /// 占位符是 `""` 而不是「0 个」—— 网络失败与「真的没有群组」在 UI 上都表现为空，
+    /// 显示 0 会让人以为群组被清空了。失败时保持空，让箭头自己承担「可点」的表达。
+    /// 与 Android `SettingsActivity.setupGroupsEntry` 的注释是同一条判断。
+    var groupsEntryValue: String = ""
+
+    /// 设置页「提醒」右侧的数量回显。占位符同上。
+    var schedulesEntryValue: String = ""
+
     private let logger = Logger(subsystem: "com.waterdrop.ios", category: "SettingsViewModel")
 
     init() {
@@ -138,6 +148,32 @@ final class SettingsViewModel {
     ///
     /// 失败静默保留占位符「—」：用量是**旁路信息**，不是用户此行目的。为了它弹错、
     /// 或者一直显示「加载中…」，都比显示「—」更糟。与 `loadMembershipEntry()` 同策略。
+    /// 加载群组数量（F-012 ④ / F-017-screens §06）。
+    ///
+    /// 只拉一条（`size: 1`）—— 需要的是分页体的 `total`，不是内容。
+    /// 计数取总数才不会因为只拉一页而少算。
+    func loadGroupsEntry() async {
+        do {
+            let response = try await GroupAPIService.getGroups(page: 1, size: 1)
+            guard response.code == 200, let data = response.data else { return }
+            groupsEntryValue = data.total > 0 ? "\(data.total) 个" : ""
+        } catch {
+            // 静默：保持占位符，不显示「0 个」
+            logger.warning("加载群组数量失败：\(error.localizedDescription)")
+        }
+    }
+
+    /// 加载提醒数量（F-012 ⑤ / F-017-screens §06）。
+    func loadSchedulesEntry() async {
+        do {
+            let response = try await ScheduleAPIService.getSchedules(page: 0, size: 1)
+            guard response.code == 200, let data = response.data else { return }
+            schedulesEntryValue = data.total > 0 ? "\(data.total) 条" : ""
+        } catch {
+            logger.warning("加载提醒数量失败：\(error.localizedDescription)")
+        }
+    }
+
     func loadAiUsage() async {
         do {
             let response = try await AiAPIService.getTodayUsage()
