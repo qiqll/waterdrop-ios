@@ -399,23 +399,42 @@ private struct ScheduleRowView: View {
                         .lineLimit(1)
                 }
 
+                // 频率与下次时间**合成一行**（F-017-screens §04：
+                // 「每月 1 日 09:00 · 下次 10 月 1 日 09:00」）。
+                // 分两行时它们看着像两个独立信息，实际是同一件事的两面 ——
+                // 「多久一次」和「下次什么时候」。
+                //
                 // cron 只展示，不给用户看字面量 —— 优先预设的中文说明，
                 // 存量自造 cron 回退显示原文（不隐藏，否则用户以为这条没排期）
-                Text(schedule.cronLabel)
-                    .font(.wd(.bodySmall))
-                    .foregroundStyle(ThemeManager.shared.palette.neutral400)
-
-                Text(nextRunText)
+                Text("\(schedule.cronLabel) · \(nextRunText)")
                     .font(.wd(.bodySmall))
                     .foregroundStyle(schedule.nextExecutionAt?.isEmpty == false
                         ? ThemeManager.shared.palette.neutral600
                         : ThemeManager.shared.palette.neutral400)
+                    .lineLimit(1)
             }
 
-            Spacer(minLength: 0)
+            Spacer(minLength: 8)
+
+            // 状态徽章（F-017-screens §04）。
+            //
+            // 此前只用 `opacity(0.55)` 表示停用 —— 那对色弱用户、或强光下的屏幕
+            // 都不可靠，而且**说不清是「停用」还是「不可用」**。
+            // 设计稿要求明确的文字标签，这里照做，并存留透明度作为辅助。
+            Text(schedule.isEnabled ? "已启用" : "已停用")
+                .font(.wd(.labelMedium, weight: .medium))
+                .foregroundStyle(schedule.isEnabled
+                    ? ThemeManager.shared.palette.primary
+                    : ThemeManager.shared.palette.neutral500)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(schedule.isEnabled
+                    ? ThemeManager.shared.palette.primaryLight
+                    : ThemeManager.shared.palette.surfaceVariant)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
         }
         .padding(.vertical, 4)
-        .opacity(schedule.isEnabled ? 1 : 0.55)
+        .opacity(schedule.isEnabled ? 1 : 0.75)
     }
 
     /// `nextExecutionAt` 是 ISO 格式（`2026-09-19T09:00:00`，**带 `T`、不带时区后缀**），
@@ -423,12 +442,12 @@ private struct ScheduleRowView: View {
     /// 那份 formatter。解析失败原样显示，**绝不抛异常崩掉列表**。
     private var nextRunText: String {
         guard let raw = schedule.nextExecutionAt, !raw.isEmpty else {
-            return "已停顿 · 无下次提醒"
+            return "已停顿"
         }
         guard let date = ScheduleReminderManager.parseServerDate(raw) else {
-            return "下次提醒 " + raw
+            return raw
         }
-        return "下次提醒 " + Self.displayFormatter.string(from: date)
+        return "下次 " + Self.displayFormatter.string(from: date)
     }
 
     /// 展示用 `09-19 09:00`。省掉年份 —— 提醒都在近期，年份是噪音。
