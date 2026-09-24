@@ -60,7 +60,13 @@ struct MainView: View {
                     Spacer()
 
                     // Main content card
-                    VStack {
+                    // Main content card（F-017-screens §01）。
+                    //
+                    // ⚠️ 卡片包住的是「状态视图 + 提示 + 语音按钮」**三者**。
+                    // 设计稿的层级是 `screen → home → {midstage, dock}` ——
+                    // dock（提示 + 按钮）在内容区**之内**。
+                    // 改前是「卡片装文案、按钮吊在下方」，观感差异主要来自这里。
+                    VStack(spacing: 0) {
                         switch viewModel.uiState {
                         case .idle:
                             IdleStateView()
@@ -79,6 +85,42 @@ struct MainView: View {
                             )
                             .transition(.opacity)
                         }
+
+                        // 底部操作区（设计稿的 .dock）：提示在上、按钮在下，
+                        // 两者是一个垂直栈，整体贴在卡片底部。
+                        //
+                        // 提示放按钮**正上方**而不是下方：手指按在球上时不会遮挡它，
+                        // 而下方紧贴卡片边缘、容易被 Home Indicator 挤到。
+                        // 引导展示时隐藏 —— 引导第 1 步讲的就是同一件事。
+                        VStack(spacing: 10) {
+                            if !fabTip.isEmpty && !showCoachMark {
+                                Text(fabTip)
+                                    .font(.wd(.bodyMedium))
+                                    .foregroundStyle(ThemeManager.shared.palette.neutral600)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 24)
+                                    .transition(.opacity)
+                            }
+
+                            VoiceFabView(
+                                onPressStart: {
+                                    handlePressStart()
+                                },
+                                onPressRelease: {
+                                    handlePressRelease()
+                                },
+                                onEnterListenMode: {
+                                    // 连续聆听：录音已在跑，这里只切界面状态
+                                    viewModel.setListening()
+                                },
+                                onExitListenMode: {
+                                    handlePressRelease()
+                                }
+                            )
+                            .coachAnchor("voiceFab")
+                        }
+                        .padding(.top, 4)
+                        .padding(.bottom, 24)
                     }
                     .frame(maxWidth: .infinity)
                     .background(ThemeManager.shared.palette.surface)
@@ -88,40 +130,6 @@ struct MainView: View {
                     .animation(.easeInOut(duration: 0.2), value: viewModel.uiState)
 
                     Spacer()
-
-                    // 按钮上方的提示（F-017-screens §01）。
-                    //
-                    // 放在按钮**正上方**而不是下方：手指按在球上时不会遮挡它，
-                    // 而下方紧贴屏幕边缘、容易被 Home Indicator 挤到。
-                    // 引导展示时隐藏 —— 引导第 1 步讲的就是同一件事，重复且挤占空间。
-                    if !fabTip.isEmpty && !showCoachMark {
-                        Text(fabTip)
-                            .font(.wd(.bodyMedium))
-                            .foregroundStyle(ThemeManager.shared.palette.neutral600)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 10)
-                            .transition(.opacity)
-                    }
-
-                    // Voice FAB
-                    VoiceFabView(
-                        onPressStart: {
-                            handlePressStart()
-                        },
-                        onPressRelease: {
-                            handlePressRelease()
-                        },
-                        onEnterListenMode: {
-                            // 连续聆听：录音已在跑，这里只切界面状态
-                            viewModel.setListening()
-                        },
-                        onExitListenMode: {
-                            handlePressRelease()
-                        }
-                    )
-                    .coachAnchor("voiceFab")
-                    .padding(.bottom, 32)
                 }
 
                 // Undo snackbar overlay
