@@ -89,6 +89,21 @@ struct MainView: View {
 
                     Spacer()
 
+                    // 按钮上方的提示（F-017-screens §01）。
+                    //
+                    // 放在按钮**正上方**而不是下方：手指按在球上时不会遮挡它，
+                    // 而下方紧贴屏幕边缘、容易被 Home Indicator 挤到。
+                    // 引导展示时隐藏 —— 引导第 1 步讲的就是同一件事，重复且挤占空间。
+                    if !fabTip.isEmpty && !showCoachMark {
+                        Text(fabTip)
+                            .font(.wd(.bodyMedium))
+                            .foregroundStyle(ThemeManager.shared.palette.neutral600)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                            .padding(.bottom, 10)
+                            .transition(.opacity)
+                    }
+
                     // Voice FAB
                     VoiceFabView(
                         onPressStart: {
@@ -209,6 +224,27 @@ struct MainView: View {
         }
     }
 
+    // MARK: - 按钮提示（F-017-screens §01）
+
+    /// 按钮上方的提示。按界面状态切换。
+    ///
+    /// 连续模式与单次模式的结束方式不同，提示必须跟着变 ——
+    /// 否则用户在连续模式里会一直按着不放。
+    private var fabTip: String {
+        switch viewModel.uiState {
+        case .idle:
+            return "按住说一句短的，松手就好"
+        case .listening:
+            // 连续聆听：录音已在跑，结束方式是「再点一下」
+            return viewModel.isInListenMode ? "说完再点一下结束" : "正在听…松手就结束"
+        case .processing:
+            return "正在整理你说的话"
+        case .result:
+            // 结果页已有撤回条，再多一句会抢注意力
+            return ""
+        }
+    }
+
     // MARK: - 新手引导（F-018 §1）
 
     private var coachSteps: [CoachMarkOverlay.Step] {
@@ -243,12 +279,17 @@ struct MainView: View {
 
     // MARK: - Voice Handling
 
+    /// 按下按钮 —— **两种按法共用**的入口。
+    ///
+    /// 按下时还不知道是单击还是按住（要靠按压时长判定），
+    /// 所以先按「单次」处理；若是单击，`VoiceFabView` 随后会调
+    /// `onEnterListenMode` 把它升级为连续模式。
     private func handlePressStart() {
         Task {
             let granted = await viewModel.speechManager.requestPermissions()
             if granted {
                 viewModel.speechManager.startListening()
-                viewModel.setListening()
+                viewModel.setListeningOnce()
             } else {
                 permissionDenied = true
             }

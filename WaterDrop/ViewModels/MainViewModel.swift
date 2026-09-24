@@ -18,6 +18,14 @@ final class MainViewModel {
     }
 
     private(set) var uiState: UIState = .idle
+
+    /// 是否处于**连续聆听**（单击进入的那种）。
+    ///
+    /// 与 `uiState == .listening` 的区别：后者是「正在听」的宽泛描述，
+    /// 而它区分「按住说的那一次」与「点按进入的连续模式」——
+    /// **两者的结束方式不同**，界面提示要据此变化。
+    /// 与 Android `MainActivity.isListenMode` 对应。
+    private(set) var isInListenMode = false
     private(set) var processedResult: String = ""
     private(set) var errorMessage: String = ""
     private(set) var showUndoSnackbar: Bool = false
@@ -174,6 +182,7 @@ final class MainViewModel {
     }
 
     func resetToIdle() {
+        isInListenMode = false
         uiState = .idle
         processedResult = ""
         errorMessage = ""
@@ -181,8 +190,18 @@ final class MainViewModel {
         lastRecordedItemName = ""
     }
 
+    /// 进入聆听。由 `VoiceFabView` 的 `onEnterListenMode` 调用 ——
+    /// 即**单击进入连续模式**的那条路径。
     func setListening() {
         autoResetTask?.cancel()
+        isInListenMode = true
+        uiState = .listening
+    }
+
+    /// 按住说话开始（单次）。与 `setListening()` 的区别在于它不是连续模式。
+    func setListeningOnce() {
+        autoResetTask?.cancel()
+        isInListenMode = false
         uiState = .listening
     }
 }
