@@ -111,10 +111,21 @@ final class GroupDetailViewModel {
     /// 成员数量文案：服务端给了 `maxMembers` 才显示 `n / m`。
     var memberCountText: String {
         let current = group?.memberCount ?? 0
+        let base: String
         if let max = group?.maxMembers, max > 0 {
-            return "\(current) / \(max) 名成员"
+            base = "\(current) / \(max) 名成员"
+        } else {
+            base = "\(current) 名成员"
         }
-        return "\(current) 名成员"
+
+        // 共享物品数（F-017 §15.9）。
+        //
+        // 与列表项的取舍**故意不同**：列表里为 0 就不显示（扫视用的行，
+        // 多一个恒为 0 的字段只会稀释成员数）；详情页是「看全貌」的地方，
+        // 0 必须显示 —— 用户来这里就是要知道这个群到底有没有东西。
+        // 只有服务端没返回（nil，如旧版本服务端）才不拼。
+        guard let items = group?.itemCount else { return base }
+        return "\(base) · \(items) 件共享物品"
     }
 
     /// `userId -> 昵称`，来自成员列表。

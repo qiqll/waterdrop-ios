@@ -33,8 +33,9 @@ enum GroupRole {
 /// 群组概要，对应服务端 `GroupResponse`（§4.14）。
 ///
 /// ⚠️ 这个结构体刻意**没有** `inviteCode` / `inviteCodeExpiry` / `createBy` /
-/// `updateBy` / `deleted` 字段（缺陷 S / U）：群组响应是**恰好 13 个键**的固定形状，
+/// `updateBy` / `deleted` 字段（缺陷 S / U）：群组响应是**恰好 14 个键**的固定形状，
 /// 加了字段就等着在服务端加固后的某天全部解码失败。
+/// （`itemCount` 是 2026-09-25 新加的，服务端 `931dc00`；此前是 13 个键。）
 /// 邀请码有且只有一个出口 —— `GET /groups/{groupId}/invite-code`，且仅群主/管理员可调。
 ///
 /// `myRole` 对**非成员为 nil**（理论上拿不到，非成员访问群详情是 403/`code=8003`，
@@ -50,6 +51,11 @@ struct GroupResponse: Codable, Identifiable, Hashable {
     let avatar: String?
     let memberCount: Int?
     let maxMembers: Int?
+    /// 群内共享物品数（F-017 §15.9）。
+    ///
+    /// 为 `nil` 表示**服务端没给这个数字**（而不是「确实为 0」）——
+    /// 界面据此决定是否显示，不要用 `?? 0` 抹平这个区别。
+    let itemCount: Int?
     let status: String?
     let tags: String?
     let settings: String?

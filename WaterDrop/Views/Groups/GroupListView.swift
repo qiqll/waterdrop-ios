@@ -241,9 +241,18 @@ private struct GroupRowView: View {
 
     private var memberCountText: String {
         let count = group.memberCount ?? 0
+        let base: String
         if let max = group.maxMembers, max > 0 {
-            return "\(count) / \(max) 名成员"
+            base = "\(count) / \(max) 名成员"
+        } else {
+            base = "\(count) 名成员"
         }
-        return "\(count) 名成员"
+
+        // 共享物品数（F-017 §15.9）：设计稿是「3 名成员 · 5 件共享物品」。
+        //
+        // ⚠️ 只有**大于 0** 才拼后半截 —— 列表行是扫视用的，
+        // 一个恒为 0 的字段只会稀释成员数。详情页则相反（含 0），见其注释。
+        guard let items = group.itemCount, items > 0 else { return base }
+        return "\(base) · \(items) 件共享物品"
     }
 }
