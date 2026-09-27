@@ -97,7 +97,7 @@ actor APIClient {
         // Standard headers
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("WaterDrop-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue(DeviceInfo.userAgent, forHTTPHeaderField: "User-Agent")
         request.setValue("iOS", forHTTPHeaderField: "X-Client-Platform")
         request.setValue(UUID().uuidString, forHTTPHeaderField: "X-Request-ID")
 
@@ -139,7 +139,7 @@ actor APIClient {
         request.httpMethod = HTTPMethod.POST.rawValue
         request.timeoutInterval = ServerConfig.Timeout.read
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("WaterDrop-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue(DeviceInfo.userAgent, forHTTPHeaderField: "User-Agent")
         request.setValue("iOS", forHTTPHeaderField: "X-Client-Platform")
         request.setValue(UUID().uuidString, forHTTPHeaderField: "X-Request-ID")
         request.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
