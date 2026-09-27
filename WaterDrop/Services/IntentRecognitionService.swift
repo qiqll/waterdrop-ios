@@ -55,6 +55,12 @@ final class IntentRecognitionService {
         var storeUser: String = ""
         var queryText: String = ""
         var degraded: Bool = false   // 对齐 Android：仅传输失败降级时置 true
+
+        /// UNKNOWN 时服务端**顺带给出的回答**（2026-09-27）。
+        ///
+        /// 有了它就不必再调 `/ai/chat` 问第二次 —— 那意味着「一句话听不懂」
+        /// 要付**两次上游模型调用**。为 nil 时调用方回落到 `/ai/chat` 或本地话术。
+        var answer: String? = nil
     }
 
     // MARK: - Pending Delete
@@ -106,7 +112,8 @@ final class IntentRecognitionService {
             location: data.location ?? "",
             category: (data.category?.isEmpty ?? true) ? guessCategory(data.itemName ?? "") : (data.category ?? ""),
             storeUser: getCurrentUser(),
-            queryText: text
+            queryText: text,
+            answer: data.answer
         )
     }
 
@@ -284,14 +291,31 @@ final class IntentRecognitionService {
                 //
                 // 这样「问一句」（如「这个季节适合养什么花」）无需新增意图 ——
                 // QUERY_LOCATION / QUERY_CATEGORY 答的是**库里的结构化事实**，
-                // 而 /ai/help 才是**通用知识问答**，两者是不同的能力。
-                // 先识别、识别不出再问，用户不必知道这条分界。
+                // 而通用问答是另一种能力。先识别、识别不出再问，
+                // 用户不必知道这条分界。
                 //
-                // 但离线降级时不要再发这次请求：degraded=true 的含义就是
-                // 「服务端不可达」，此刻再调 help 只会白等一次超时。
-                reply = intent.degraded
-                    ? "我没太听懂，换个说法再试试？比如「钥匙放在玄关了」"
-                    : await askChatOrFallback(text)
+                // ## 2026-09-27 改造：答案由**意图识别那一次调用**直接带回
+                //
+                // 此前这里无条件调 `/ai/chat` 问第二次，于是一句听不懂的话
+                // 会付出**两次上游大模型调用**的代价（意图识别一次 + 问答一次），
+                // 而第一次产出的「UNKNOWN」对最终回答毫无贡献。
+                // 现在服务端在判为 UNKNOWN 时会顺带给 `answer`，直接用即可。
+                //
+                // 分支顺序有讲究：
+                // 1. `degraded` 优先 —— 服务端不可达时 `answer` 必为 nil，
+                //    此时再调 `/ai/chat` 只会白等一次超时（这条判据原有，保留）。
+                // 2. 服务端给了 `answer` → 直接用，**省掉一次模型调用**。
+                // 3. 服务端没给（模型未遵循提示词、或旧版服务端）→
+                //    仍走 `/ai/chat` 兜底。**不能删这条路** ——
+                //    否则一旦 answer 缺失，用户看到的就是「我没太听懂」，
+                //    比多花一次调用更糟。
+                if intent.degraded {
+                    reply = Self.unknownFallbackReply
+                } else if let answer = intent.answer, !answer.isEmpty {
+                    reply = answer
+                } else {
+                    reply = await askChatOrFallback(text)
+                }
             }
 
         // 对齐 Android：仅降级识别时添加文本前缀提示

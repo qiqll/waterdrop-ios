@@ -8,6 +8,14 @@ struct IntentResultResponse: Codable {
     let location: String?
     let category: String?
     let queryText: String?
+    /// 模型每次都给的一句话（F-017 后续，2026-09-27）。
+    ///
+    /// - `type == "UNKNOWN"` 时它是**给用户的正式回答**（用它，省掉第二次模型调用）
+    /// - 其它类型时它只是「我理解成了什么」的确认，**不要拿去当执行结果** ——
+    ///   那几类的回答必须反映库的真实状态（见 IntentRecognitionService 的 .unknown 分支注释）
+    ///
+    /// 为 nil 时（旧版服务端 / 模型未遵循提示词）回落到本地兜底。
+    let answer: String?
 }
 
 // MARK: - AI Usage
