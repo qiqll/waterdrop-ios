@@ -44,3 +44,21 @@ struct UpdateProfileRequest: Codable {
 struct LogoutRequest: Codable {
     let refreshToken: String
 }
+
+
+// MARK: - 心跳（F-018 ①）
+
+/// 心跳上报的客户端信息。
+///
+/// 服务端该接口的 body 是**可选**的 —— 不带时行为与从前一致（只记活跃度）。
+/// 带上之后，服务端才能回答「有多少用户还在用老版本」，
+/// 那是 `app_versions.min_support_version` 判定所缺的输入。
+///
+/// ⚠️ 字段名与 Android `HeartbeatRequest` 逐字一致，两端共用一个服务端 DTO。
+struct HeartbeatRequest: Encodable {
+    let deviceId: String
+    /// `android` / `ios`。服务端在缺失时会从 UA 推断，但显式给更准。
+    let platform: String
+    let version: String
+    let versionCode: Int
+}

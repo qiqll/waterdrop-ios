@@ -43,10 +43,11 @@ enum AuthAPIService {
     ///
     /// 调用方应走 `HeartbeatReporter`（按天节流），不要直接按页面出现频率调用 ——
     /// 服务端落的是累加计数器，见 `ServerConfig.Endpoints.heartbeat` 的说明。
-    static func reportHeartbeat() async throws -> ApiResponse<EmptyData> {
+    static func reportHeartbeat(_ body: HeartbeatRequest) async throws -> ApiResponse<EmptyData> {
         return try await APIClient.shared.request(
             endpoint: ServerConfig.Endpoints.heartbeat,
-            method: .POST
+            method: .POST,
+            body: body
         )
     }
 }

@@ -38,14 +38,25 @@ enum HeartbeatReporter {
             return
         }
 
+        // ⚠️ 节流键**含版本号**（F-018 ①）：否则用户升级后要等到第二天
+        // 才会把新版本报上去，而「有多少人在老版本上」这个问题在发版当天最要紧。
+        // 含版本后，升级会自然失配 → 立刻上报一次，同版本内仍保持每天一次。
         let today = todayString()
-        let stamp = "\(userId)|\(today)"
+        let stamp = "\(userId)|\(today)|\(DeviceInfo.appVersion)"
         if UserDefaults.standard.string(forKey: lastReportKey) == stamp {
             return
         }
 
         do {
-            let response = try await AuthAPIService.reportHeartbeat()
+            let response = try await AuthAPIService.reportHeartbeat(
+                HeartbeatRequest(
+                    deviceId: DeviceInfo.deviceId,
+                    platform: "ios",
+                    version: DeviceInfo.appVersion,
+                    // 服务端是 Int。构建号在 Xcode 里配为数字，但保险起见解析失败给 0
+                    versionCode: Int(DeviceInfo.buildNumber) ?? 0
+                )
+            )
             guard response.code == 200 else {
                 logger.warning("活跃上报业务失败: \(response.message)")
                 return
