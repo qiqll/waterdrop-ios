@@ -45,6 +45,33 @@ export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Develope
 say() { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 die() { printf '\033[1;31m[x]\033[0m %s\n' "$*" >&2; exit 1; }
 
+# ---- 0. 拒绝多余的 xcodebuild 参数（2026-09-28 加） --------------------------
+#
+# 为什么要有这道守卫：本脚本把 "$@" 原样追加到下面那条 xcodebuild 之后，
+# 而它自己已经带了 -only-testing。于是「传一个 -only-testing 想换掉默认的」
+# 会变成两个 -only-testing 同时生效（xcodebuild 取并集），
+# 默认那套 F011ContractAPITests 照样跑 —— 而它的 tearDown 会调
+# AuthStateManager.clearAuthInfo()，把刚注入的登录态清掉。
+#
+# 2026-09-28 实测踩到：想用本脚本注入登录态
+#   bash run-f011-contract-tests.sh -only-testing:WaterDropTests/AuthInjectTest
+# 结果注入的登录态被 F011 的 tearDown 清了，App 启动后停在登录页。
+# 更麻烦的是它报 TEST SUCCEEDED —— 只看退出码发现不了。
+#
+# 所以：多余参数一律拒绝，并指明正确用法。
+if [[ $# -gt 0 ]]; then
+    die "本脚本不接受额外参数，但你传了：$*
+   （本脚本已自带 -only-testing，值是：${ONLY_TESTING}
+     额外传不会替换它，而是两个同时生效）
+
+   想换要跑的用例，请用环境变量：
+       F011_ONLY_TESTING=WaterDropTests/SomeTests bash $0
+
+   想注入登录态供手工点按（不跑会清理登录态的用例），
+   请改用专门的那个脚本：
+       bash scripts/inject-ios-auth.sh"
+fi
+
 # ---- 1. 确认服务端在跑 -------------------------------------------------------
 # /version/check 是 permitAll（F-011 D-8），不需要 token，适合当探针。
 # 注意：它只接受 POST。F-012 给 GET 加了显式 405 映射（缺陷 F），
